@@ -68,8 +68,8 @@ class TaskConnectorAttributes implements ArrayAccess
     protected static $swaggerTypes = array(
         'task_id' => 'int',
         'connector_class' => 'string',
-        'input_parameters' => 'string',
-        'output_parameters' => 'string',
+        'input_parameters' => 'object',
+        'output_parameters' => 'object',
         'async_before' => 'bool',
         'created_at' => 'string',
         'updated_at' => 'string'
@@ -155,8 +155,8 @@ class TaskConnectorAttributes implements ArrayAccess
     {
         $this->container['task_id'] = isset($data['task_id']) ? $data['task_id'] : null;
         $this->container['connector_class'] = isset($data['connector_class']) ? $data['connector_class'] : 'HttpConnector';
-        $this->container['input_parameters'] = isset($data['input_parameters']) ? $data['input_parameters'] : '[]';
-        $this->container['output_parameters'] = isset($data['output_parameters']) ? $data['output_parameters'] : '[]';
+        $this->container['input_parameters'] = isset($data['input_parameters']) ? $data['input_parameters'] : null;
+        $this->container['output_parameters'] = isset($data['output_parameters']) ? $data['output_parameters'] : null;
         $this->container['async_before'] = isset($data['async_before']) ? $data['async_before'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
@@ -229,7 +229,7 @@ class TaskConnectorAttributes implements ArrayAccess
 
     /**
      * Gets input_parameters
-     * @return string
+     * @return object
      */
     public function getInputParameters()
     {
@@ -238,7 +238,7 @@ class TaskConnectorAttributes implements ArrayAccess
 
     /**
      * Sets input_parameters
-     * @param string $input_parameters
+     * @param object $input_parameters
      * @return $this
      */
     public function setInputParameters($input_parameters)
@@ -250,7 +250,7 @@ class TaskConnectorAttributes implements ArrayAccess
 
     /**
      * Gets output_parameters
-     * @return string
+     * @return object
      */
     public function getOutputParameters()
     {
@@ -259,7 +259,7 @@ class TaskConnectorAttributes implements ArrayAccess
 
     /**
      * Sets output_parameters
-     * @param string $output_parameters
+     * @param object $output_parameters
      * @return $this
      */
     public function setOutputParameters($output_parameters)

@@ -1,19 +1,19 @@
 {
-    "name": "processmaker/pmio-sdk-php",
+    "name": "ProcessMaker/pmio-sdk-php",
     "version": "1.0.0",
     "description": "",
     "keywords": [
-        "pmio",
+        "swagger",
         "php",
         "sdk",
         "api"
     ],
-    "homepage": "https://www.processmaker.io/",
+    "homepage": "http://swagger.io",
     "license": "Apache v2",
     "authors": [
         {
-            "name": "PMIO",
-            "homepage": "https://www.processmaker.io/"
+            "name": "Swagger and contributors",
+            "homepage": "https://github.com/swagger-api/swagger-codegen"
         }
     ],
     "require": {
