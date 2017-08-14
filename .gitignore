@@ -1,0 +1,4 @@
+# here I'm ignoring any tags which are plural, its used for documentation purposes only
+lib/*s.php
+git_push.sh
+.travis.yml

@@ -1,0 +1,11 @@
+# ProcessCollection1
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**data** | [**\ProcessMaker\PMIO\Model\Process[]**](Process.md) |  | 
+**meta** | [**\ProcessMaker\PMIO\Model\MetaLog**](MetaLog.md) |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

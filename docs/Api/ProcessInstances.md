@@ -1,0 +1,530 @@
+# ProcessMaker\PMIO\ProcessInstances
+
+All URIs are relative to *https://CHANGEME.api.processmaker.io/api/v1*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**addInstance**](ProcessInstances.md#addInstance) | **POST** /processes/{process_id}/instances | 
+[**deleteInstance**](ProcessInstances.md#deleteInstance) | **DELETE** /processes/{process_id}/instances/{instance_id} | 
+[**findByFieldInsideDataModel**](ProcessInstances.md#findByFieldInsideDataModel) | **GET** /processes/{process_id}/datamodels/search/{search_param} | 
+[**findDataModel**](ProcessInstances.md#findDataModel) | **GET** /processes/{process_id}/instances/{instance_id}/datamodel | 
+[**findInstanceById**](ProcessInstances.md#findInstanceById) | **GET** /processes/{process_id}/instances/{instance_id} | 
+[**findInstances**](ProcessInstances.md#findInstances) | **GET** /processes/{process_id}/instances | 
+[**findTaskInstancesByInstanceAndTaskId**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskId) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances | 
+[**findTaskInstancesByInstanceAndTaskIdDelegated**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskIdDelegated) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/delegated | 
+[**findTaskInstancesByInstanceAndTaskIdStarted**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskIdStarted) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/started | 
+[**updateInstance**](ProcessInstances.md#updateInstance) | **PUT** /processes/{process_id}/instances/{instance_id} | 
+
+
+# **addInstance**
+> \ProcessMaker\PMIO\Model\InstanceItem addInstance($process_id, $instance_create_item)
+
+
+
+This method creates a new instance.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | Process ID related to the Instance
+$instance_create_item = new \ProcessMaker\PMIO\Model\InstanceCreateItem(); // \ProcessMaker\PMIO\Model\InstanceCreateItem | JSON API response with the Instance object to add
+
+try {
+    $result = $api_instance->addInstance($process_id, $instance_create_item);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->addInstance: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID related to the Instance |
+ **instance_create_item** | [**\ProcessMaker\PMIO\Model\InstanceCreateItem**](../Model/\ProcessMaker\PMIO\Model\InstanceCreateItem.md)| JSON API response with the Instance object to add |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InstanceItem**](../Model/InstanceItem.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteInstance**
+> \ProcessMaker\PMIO\Model\ResultSuccess deleteInstance($process_id, $instance_id)
+
+
+
+This method deletes an instance using the instance ID and process ID.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | Process ID
+$instance_id = "instance_id_example"; // string | ID of instance to delete
+
+try {
+    $result = $api_instance->deleteInstance($process_id, $instance_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->deleteInstance: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID |
+ **instance_id** | **string**| ID of instance to delete |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\ResultSuccess**](../Model/ResultSuccess.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findByFieldInsideDataModel**
+> \ProcessMaker\PMIO\Model\DataModelCollection findByFieldInsideDataModel($process_id, $search_param, $page, $per_page)
+
+
+
+This method returns the DataModel by field passed in get argument.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | ID of process to return
+$search_param = "search_param_example"; // string | Key and value of searched field in Datamodel
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->findByFieldInsideDataModel($process_id, $search_param, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findByFieldInsideDataModel: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of process to return |
+ **search_param** | **string**| Key and value of searched field in Datamodel |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\DataModelCollection**](../Model/DataModelCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findDataModel**
+> \ProcessMaker\PMIO\Model\DataModelItem1 findDataModel($process_id, $instance_id, $page, $per_page)
+
+
+
+This method returns the instance DataModel and lets the user work with it directly
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | ID of process to return
+$instance_id = "instance_id_example"; // string | ID of instance to return
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->findDataModel($process_id, $instance_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findDataModel: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of process to return |
+ **instance_id** | **string**| ID of instance to return |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\DataModelItem1**](../Model/DataModelItem1.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findInstanceById**
+> \ProcessMaker\PMIO\Model\InstanceItem findInstanceById($process_id, $instance_id)
+
+
+
+This method retrieves an instance using its ID.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | ID of process to return
+$instance_id = "instance_id_example"; // string | ID of instance to return
+
+try {
+    $result = $api_instance->findInstanceById($process_id, $instance_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findInstanceById: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of process to return |
+ **instance_id** | **string**| ID of instance to return |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InstanceItem**](../Model/InstanceItem.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findInstances**
+> \ProcessMaker\PMIO\Model\InstanceCollection findInstances($process_id, $page, $per_page)
+
+
+
+This method retrieves related to the process using  the Process ID
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | Process ID related to the instances
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->findInstances($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findInstances: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID related to the instances |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InstanceCollection**](../Model/InstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findTaskInstancesByInstanceAndTaskId**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
+
+
+
+This method retrieves an task instances using instance id and task id.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$instance_id = "instance_id_example"; // string | ID of instance
+$task_id = "task_id_example"; // string | ID of task
+
+try {
+    $result = $api_instance->findTaskInstancesByInstanceAndTaskId($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskId: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of instance |
+ **task_id** | **string**| ID of task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findTaskInstancesByInstanceAndTaskIdDelegated**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
+
+
+
+This method retrieves an delegated task instances using instance id and task id.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$instance_id = "instance_id_example"; // string | ID of instance
+$task_id = "task_id_example"; // string | ID of task
+
+try {
+    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskIdDelegated: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of instance |
+ **task_id** | **string**| ID of task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **findTaskInstancesByInstanceAndTaskIdStarted**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
+
+
+
+This method retrieves an started task instances using instance id and task id.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$instance_id = "instance_id_example"; // string | ID of instance
+$task_id = "task_id_example"; // string | ID of task
+
+try {
+    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskIdStarted: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of instance |
+ **task_id** | **string**| ID of task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateInstance**
+> \ProcessMaker\PMIO\Model\InstanceItem updateInstance($process_id, $instance_id, $instance_update_item)
+
+
+
+This method updates  an existing instance.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | ID of Process to retrieve
+$instance_id = "instance_id_example"; // string | ID of Instance to retrieve
+$instance_update_item = new \ProcessMaker\PMIO\Model\InstanceUpdateItem(); // \ProcessMaker\PMIO\Model\InstanceUpdateItem | Instance object to edit
+
+try {
+    $result = $api_instance->updateInstance($process_id, $instance_id, $instance_update_item);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->updateInstance: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of Process to retrieve |
+ **instance_id** | **string**| ID of Instance to retrieve |
+ **instance_update_item** | [**\ProcessMaker\PMIO\Model\InstanceUpdateItem**](../Model/\ProcessMaker\PMIO\Model\InstanceUpdateItem.md)| Instance object to edit |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InstanceItem**](../Model/InstanceItem.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
