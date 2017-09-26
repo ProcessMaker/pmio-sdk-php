@@ -47,7 +47,7 @@ use \ArrayAccess;
  * FlowCollection Class Doc Comment
  *
  * @category    Class */
- // @description JSON API response with a collection of the flow in an array
+ // @description JSON API response with the collection of the flow in an array
 /** 
  * @package     ProcessMaker\PMIO
  * @author      http://github.com/swagger-api/swagger-codegen

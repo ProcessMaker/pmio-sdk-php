@@ -71,22 +71,6 @@ class TaskAttributes implements ArrayAccess
         'process_id' => 'string',
         'type' => 'string',
         'assign_type' => 'string',
-        'priority_variable' => 'string',
-        'assign_variable' => 'string',
-        'group_variable' => 'string',
-        'mi_instance_variable' => 'string',
-        'mi_complete_variable' => 'string',
-        'transfer_fly' => 'bool',
-        'can_upload' => 'bool',
-        'view_upload' => 'bool',
-        'view_additional_documentation' => 'bool',
-        'start' => 'bool',
-        'send_last_email' => 'bool',
-        'derivation_screen_tpl' => 'string',
-        'selfservice_timeout' => 'int',
-        'selfservice_time' => 'string',
-        'selfservice_time_unit' => 'string',
-        'selfservice_execution' => 'string',
         'last_assigned_user_id' => 'string',
         'script' => 'string',
         'created_at' => 'string',
@@ -108,22 +92,6 @@ class TaskAttributes implements ArrayAccess
         'process_id' => 'process_id',
         'type' => 'type',
         'assign_type' => 'assign_type',
-        'priority_variable' => 'priority_variable',
-        'assign_variable' => 'assign_variable',
-        'group_variable' => 'group_variable',
-        'mi_instance_variable' => 'mi_instance_variable',
-        'mi_complete_variable' => 'mi_complete_variable',
-        'transfer_fly' => 'transfer_fly',
-        'can_upload' => 'can_upload',
-        'view_upload' => 'view_upload',
-        'view_additional_documentation' => 'view_additional_documentation',
-        'start' => 'start',
-        'send_last_email' => 'send_last_email',
-        'derivation_screen_tpl' => 'derivation_screen_tpl',
-        'selfservice_timeout' => 'selfservice_timeout',
-        'selfservice_time' => 'selfservice_time',
-        'selfservice_time_unit' => 'selfservice_time_unit',
-        'selfservice_execution' => 'selfservice_execution',
         'last_assigned_user_id' => 'last_assigned_user_id',
         'script' => 'script',
         'created_at' => 'created_at',
@@ -145,22 +113,6 @@ class TaskAttributes implements ArrayAccess
         'process_id' => 'setProcessId',
         'type' => 'setType',
         'assign_type' => 'setAssignType',
-        'priority_variable' => 'setPriorityVariable',
-        'assign_variable' => 'setAssignVariable',
-        'group_variable' => 'setGroupVariable',
-        'mi_instance_variable' => 'setMiInstanceVariable',
-        'mi_complete_variable' => 'setMiCompleteVariable',
-        'transfer_fly' => 'setTransferFly',
-        'can_upload' => 'setCanUpload',
-        'view_upload' => 'setViewUpload',
-        'view_additional_documentation' => 'setViewAdditionalDocumentation',
-        'start' => 'setStart',
-        'send_last_email' => 'setSendLastEmail',
-        'derivation_screen_tpl' => 'setDerivationScreenTpl',
-        'selfservice_timeout' => 'setSelfserviceTimeout',
-        'selfservice_time' => 'setSelfserviceTime',
-        'selfservice_time_unit' => 'setSelfserviceTimeUnit',
-        'selfservice_execution' => 'setSelfserviceExecution',
         'last_assigned_user_id' => 'setLastAssignedUserId',
         'script' => 'setScript',
         'created_at' => 'setCreatedAt',
@@ -182,22 +134,6 @@ class TaskAttributes implements ArrayAccess
         'process_id' => 'getProcessId',
         'type' => 'getType',
         'assign_type' => 'getAssignType',
-        'priority_variable' => 'getPriorityVariable',
-        'assign_variable' => 'getAssignVariable',
-        'group_variable' => 'getGroupVariable',
-        'mi_instance_variable' => 'getMiInstanceVariable',
-        'mi_complete_variable' => 'getMiCompleteVariable',
-        'transfer_fly' => 'getTransferFly',
-        'can_upload' => 'getCanUpload',
-        'view_upload' => 'getViewUpload',
-        'view_additional_documentation' => 'getViewAdditionalDocumentation',
-        'start' => 'getStart',
-        'send_last_email' => 'getSendLastEmail',
-        'derivation_screen_tpl' => 'getDerivationScreenTpl',
-        'selfservice_timeout' => 'getSelfserviceTimeout',
-        'selfservice_time' => 'getSelfserviceTime',
-        'selfservice_time_unit' => 'getSelfserviceTimeUnit',
-        'selfservice_execution' => 'getSelfserviceExecution',
         'last_assigned_user_id' => 'getLastAssignedUserId',
         'script' => 'getScript',
         'created_at' => 'getCreatedAt',
@@ -302,22 +238,6 @@ class TaskAttributes implements ArrayAccess
         $this->container['process_id'] = isset($data['process_id']) ? $data['process_id'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : 'NORMAL';
         $this->container['assign_type'] = isset($data['assign_type']) ? $data['assign_type'] : 'CYCLIC';
-        $this->container['priority_variable'] = isset($data['priority_variable']) ? $data['priority_variable'] : null;
-        $this->container['assign_variable'] = isset($data['assign_variable']) ? $data['assign_variable'] : null;
-        $this->container['group_variable'] = isset($data['group_variable']) ? $data['group_variable'] : null;
-        $this->container['mi_instance_variable'] = isset($data['mi_instance_variable']) ? $data['mi_instance_variable'] : null;
-        $this->container['mi_complete_variable'] = isset($data['mi_complete_variable']) ? $data['mi_complete_variable'] : null;
-        $this->container['transfer_fly'] = isset($data['transfer_fly']) ? $data['transfer_fly'] : false;
-        $this->container['can_upload'] = isset($data['can_upload']) ? $data['can_upload'] : false;
-        $this->container['view_upload'] = isset($data['view_upload']) ? $data['view_upload'] : false;
-        $this->container['view_additional_documentation'] = isset($data['view_additional_documentation']) ? $data['view_additional_documentation'] : false;
-        $this->container['start'] = isset($data['start']) ? $data['start'] : false;
-        $this->container['send_last_email'] = isset($data['send_last_email']) ? $data['send_last_email'] : true;
-        $this->container['derivation_screen_tpl'] = isset($data['derivation_screen_tpl']) ? $data['derivation_screen_tpl'] : null;
-        $this->container['selfservice_timeout'] = isset($data['selfservice_timeout']) ? $data['selfservice_timeout'] : null;
-        $this->container['selfservice_time'] = isset($data['selfservice_time']) ? $data['selfservice_time'] : null;
-        $this->container['selfservice_time_unit'] = isset($data['selfservice_time_unit']) ? $data['selfservice_time_unit'] : null;
-        $this->container['selfservice_execution'] = isset($data['selfservice_execution']) ? $data['selfservice_execution'] : null;
         $this->container['last_assigned_user_id'] = isset($data['last_assigned_user_id']) ? $data['last_assigned_user_id'] : null;
         $this->container['script'] = isset($data['script']) ? $data['script'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
@@ -354,27 +274,6 @@ class TaskAttributes implements ArrayAccess
             $invalid_properties[] = "invalid value for 'assign_type', must be one of #{allowed_values}.";
         }
 
-        if ($this->container['transfer_fly'] === null) {
-            $invalid_properties[] = "'transfer_fly' can't be null";
-        }
-        if ($this->container['can_upload'] === null) {
-            $invalid_properties[] = "'can_upload' can't be null";
-        }
-        if ($this->container['view_upload'] === null) {
-            $invalid_properties[] = "'view_upload' can't be null";
-        }
-        if ($this->container['view_additional_documentation'] === null) {
-            $invalid_properties[] = "'view_additional_documentation' can't be null";
-        }
-        if ($this->container['start'] === null) {
-            $invalid_properties[] = "'start' can't be null";
-        }
-        if ($this->container['send_last_email'] === null) {
-            $invalid_properties[] = "'send_last_email' can't be null";
-        }
-        if ($this->container['selfservice_timeout'] === null) {
-            $invalid_properties[] = "'selfservice_timeout' can't be null";
-        }
         return $invalid_properties;
     }
 
@@ -404,27 +303,6 @@ class TaskAttributes implements ArrayAccess
         }
         $allowed_values = array("CYCLIC", "MANUAL", "EVALUATE", "REPORT_TO", "SELF_SERVICE", "STATIC_MI", "CANCEL_MI", "MULTIPLE_INSTANCE", "MULTIPLE_INSTANCE_VALUE_BASED");
         if (!in_array($this->container['assign_type'], $allowed_values)) {
-            return false;
-        }
-        if ($this->container['transfer_fly'] === null) {
-            return false;
-        }
-        if ($this->container['can_upload'] === null) {
-            return false;
-        }
-        if ($this->container['view_upload'] === null) {
-            return false;
-        }
-        if ($this->container['view_additional_documentation'] === null) {
-            return false;
-        }
-        if ($this->container['start'] === null) {
-            return false;
-        }
-        if ($this->container['send_last_email'] === null) {
-            return false;
-        }
-        if ($this->container['selfservice_timeout'] === null) {
             return false;
         }
         return true;
@@ -540,342 +418,6 @@ class TaskAttributes implements ArrayAccess
             throw new \InvalidArgumentException("Invalid value for 'assign_type', must be one of 'CYCLIC', 'MANUAL', 'EVALUATE', 'REPORT_TO', 'SELF_SERVICE', 'STATIC_MI', 'CANCEL_MI', 'MULTIPLE_INSTANCE', 'MULTIPLE_INSTANCE_VALUE_BASED'");
         }
         $this->container['assign_type'] = $assign_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets priority_variable
-     * @return string
-     */
-    public function getPriorityVariable()
-    {
-        return $this->container['priority_variable'];
-    }
-
-    /**
-     * Sets priority_variable
-     * @param string $priority_variable
-     * @return $this
-     */
-    public function setPriorityVariable($priority_variable)
-    {
-        $this->container['priority_variable'] = $priority_variable;
-
-        return $this;
-    }
-
-    /**
-     * Gets assign_variable
-     * @return string
-     */
-    public function getAssignVariable()
-    {
-        return $this->container['assign_variable'];
-    }
-
-    /**
-     * Sets assign_variable
-     * @param string $assign_variable
-     * @return $this
-     */
-    public function setAssignVariable($assign_variable)
-    {
-        $this->container['assign_variable'] = $assign_variable;
-
-        return $this;
-    }
-
-    /**
-     * Gets group_variable
-     * @return string
-     */
-    public function getGroupVariable()
-    {
-        return $this->container['group_variable'];
-    }
-
-    /**
-     * Sets group_variable
-     * @param string $group_variable
-     * @return $this
-     */
-    public function setGroupVariable($group_variable)
-    {
-        $this->container['group_variable'] = $group_variable;
-
-        return $this;
-    }
-
-    /**
-     * Gets mi_instance_variable
-     * @return string
-     */
-    public function getMiInstanceVariable()
-    {
-        return $this->container['mi_instance_variable'];
-    }
-
-    /**
-     * Sets mi_instance_variable
-     * @param string $mi_instance_variable
-     * @return $this
-     */
-    public function setMiInstanceVariable($mi_instance_variable)
-    {
-        $this->container['mi_instance_variable'] = $mi_instance_variable;
-
-        return $this;
-    }
-
-    /**
-     * Gets mi_complete_variable
-     * @return string
-     */
-    public function getMiCompleteVariable()
-    {
-        return $this->container['mi_complete_variable'];
-    }
-
-    /**
-     * Sets mi_complete_variable
-     * @param string $mi_complete_variable
-     * @return $this
-     */
-    public function setMiCompleteVariable($mi_complete_variable)
-    {
-        $this->container['mi_complete_variable'] = $mi_complete_variable;
-
-        return $this;
-    }
-
-    /**
-     * Gets transfer_fly
-     * @return bool
-     */
-    public function getTransferFly()
-    {
-        return $this->container['transfer_fly'];
-    }
-
-    /**
-     * Sets transfer_fly
-     * @param bool $transfer_fly
-     * @return $this
-     */
-    public function setTransferFly($transfer_fly)
-    {
-        $this->container['transfer_fly'] = $transfer_fly;
-
-        return $this;
-    }
-
-    /**
-     * Gets can_upload
-     * @return bool
-     */
-    public function getCanUpload()
-    {
-        return $this->container['can_upload'];
-    }
-
-    /**
-     * Sets can_upload
-     * @param bool $can_upload
-     * @return $this
-     */
-    public function setCanUpload($can_upload)
-    {
-        $this->container['can_upload'] = $can_upload;
-
-        return $this;
-    }
-
-    /**
-     * Gets view_upload
-     * @return bool
-     */
-    public function getViewUpload()
-    {
-        return $this->container['view_upload'];
-    }
-
-    /**
-     * Sets view_upload
-     * @param bool $view_upload
-     * @return $this
-     */
-    public function setViewUpload($view_upload)
-    {
-        $this->container['view_upload'] = $view_upload;
-
-        return $this;
-    }
-
-    /**
-     * Gets view_additional_documentation
-     * @return bool
-     */
-    public function getViewAdditionalDocumentation()
-    {
-        return $this->container['view_additional_documentation'];
-    }
-
-    /**
-     * Sets view_additional_documentation
-     * @param bool $view_additional_documentation
-     * @return $this
-     */
-    public function setViewAdditionalDocumentation($view_additional_documentation)
-    {
-        $this->container['view_additional_documentation'] = $view_additional_documentation;
-
-        return $this;
-    }
-
-    /**
-     * Gets start
-     * @return bool
-     */
-    public function getStart()
-    {
-        return $this->container['start'];
-    }
-
-    /**
-     * Sets start
-     * @param bool $start
-     * @return $this
-     */
-    public function setStart($start)
-    {
-        $this->container['start'] = $start;
-
-        return $this;
-    }
-
-    /**
-     * Gets send_last_email
-     * @return bool
-     */
-    public function getSendLastEmail()
-    {
-        return $this->container['send_last_email'];
-    }
-
-    /**
-     * Sets send_last_email
-     * @param bool $send_last_email
-     * @return $this
-     */
-    public function setSendLastEmail($send_last_email)
-    {
-        $this->container['send_last_email'] = $send_last_email;
-
-        return $this;
-    }
-
-    /**
-     * Gets derivation_screen_tpl
-     * @return string
-     */
-    public function getDerivationScreenTpl()
-    {
-        return $this->container['derivation_screen_tpl'];
-    }
-
-    /**
-     * Sets derivation_screen_tpl
-     * @param string $derivation_screen_tpl
-     * @return $this
-     */
-    public function setDerivationScreenTpl($derivation_screen_tpl)
-    {
-        $this->container['derivation_screen_tpl'] = $derivation_screen_tpl;
-
-        return $this;
-    }
-
-    /**
-     * Gets selfservice_timeout
-     * @return int
-     */
-    public function getSelfserviceTimeout()
-    {
-        return $this->container['selfservice_timeout'];
-    }
-
-    /**
-     * Sets selfservice_timeout
-     * @param int $selfservice_timeout
-     * @return $this
-     */
-    public function setSelfserviceTimeout($selfservice_timeout)
-    {
-        $this->container['selfservice_timeout'] = $selfservice_timeout;
-
-        return $this;
-    }
-
-    /**
-     * Gets selfservice_time
-     * @return string
-     */
-    public function getSelfserviceTime()
-    {
-        return $this->container['selfservice_time'];
-    }
-
-    /**
-     * Sets selfservice_time
-     * @param string $selfservice_time
-     * @return $this
-     */
-    public function setSelfserviceTime($selfservice_time)
-    {
-        $this->container['selfservice_time'] = $selfservice_time;
-
-        return $this;
-    }
-
-    /**
-     * Gets selfservice_time_unit
-     * @return string
-     */
-    public function getSelfserviceTimeUnit()
-    {
-        return $this->container['selfservice_time_unit'];
-    }
-
-    /**
-     * Sets selfservice_time_unit
-     * @param string $selfservice_time_unit
-     * @return $this
-     */
-    public function setSelfserviceTimeUnit($selfservice_time_unit)
-    {
-        $this->container['selfservice_time_unit'] = $selfservice_time_unit;
-
-        return $this;
-    }
-
-    /**
-     * Gets selfservice_execution
-     * @return string
-     */
-    public function getSelfserviceExecution()
-    {
-        return $this->container['selfservice_execution'];
-    }
-
-    /**
-     * Sets selfservice_execution
-     * @param string $selfservice_execution
-     * @return $this
-     */
-    public function setSelfserviceExecution($selfservice_execution)
-    {
-        $this->container['selfservice_execution'] = $selfservice_execution;
 
         return $this;
     }

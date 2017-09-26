@@ -493,10 +493,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $processAtt = new ProcessAttributes();
             $processAtt->setStatus('ACTIVE');
             $processAtt->setName('Process name');
-            $processAtt->setDurationBy('WORKING_DAYS');
             $processAtt->setType('NORMAL');
-            $processAtt->setDesignAccess('PUBLIC');
-            //$processAtt->setCreateUserId($this->testAddUser());
 
             /** @var ProcessItem $result */
             $result = $this->apiInstance->addProcess(new ProcessCreateItem(
@@ -578,13 +575,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $taskAttr->setType('USER-TASK');
             $taskAttr->setProcessId($processUid);
             $taskAttr->setAssignType('CYCLIC');
-            $taskAttr->setTransferFly(true);
-            $taskAttr->setCanUpload(true);
-            $taskAttr->setViewUpload(true);
-            $taskAttr->setViewAdditionalDocumentation(true);
-            $taskAttr->setStart(false);
-            $taskAttr->setSendLastEmail(true);
-            $taskAttr->setSelfserviceTimeout(10);
 
             /** @var TaskItem $result */
             $result = $this->apiInstance->addTask(
@@ -844,6 +834,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByFieldInsideDataModel()
     {
+        $this->markTestSkipped('This test should validate if PMCORE is running on mysql otherwise the test will fail');
         $testData = ['searched_key' => 'searched_value'];
 
         //$this->testTriggerEvent();
@@ -1144,8 +1135,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         try {
             $processUid = $this->testAddProcess();
             $instanceAttr = new InstanceAttributes();
-            $instanceAttr->setName('Instance name');
-            //$instanceAttr->setStatus('TODO');
+            $instanceAttr->setStatus('RUNNING');
             $instanceAttr->setPin('123456');
             $instanceAttr->setProcessId($processUid);
             $result = $this->apiInstance->addInstance(
@@ -1158,8 +1148,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             );
 
             $this->assertNotNull($result->getData()->getId());
-            $this->assertEquals('Instance name', $result->getData()->getAttributes()->getName());
-            //print_r($result->getData());
+            $this->assertEquals($instanceAttr->getStatus(), $result->getData()->getAttributes()->getStatus());
+            $this->assertEquals($instanceAttr->getProcessId(), $result->getData()->getAttributes()->getProcessId());
+
             return ['instance_uid' => $result->getData()->getId(), 'process_uid' => $processUid];
 
         } catch (ApiException $e) {
@@ -1213,14 +1204,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $array_ids = $this->testAddInstance();
         $itemData = new InstanceAttributes();
-        $itemData->setName('New Instance name');
         $itemData->setStatus('CANCELLED');
         $result = $this->apiInstance->updateInstance(
             $array_ids['process_uid'],
             $array_ids['instance_uid'],
             new InstanceUpdateItem(['data' => new Instance(['attributes' => $itemData])])
         );
-        $this->assertEquals($itemData->getName(), $result->getData()->getAttributes()->getName(), 'Name should be updated');
         $this->assertEquals($itemData->getStatus(), $result->getData()->getAttributes()->getStatus(), 'Status should be updated');
     }
 
@@ -1287,6 +1276,38 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /** Try to check our array responded */
         foreach ($arrayContent as $key => $value) {
             $this->assertEquals($value, $respContent[$key], "Key $key should be equaled to $value");
+        }
+
+    }
+
+    /** Test case get collection of Tokens related to Process and Instance.
+     *  Test case for findTokens endpoint.
+     */
+
+    public function testGetListOfTokens()
+    {
+        // Creating and starting simple process to get at least on token
+        /** @var array $arrayUids */
+        $arrayUids = $this->testTaskInstanceShowIndex();
+
+        try {
+            /** Get instance uid */
+
+            $result = $this->apiInstance->findInstances($arrayUids['process_uid']);
+            $instanceUid = $result->getData()[0]->getId();
+
+            $result = $this->apiInstance->findTokens(
+                $arrayUids['process_uid'],
+                $instanceUid
+            );
+
+            $this->assertNotEmpty($result);
+            $this->assertGreaterThan(0, count($result->getData()), 'Count of tokens should be greater then 0');
+            $this->assertEquals($result->getData()[0]->getType(),'token', 'Type of responsed object should be token');
+            $this->assertEquals($result->getData()[0]->getAttributes()->getInstanceId(), $instanceUid, 'Instances UIDs should be the same');
+
+        } catch (ApiException $e) {
+            $this->dumpError($e, __METHOD__);
         }
     }
 
@@ -1989,13 +2010,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $taskAttr->setType('SERVICE-TASK');
             $taskAttr->setProcessId($processUid);
             $taskAttr->setAssignType('CYCLIC');
-            $taskAttr->setTransferFly(true);
-            $taskAttr->setCanUpload(true);
-            $taskAttr->setViewUpload(true);
-            $taskAttr->setViewAdditionalDocumentation(true);
-            $taskAttr->setStart(false);
-            $taskAttr->setSendLastEmail(true);
-            $taskAttr->setSelfserviceTimeout(10);
 
             $result = $this->apiInstance->addTask(
                 $processUid,
@@ -2078,9 +2092,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $this->apiInstance->updateTaskInstance(
                 $taskInstances->getData()[0]->getId(),
                 new TaskInstanceUpdateItem(
-                        ['data' => new TaskInstance(['attributes' => $itemData])]
-                    )
-                );
+                    ['data' => new TaskInstance(['attributes' => $itemData])]
+                )
+            );
 
             $startedResult =
                 $this->apiInstance->findTaskInstancesByInstanceAndTaskIdStarteD(

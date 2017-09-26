@@ -66,8 +66,6 @@ class InstanceAttributes implements ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = array(
-        'name' => 'string',
-        'description' => 'string',
         'process_id' => 'string',
         'parent_instance_id' => 'string',
         'init_user_id' => 'string',
@@ -88,8 +86,6 @@ class InstanceAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = array(
-        'name' => 'name',
-        'description' => 'description',
         'process_id' => 'process_id',
         'parent_instance_id' => 'parent_instance_id',
         'init_user_id' => 'init_user_id',
@@ -110,8 +106,6 @@ class InstanceAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $setters = array(
-        'name' => 'setName',
-        'description' => 'setDescription',
         'process_id' => 'setProcessId',
         'parent_instance_id' => 'setParentInstanceId',
         'init_user_id' => 'setInitUserId',
@@ -132,8 +126,6 @@ class InstanceAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $getters = array(
-        'name' => 'getName',
-        'description' => 'getDescription',
         'process_id' => 'getProcessId',
         'parent_instance_id' => 'getParentInstanceId',
         'init_user_id' => 'getInitUserId',
@@ -185,8 +177,6 @@ class InstanceAttributes implements ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['process_id'] = isset($data['process_id']) ? $data['process_id'] : null;
         $this->container['parent_instance_id'] = isset($data['parent_instance_id']) ? $data['parent_instance_id'] : null;
         $this->container['init_user_id'] = isset($data['init_user_id']) ? $data['init_user_id'] : null;
@@ -205,9 +195,6 @@ class InstanceAttributes implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = array();
-        if ($this->container['name'] === null) {
-            $invalid_properties[] = "'name' can't be null";
-        }
         if ($this->container['process_id'] === null) {
             $invalid_properties[] = "'process_id' can't be null";
         }
@@ -230,9 +217,6 @@ class InstanceAttributes implements ArrayAccess
      */
     public function valid()
     {
-        if ($this->container['name'] === null) {
-            return false;
-        }
         if ($this->container['process_id'] === null) {
             return false;
         }
@@ -246,48 +230,6 @@ class InstanceAttributes implements ArrayAccess
         return true;
     }
 
-
-    /**
-     * Gets name
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->container['name'];
-    }
-
-    /**
-     * Sets name
-     * @param string $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->container['description'];
-    }
-
-    /**
-     * Sets description
-     * @param string $description
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        $this->container['description'] = $description;
-
-        return $this;
-    }
 
     /**
      * Gets process_id

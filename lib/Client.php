@@ -108,7 +108,7 @@ class Client
      * 
      *
      * @param string $process_id ID of the process related to the event (required)
-     * @param \ProcessMaker\PMIO\Model\EventCreateItem $event_create_item JSON API response with the Event object to add (required)
+     * @param \ProcessMaker\PMIO\Model\EventCreateItem $event_create_item JSON API response with the event object to add (required)
      * @return \ProcessMaker\PMIO\Model\EventItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -124,7 +124,7 @@ class Client
      * 
      *
      * @param string $process_id ID of the process related to the event (required)
-     * @param \ProcessMaker\PMIO\Model\EventCreateItem $event_create_item JSON API response with the Event object to add (required)
+     * @param \ProcessMaker\PMIO\Model\EventCreateItem $event_create_item JSON API response with the event object to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -223,8 +223,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Event to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the event to fetch (required)
      * @param \ProcessMaker\PMIO\Model\EventConnectorCreateItem $event_connector_create_item JSON API with the EventConnector object to add (required)
      * @return \ProcessMaker\PMIO\Model\EventConnector1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -240,8 +240,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Event to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the event to fetch (required)
      * @param \ProcessMaker\PMIO\Model\EventConnectorCreateItem $event_connector_create_item JSON API with the EventConnector object to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventConnector1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -680,7 +680,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to be modified (required)
+     * @param string $task_id ID of the task to be modified (required)
      * @param \ProcessMaker\PMIO\Model\TaskAddGroupsItem $task_add_groups_item JSON API with Group IDs to add (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -697,7 +697,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to be modified (required)
+     * @param string $task_id ID of the task to be modified (required)
      * @param \ProcessMaker\PMIO\Model\TaskAddGroupsItem $task_add_groups_item JSON API with Group IDs to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -935,8 +935,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id Process ID related to the Instance (required)
-     * @param \ProcessMaker\PMIO\Model\InstanceCreateItem $instance_create_item JSON API response with the Instance object to add (required)
+     * @param string $process_id Process ID related to the instance (required)
+     * @param \ProcessMaker\PMIO\Model\InstanceCreateItem $instance_create_item JSON API response with the instance object to add (required)
      * @return \ProcessMaker\PMIO\Model\InstanceItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -951,8 +951,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id Process ID related to the Instance (required)
-     * @param \ProcessMaker\PMIO\Model\InstanceCreateItem $instance_create_item JSON API response with the Instance object to add (required)
+     * @param string $process_id Process ID related to the instance (required)
+     * @param \ProcessMaker\PMIO\Model\InstanceCreateItem $instance_create_item JSON API response with the instance object to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\InstanceItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1254,7 +1254,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the task (required)
-     * @param \ProcessMaker\PMIO\Model\TaskCreateItem $task_create_item JSON API with the Task object to add (required)
+     * @param \ProcessMaker\PMIO\Model\TaskCreateItem $task_create_item JSON API with the task object to add (required)
      * @return \ProcessMaker\PMIO\Model\TaskItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1270,7 +1270,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the task (required)
-     * @param \ProcessMaker\PMIO\Model\TaskCreateItem $task_create_item JSON API with the Task object to add (required)
+     * @param \ProcessMaker\PMIO\Model\TaskCreateItem $task_create_item JSON API with the task object to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1369,8 +1369,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskConnectorCreateItem $task_connector_create_item JSON API with the TaskConnector object to add (required)
      * @return \ProcessMaker\PMIO\Model\TaskConnector1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -1386,8 +1386,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskConnectorCreateItem $task_connector_create_item JSON API with the TaskConnector object to add (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskConnector1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -1706,7 +1706,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $event_id ID of event to delete (required)
+     * @param string $event_id ID of the event to delete (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1722,7 +1722,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $event_id ID of event to delete (required)
+     * @param string $event_id ID of the event to delete (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1820,7 +1820,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of of process item (required)
+     * @param string $process_id ID of the process item (required)
      * @param string $event_id ID of item to fetch (required)
      * @param string $connector_id ID of EventConnector to fetch (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
@@ -1837,7 +1837,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of of process item (required)
+     * @param string $process_id ID of the process item (required)
      * @param string $event_id ID of item to fetch (required)
      * @param string $connector_id ID of EventConnector to fetch (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
@@ -1950,7 +1950,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $flow_id ID of flow to delete (required)
+     * @param string $flow_id ID of the flow to delete (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -1966,7 +1966,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $flow_id ID of flow to delete (required)
+     * @param string $flow_id ID of the flow to delete (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2065,7 +2065,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $gateway_id ID of process to delete (required)
+     * @param string $gateway_id ID of the process to delete (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2081,7 +2081,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $gateway_id ID of process to delete (required)
+     * @param string $gateway_id ID of the process to delete (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2410,7 +2410,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $instance_id ID of instance to delete (required)
+     * @param string $instance_id ID of the instance to delete (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2426,7 +2426,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $instance_id ID of instance to delete (required)
+     * @param string $instance_id ID of the instance to delete (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2745,7 +2745,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to delete (required)
+     * @param string $task_id ID of a task to delete (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2761,7 +2761,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to delete (required)
+     * @param string $task_id ID of a task to delete (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -2859,8 +2859,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process item to fetch (required)
-     * @param string $task_id ID of Task item to fetch (required)
+     * @param string $process_id ID of the process item to fetch (required)
+     * @param string $task_id ID of the task item to fetch (required)
      * @param string $connector_id ID of TaskConnector to fetch (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -2876,8 +2876,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process item to fetch (required)
-     * @param string $task_id ID of Task item to fetch (required)
+     * @param string $process_id ID of the process item to fetch (required)
+     * @param string $task_id ID of the task item to fetch (required)
      * @param string $connector_id ID of TaskConnector to fetch (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -3090,7 +3090,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the event (required)
-     * @param string $event_id ID of event to trigger (required)
+     * @param string $event_id ID of the event to trigger (required)
      * @param \ProcessMaker\PMIO\Model\TriggerEventCreateItem $trigger_event_create_item Json with some parameters (required)
      * @return \ProcessMaker\PMIO\Model\DataModelItem1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -3107,7 +3107,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the event (required)
-     * @param string $event_id ID of event to trigger (required)
+     * @param string $event_id ID of the event to trigger (required)
      * @param \ProcessMaker\PMIO\Model\TriggerEventCreateItem $trigger_event_create_item Json with some parameters (required)
      * @return Array of \ProcessMaker\PMIO\Model\DataModelItem1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -3212,7 +3212,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the event (required)
-     * @param string $event_id ID of event to trigger (required)
+     * @param string $event_id ID of the event to trigger (required)
      * @param string $trigger_body Freeform JSON structure, it will be passed to the newly created DataModel (required)
      * @return string
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -3229,7 +3229,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID related to the event (required)
-     * @param string $event_id ID of event to trigger (required)
+     * @param string $event_id ID of the event to trigger (required)
      * @param string $trigger_body Freeform JSON structure, it will be passed to the newly created DataModel (required)
      * @return Array of string, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -3333,8 +3333,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $search_param Key and value of searched field in Datamodel (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $search_param Key and value of searched field in DataModel (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\DataModelCollection
@@ -3351,8 +3351,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $search_param Key and value of searched field in Datamodel (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $search_param Key and value of searched field in DataModel (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\DataModelCollection, HTTP status code, HTTP response headers (array of strings)
@@ -3463,8 +3463,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $instance_id ID of instance to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $instance_id ID of the instance to return (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\DataModelItem1
@@ -3481,8 +3481,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $instance_id ID of instance to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $instance_id ID of the instance to return (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\DataModelItem1, HTTP status code, HTTP response headers (array of strings)
@@ -3597,8 +3597,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $event_id ID of event to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $event_id ID of the event to return (required)
      * @return \ProcessMaker\PMIO\Model\EventItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -3613,8 +3613,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $event_id ID of event to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $event_id ID of the event to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -3708,7 +3708,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
      * @param string $event_id ID of Event to fetch (required)
      * @param string $connector_id ID of EventConnector to fetch (required)
      * @return \ProcessMaker\PMIO\Model\EventConnector1
@@ -3725,7 +3725,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
      * @param string $event_id ID of Event to fetch (required)
      * @param string $connector_id ID of EventConnector to fetch (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventConnector1, HTTP status code, HTTP response headers (array of strings)
@@ -3833,8 +3833,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the task to fetch (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\EventConnectorsCollection
@@ -3851,8 +3851,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the task to fetch (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\EventConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
@@ -3963,7 +3963,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the event (required)
+     * @param string $process_id ID of the process related to the event (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\EventCollection
@@ -3980,7 +3980,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the event (required)
+     * @param string $process_id ID of the process related to the event (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\EventCollection, HTTP status code, HTTP response headers (array of strings)
@@ -4079,8 +4079,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $flow_id ID of flow to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $flow_id ID of the flow to return (required)
      * @return \ProcessMaker\PMIO\Model\FlowItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -4095,8 +4095,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $flow_id ID of flow to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $flow_id ID of the flow to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\FlowItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -4190,7 +4190,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the flow (required)
+     * @param string $process_id ID of the process related to the flow (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\FlowCollection
@@ -4207,7 +4207,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the flow (required)
+     * @param string $process_id ID of the process related to the flow (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\FlowCollection, HTTP status code, HTTP response headers (array of strings)
@@ -4306,7 +4306,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
+     * @param string $process_id ID of the process to return (required)
      * @param string $gateway_id ID of gateway to return (required)
      * @return \ProcessMaker\PMIO\Model\GatewayItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -4322,7 +4322,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
+     * @param string $process_id ID of the process to return (required)
      * @param string $gateway_id ID of gateway to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\GatewayItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -4417,7 +4417,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the gateway (required)
+     * @param string $process_id ID of the process related to the gateway (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\GatewayCollection
@@ -4434,7 +4434,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process related to the gateway (required)
+     * @param string $process_id ID of the process related to the gateway (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\GatewayCollection, HTTP status code, HTTP response headers (array of strings)
@@ -4987,8 +4987,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $instance_id ID of instance to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $instance_id ID of the instance to return (required)
      * @return \ProcessMaker\PMIO\Model\InstanceItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5003,8 +5003,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $instance_id ID of instance to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $instance_id ID of the instance to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\InstanceItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5441,7 +5441,7 @@ class Client
      *
      * 
      *
-     * @param string $id ID of process to return (required)
+     * @param string $id ID of the process to return (required)
      * @return \ProcessMaker\PMIO\Model\ProcessItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5456,7 +5456,7 @@ class Client
      *
      * 
      *
-     * @param string $id ID of process to return (required)
+     * @param string $id ID of the process to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\ProcessItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5648,8 +5648,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $task_id ID of task to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $task_id ID of the task to return (required)
      * @return \ProcessMaker\PMIO\Model\TaskItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5664,8 +5664,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to return (required)
-     * @param string $task_id ID of task to return (required)
+     * @param string $process_id ID of the process to return (required)
+     * @param string $task_id ID of the task to return (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -5759,8 +5759,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param string $connector_id ID of TaskConnector to fetch (required)
      * @return \ProcessMaker\PMIO\Model\TaskConnector1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -5776,8 +5776,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param string $connector_id ID of TaskConnector to fetch (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskConnector1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -5884,8 +5884,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\TaskConnectorsCollection
@@ -5902,8 +5902,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\TaskConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
@@ -6236,8 +6236,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6252,8 +6252,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6343,8 +6343,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6359,8 +6359,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6450,8 +6450,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6466,8 +6466,8 @@ class Client
      *
      * 
      *
-     * @param string $instance_id ID of instance (required)
-     * @param string $task_id ID of task (required)
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -6557,7 +6557,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process relative to task (required)
+     * @param string $process_id ID of the process relative to the task (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return \ProcessMaker\PMIO\Model\TaskCollection
@@ -6574,7 +6574,7 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process relative to task (required)
+     * @param string $process_id ID of the process relative to the task (required)
      * @param int $page Page number to fetch (optional, default to 1)
      * @param int $per_page Amount of items per page (optional, default to 15)
      * @return Array of \ProcessMaker\PMIO\Model\TaskCollection, HTTP status code, HTTP response headers (array of strings)
@@ -7445,7 +7445,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to modify (required)
+     * @param string $task_id ID of the task to modify (required)
      * @param \ProcessMaker\PMIO\Model\TaskSyncGroupsItem $task_sync_groups_item JSON API response with group IDs to sync (required)
      * @return \ProcessMaker\PMIO\Model\ResultSuccess
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7462,7 +7462,7 @@ class Client
      * 
      *
      * @param string $process_id Process ID (required)
-     * @param string $task_id ID of task to modify (required)
+     * @param string $task_id ID of the task to modify (required)
      * @param \ProcessMaker\PMIO\Model\TaskSyncGroupsItem $task_sync_groups_item JSON API response with group IDs to sync (required)
      * @return Array of \ProcessMaker\PMIO\Model\ResultSuccess, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7678,8 +7678,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $event_id ID of event to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $event_id ID of the event to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\EventUpdateItem $event_update_item Event object to edit (required)
      * @return \ProcessMaker\PMIO\Model\EventItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7695,8 +7695,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $event_id ID of event to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $event_id ID of the event to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\EventUpdateItem $event_update_item Event object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7800,9 +7800,9 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Event to fetch (required)
-     * @param string $connector_id ID of Event Connector to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the event to fetch (required)
+     * @param string $connector_id ID of the event Connector to fetch (required)
      * @param \ProcessMaker\PMIO\Model\EventConnectorUpdateItem $event_connector_update_item EventConnector object to edit (required)
      * @return \ProcessMaker\PMIO\Model\EventConnector1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7818,9 +7818,9 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $event_id ID of Event to fetch (required)
-     * @param string $connector_id ID of Event Connector to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the event to fetch (required)
+     * @param string $connector_id ID of the event Connector to fetch (required)
      * @param \ProcessMaker\PMIO\Model\EventConnectorUpdateItem $event_connector_update_item EventConnector object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\EventConnector1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7940,8 +7940,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $flow_id ID of flow to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $flow_id ID of the flow to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\FlowUpdateItem $flow_update_item Flow object to edit (required)
      * @return \ProcessMaker\PMIO\Model\FlowItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -7957,8 +7957,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $flow_id ID of flow to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $flow_id ID of the flow to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\FlowUpdateItem $flow_update_item Flow object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\FlowItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8062,8 +8062,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $gateway_id ID of gateway to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $gateway_id ID of the gateway to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\GatewayUpdateItem $gateway_update_item Gateway object to edit (required)
      * @return \ProcessMaker\PMIO\Model\GatewayItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8079,8 +8079,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $gateway_id ID of gateway to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $gateway_id ID of the gateway to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\GatewayUpdateItem $gateway_update_item Gateway object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\GatewayItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8428,8 +8428,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $instance_id ID of Instance to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $instance_id ID of the instance to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\InstanceUpdateItem $instance_update_item Instance object to edit (required)
      * @return \ProcessMaker\PMIO\Model\InstanceItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8445,8 +8445,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to retrieve (required)
-     * @param string $instance_id ID of Instance to retrieve (required)
+     * @param string $process_id ID of the process to retrieve (required)
+     * @param string $instance_id ID of the instance to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\InstanceUpdateItem $instance_update_item Instance object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\InstanceItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8672,7 +8672,7 @@ class Client
      *
      * 
      *
-     * @param string $id ID of process to retrieve (required)
+     * @param string $id ID of the process to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\ProcessUpdateItem $process_update_item Process object to edit (required)
      * @return \ProcessMaker\PMIO\Model\ProcessItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8688,7 +8688,7 @@ class Client
      *
      * 
      *
-     * @param string $id ID of process to retrieve (required)
+     * @param string $id ID of the process to retrieve (required)
      * @param \ProcessMaker\PMIO\Model\ProcessUpdateItem $process_update_item Process object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\ProcessItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8780,8 +8780,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskUpdateItem $task_update_item Task object to edit (required)
      * @return \ProcessMaker\PMIO\Model\TaskItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8797,8 +8797,8 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskUpdateItem $task_update_item Task object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8902,9 +8902,9 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
-     * @param string $connector_id ID of Task Connector to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
+     * @param string $connector_id ID of the task connector to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskConnectorUpdateItem $task_connector_update_item TaskConnector object to edit (required)
      * @return \ProcessMaker\PMIO\Model\TaskConnector1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -8920,9 +8920,9 @@ class Client
      *
      * 
      *
-     * @param string $process_id ID of process to fetch (required)
-     * @param string $task_id ID of Task to fetch (required)
-     * @param string $connector_id ID of Task Connector to fetch (required)
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
+     * @param string $connector_id ID of the task connector to fetch (required)
      * @param \ProcessMaker\PMIO\Model\TaskConnectorUpdateItem $task_connector_update_item TaskConnector object to edit (required)
      * @return Array of \ProcessMaker\PMIO\Model\TaskConnector1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
@@ -9042,8 +9042,8 @@ class Client
      *
      * 
      *
-     * @param string $task_instance_id ID of task instance to retrieve (required)
-     * @param \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem $task_instance_update_item Task Instance object to update (required)
+     * @param string $task_instance_id ID of the task instance to retrieve (required)
+     * @param \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem $task_instance_update_item Task instance object to update (required)
      * @return \ProcessMaker\PMIO\Model\InlineResponse200
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
@@ -9058,8 +9058,8 @@ class Client
      *
      * 
      *
-     * @param string $task_instance_id ID of task instance to retrieve (required)
-     * @param \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem $task_instance_update_item Task Instance object to update (required)
+     * @param string $task_instance_id ID of the task instance to retrieve (required)
+     * @param \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem $task_instance_update_item Task instance object to update (required)
      * @return Array of \ProcessMaker\PMIO\Model\InlineResponse200, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */

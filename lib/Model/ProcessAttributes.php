@@ -70,19 +70,12 @@ class ProcessAttributes implements ArrayAccess
         'description' => 'string',
         'parent_process_id' => 'string',
         'status' => 'string',
-        'duration_by' => 'string',
         'type' => 'string',
         'assignment' => 'bool',
-        'design_access' => 'string',
-        'show_map' => 'bool',
-        'show_message' => 'bool',
-        'show_delegate' => 'bool',
-        'show_dynaform' => 'bool',
         'category_id' => 'string',
         'sub_category_id' => 'string',
         'create_user_id' => 'string',
         'debug' => 'bool',
-        'dynaform_summary_id' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -101,19 +94,12 @@ class ProcessAttributes implements ArrayAccess
         'description' => 'description',
         'parent_process_id' => 'parent_process_id',
         'status' => 'status',
-        'duration_by' => 'duration_by',
         'type' => 'type',
         'assignment' => 'assignment',
-        'design_access' => 'design_access',
-        'show_map' => 'show_map',
-        'show_message' => 'show_message',
-        'show_delegate' => 'show_delegate',
-        'show_dynaform' => 'show_dynaform',
         'category_id' => 'category_id',
         'sub_category_id' => 'sub_category_id',
         'create_user_id' => 'create_user_id',
         'debug' => 'debug',
-        'dynaform_summary_id' => 'dynaform_summary_id',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -132,19 +118,12 @@ class ProcessAttributes implements ArrayAccess
         'description' => 'setDescription',
         'parent_process_id' => 'setParentProcessId',
         'status' => 'setStatus',
-        'duration_by' => 'setDurationBy',
         'type' => 'setType',
         'assignment' => 'setAssignment',
-        'design_access' => 'setDesignAccess',
-        'show_map' => 'setShowMap',
-        'show_message' => 'setShowMessage',
-        'show_delegate' => 'setShowDelegate',
-        'show_dynaform' => 'setShowDynaform',
         'category_id' => 'setCategoryId',
         'sub_category_id' => 'setSubCategoryId',
         'create_user_id' => 'setCreateUserId',
         'debug' => 'setDebug',
-        'dynaform_summary_id' => 'setDynaformSummaryId',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -163,19 +142,12 @@ class ProcessAttributes implements ArrayAccess
         'description' => 'getDescription',
         'parent_process_id' => 'getParentProcessId',
         'status' => 'getStatus',
-        'duration_by' => 'getDurationBy',
         'type' => 'getType',
         'assignment' => 'getAssignment',
-        'design_access' => 'getDesignAccess',
-        'show_map' => 'getShowMap',
-        'show_message' => 'getShowMessage',
-        'show_delegate' => 'getShowDelegate',
-        'show_dynaform' => 'getShowDynaform',
         'category_id' => 'getCategoryId',
         'sub_category_id' => 'getSubCategoryId',
         'create_user_id' => 'getCreateUserId',
         'debug' => 'getDebug',
-        'dynaform_summary_id' => 'getDynaformSummaryId',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -188,12 +160,8 @@ class ProcessAttributes implements ArrayAccess
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_INACTIVE = 'INACTIVE';
     const STATUS_DISABLED = 'DISABLED';
-    const DURATION_BY_WORKING_DAYS = 'WORKING_DAYS';
-    const DURATION_BY_CALENDAR_DAYS = 'CALENDAR_DAYS';
     const TYPE_NORMAL = 'NORMAL';
     const TYPE_SUB_PROCESS = 'SUB_PROCESS';
-    const DESIGN_ACCESS_PUBLIC = 'PUBLIC';
-    const DESIGN_ACCESS_PRIVATE = 'PRIVATE';
     
 
     
@@ -214,35 +182,11 @@ class ProcessAttributes implements ArrayAccess
      * Gets allowable values of the enum
      * @return string[]
      */
-    public function getDurationByAllowableValues()
-    {
-        return [
-            self::DURATION_BY_WORKING_DAYS,
-            self::DURATION_BY_CALENDAR_DAYS,
-        ];
-    }
-    
-    /**
-     * Gets allowable values of the enum
-     * @return string[]
-     */
     public function getTypeAllowableValues()
     {
         return [
             self::TYPE_NORMAL,
             self::TYPE_SUB_PROCESS,
-        ];
-    }
-    
-    /**
-     * Gets allowable values of the enum
-     * @return string[]
-     */
-    public function getDesignAccessAllowableValues()
-    {
-        return [
-            self::DESIGN_ACCESS_PUBLIC,
-            self::DESIGN_ACCESS_PRIVATE,
         ];
     }
     
@@ -263,19 +207,12 @@ class ProcessAttributes implements ArrayAccess
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['parent_process_id'] = isset($data['parent_process_id']) ? $data['parent_process_id'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : 'ACTIVE';
-        $this->container['duration_by'] = isset($data['duration_by']) ? $data['duration_by'] : 'WORKING_DAYS';
         $this->container['type'] = isset($data['type']) ? $data['type'] : 'NORMAL';
         $this->container['assignment'] = isset($data['assignment']) ? $data['assignment'] : false;
-        $this->container['design_access'] = isset($data['design_access']) ? $data['design_access'] : 'PUBLIC';
-        $this->container['show_map'] = isset($data['show_map']) ? $data['show_map'] : true;
-        $this->container['show_message'] = isset($data['show_message']) ? $data['show_message'] : true;
-        $this->container['show_delegate'] = isset($data['show_delegate']) ? $data['show_delegate'] : true;
-        $this->container['show_dynaform'] = isset($data['show_dynaform']) ? $data['show_dynaform'] : false;
         $this->container['category_id'] = isset($data['category_id']) ? $data['category_id'] : null;
         $this->container['sub_category_id'] = isset($data['sub_category_id']) ? $data['sub_category_id'] : null;
         $this->container['create_user_id'] = isset($data['create_user_id']) ? $data['create_user_id'] : null;
         $this->container['debug'] = isset($data['debug']) ? $data['debug'] : false;
-        $this->container['dynaform_summary_id'] = isset($data['dynaform_summary_id']) ? $data['dynaform_summary_id'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -299,28 +236,12 @@ class ProcessAttributes implements ArrayAccess
             $invalid_properties[] = "invalid value for 'status', must be one of #{allowed_values}.";
         }
 
-        if ($this->container['duration_by'] === null) {
-            $invalid_properties[] = "'duration_by' can't be null";
-        }
-        $allowed_values = array("WORKING_DAYS", "CALENDAR_DAYS");
-        if (!in_array($this->container['duration_by'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'duration_by', must be one of #{allowed_values}.";
-        }
-
         if ($this->container['type'] === null) {
             $invalid_properties[] = "'type' can't be null";
         }
         $allowed_values = array("NORMAL", "SUB_PROCESS");
         if (!in_array($this->container['type'], $allowed_values)) {
             $invalid_properties[] = "invalid value for 'type', must be one of #{allowed_values}.";
-        }
-
-        if ($this->container['design_access'] === null) {
-            $invalid_properties[] = "'design_access' can't be null";
-        }
-        $allowed_values = array("PUBLIC", "PRIVATE");
-        if (!in_array($this->container['design_access'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'design_access', must be one of #{allowed_values}.";
         }
 
         return $invalid_properties;
@@ -344,25 +265,11 @@ class ProcessAttributes implements ArrayAccess
         if (!in_array($this->container['status'], $allowed_values)) {
             return false;
         }
-        if ($this->container['duration_by'] === null) {
-            return false;
-        }
-        $allowed_values = array("WORKING_DAYS", "CALENDAR_DAYS");
-        if (!in_array($this->container['duration_by'], $allowed_values)) {
-            return false;
-        }
         if ($this->container['type'] === null) {
             return false;
         }
         $allowed_values = array("NORMAL", "SUB_PROCESS");
         if (!in_array($this->container['type'], $allowed_values)) {
-            return false;
-        }
-        if ($this->container['design_access'] === null) {
-            return false;
-        }
-        $allowed_values = array("PUBLIC", "PRIVATE");
-        if (!in_array($this->container['design_access'], $allowed_values)) {
             return false;
         }
         return true;
@@ -458,31 +365,6 @@ class ProcessAttributes implements ArrayAccess
     }
 
     /**
-     * Gets duration_by
-     * @return string
-     */
-    public function getDurationBy()
-    {
-        return $this->container['duration_by'];
-    }
-
-    /**
-     * Sets duration_by
-     * @param string $duration_by
-     * @return $this
-     */
-    public function setDurationBy($duration_by)
-    {
-        $allowed_values = array('WORKING_DAYS', 'CALENDAR_DAYS');
-        if (!in_array($duration_by, $allowed_values)) {
-            throw new \InvalidArgumentException("Invalid value for 'duration_by', must be one of 'WORKING_DAYS', 'CALENDAR_DAYS'");
-        }
-        $this->container['duration_by'] = $duration_by;
-
-        return $this;
-    }
-
-    /**
      * Gets type
      * @return string
      */
@@ -524,115 +406,6 @@ class ProcessAttributes implements ArrayAccess
     public function setAssignment($assignment)
     {
         $this->container['assignment'] = $assignment;
-
-        return $this;
-    }
-
-    /**
-     * Gets design_access
-     * @return string
-     */
-    public function getDesignAccess()
-    {
-        return $this->container['design_access'];
-    }
-
-    /**
-     * Sets design_access
-     * @param string $design_access
-     * @return $this
-     */
-    public function setDesignAccess($design_access)
-    {
-        $allowed_values = array('PUBLIC', 'PRIVATE');
-        if (!in_array($design_access, $allowed_values)) {
-            throw new \InvalidArgumentException("Invalid value for 'design_access', must be one of 'PUBLIC', 'PRIVATE'");
-        }
-        $this->container['design_access'] = $design_access;
-
-        return $this;
-    }
-
-    /**
-     * Gets show_map
-     * @return bool
-     */
-    public function getShowMap()
-    {
-        return $this->container['show_map'];
-    }
-
-    /**
-     * Sets show_map
-     * @param bool $show_map
-     * @return $this
-     */
-    public function setShowMap($show_map)
-    {
-        $this->container['show_map'] = $show_map;
-
-        return $this;
-    }
-
-    /**
-     * Gets show_message
-     * @return bool
-     */
-    public function getShowMessage()
-    {
-        return $this->container['show_message'];
-    }
-
-    /**
-     * Sets show_message
-     * @param bool $show_message
-     * @return $this
-     */
-    public function setShowMessage($show_message)
-    {
-        $this->container['show_message'] = $show_message;
-
-        return $this;
-    }
-
-    /**
-     * Gets show_delegate
-     * @return bool
-     */
-    public function getShowDelegate()
-    {
-        return $this->container['show_delegate'];
-    }
-
-    /**
-     * Sets show_delegate
-     * @param bool $show_delegate
-     * @return $this
-     */
-    public function setShowDelegate($show_delegate)
-    {
-        $this->container['show_delegate'] = $show_delegate;
-
-        return $this;
-    }
-
-    /**
-     * Gets show_dynaform
-     * @return bool
-     */
-    public function getShowDynaform()
-    {
-        return $this->container['show_dynaform'];
-    }
-
-    /**
-     * Sets show_dynaform
-     * @param bool $show_dynaform
-     * @return $this
-     */
-    public function setShowDynaform($show_dynaform)
-    {
-        $this->container['show_dynaform'] = $show_dynaform;
 
         return $this;
     }
@@ -717,27 +490,6 @@ class ProcessAttributes implements ArrayAccess
     public function setDebug($debug)
     {
         $this->container['debug'] = $debug;
-
-        return $this;
-    }
-
-    /**
-     * Gets dynaform_summary_id
-     * @return string
-     */
-    public function getDynaformSummaryId()
-    {
-        return $this->container['dynaform_summary_id'];
-    }
-
-    /**
-     * Sets dynaform_summary_id
-     * @param string $dynaform_summary_id
-     * @return $this
-     */
-    public function setDynaformSummaryId($dynaform_summary_id)
-    {
-        $this->container['dynaform_summary_id'] = $dynaform_summary_id;
 
         return $this;
     }
