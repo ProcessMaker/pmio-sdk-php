@@ -79,7 +79,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Groups();
 $id = "id_example"; // string | ID of group to be modified
-$group_add_users_item = new \ProcessMaker\PMIO\Model\GroupAddUsersItem(); // \ProcessMaker\PMIO\Model\GroupAddUsersItem | JSON API response with array of users ID's
+$group_add_users_item = new \ProcessMaker\PMIO\Model\GroupAddUsersItem(); // \ProcessMaker\PMIO\Model\GroupAddUsersItem | JSON API response with array of user IDs
 
 try {
     $result = $api_instance->addUsersToGroup($id, $group_add_users_item);
@@ -95,7 +95,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| ID of group to be modified |
- **group_add_users_item** | [**\ProcessMaker\PMIO\Model\GroupAddUsersItem**](../Model/\ProcessMaker\PMIO\Model\GroupAddUsersItem.md)| JSON API response with array of users ID&#39;s |
+ **group_add_users_item** | [**\ProcessMaker\PMIO\Model\GroupAddUsersItem**](../Model/\ProcessMaker\PMIO\Model\GroupAddUsersItem.md)| JSON API response with array of user IDs |
 
 ### Return type
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 
 
-This method deletes a group using the group ID
+This method deletes a group using the group ID.
 
 ### Example
 ```php

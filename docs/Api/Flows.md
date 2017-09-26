@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 
-This method creates a new Sequence flow
+This method creates a new Sequence Flow.
 
 ### Example
 ```php
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 
 
-This method deletes a sequence flow using the flow ID and process ID.
+This method deletes the Sequence Flow using the flow ID and the process ID.
 
 ### Example
 ```php
@@ -78,7 +78,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Flows();
 $process_id = "process_id_example"; // string | Process ID
-$flow_id = "flow_id_example"; // string | ID of flow to delete
+$flow_id = "flow_id_example"; // string | ID of the flow to delete
 
 try {
     $result = $api_instance->deleteFlow($process_id, $flow_id);
@@ -94,7 +94,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **flow_id** | **string**| ID of flow to delete |
+ **flow_id** | **string**| ID of the flow to delete |
 
 ### Return type
 
@@ -127,8 +127,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Flows();
-$process_id = "process_id_example"; // string | ID of process to return
-$flow_id = "flow_id_example"; // string | ID of flow to return
+$process_id = "process_id_example"; // string | ID of the process to return
+$flow_id = "flow_id_example"; // string | ID of the flow to return
 
 try {
     $result = $api_instance->findFlowById($process_id, $flow_id);
@@ -143,8 +143,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to return |
- **flow_id** | **string**| ID of flow to return |
+ **process_id** | **string**| ID of the process to return |
+ **flow_id** | **string**| ID of the flow to return |
 
 ### Return type
 
@@ -177,7 +177,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Flows();
-$process_id = "process_id_example"; // string | ID of process related to the flow
+$process_id = "process_id_example"; // string | ID of the process related to the flow
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -194,7 +194,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process related to the flow |
+ **process_id** | **string**| ID of the process related to the flow |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -229,8 +229,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Flows();
-$process_id = "process_id_example"; // string | ID of process to retrieve
-$flow_id = "flow_id_example"; // string | ID of flow to retrieve
+$process_id = "process_id_example"; // string | ID of the process to retrieve
+$flow_id = "flow_id_example"; // string | ID of the flow to retrieve
 $flow_update_item = new \ProcessMaker\PMIO\Model\FlowUpdateItem(); // \ProcessMaker\PMIO\Model\FlowUpdateItem | Flow object to edit
 
 try {
@@ -246,8 +246,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to retrieve |
- **flow_id** | **string**| ID of flow to retrieve |
+ **process_id** | **string**| ID of the process to retrieve |
+ **flow_id** | **string**| ID of the flow to retrieve |
  **flow_update_item** | [**\ProcessMaker\PMIO\Model\FlowUpdateItem**](../Model/\ProcessMaker\PMIO\Model\FlowUpdateItem.md)| Flow object to edit |
 
 ### Return type

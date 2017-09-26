@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 
-This method creates a new user in the system. From the result you may retrieve `client_id`  This `client_id` required to obtain `client_secret` and then you will be able to perform Oauth authorization key. Refer to [Oauth Client APIs](#tag/oauth)
+This method creates a new user in the system. The client_id will appear in the results.  The `client_id` is required to obtain a `client_secret` and then you will be able to use it in an Oauth authorization key. Refer to [Oauth Client APIs](#tag/oauth)
 
 ### Example
 ```php
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 
 
-This method returns user information using a token
+This method returns user information using a token.
 
 ### Example
 ```php

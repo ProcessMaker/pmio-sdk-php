@@ -3,8 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | 
-**description** | **string** |  | [optional] 
 **process_id** | **string** |  | 
 **parent_instance_id** | **string** |  | [optional] 
 **init_user_id** | **string** |  | [optional] 

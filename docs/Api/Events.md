@@ -35,7 +35,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
 $process_id = "process_id_example"; // string | ID of the process related to the event
-$event_create_item = new \ProcessMaker\PMIO\Model\EventCreateItem(); // \ProcessMaker\PMIO\Model\EventCreateItem | JSON API response with the Event object to add
+$event_create_item = new \ProcessMaker\PMIO\Model\EventCreateItem(); // \ProcessMaker\PMIO\Model\EventCreateItem | JSON API response with the event object to add
 
 try {
     $result = $api_instance->addEvent($process_id, $event_create_item);
@@ -51,7 +51,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| ID of the process related to the event |
- **event_create_item** | [**\ProcessMaker\PMIO\Model\EventCreateItem**](../Model/\ProcessMaker\PMIO\Model\EventCreateItem.md)| JSON API response with the Event object to add |
+ **event_create_item** | [**\ProcessMaker\PMIO\Model\EventCreateItem**](../Model/\ProcessMaker\PMIO\Model\EventCreateItem.md)| JSON API response with the event object to add |
 
 ### Return type
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for creating a new Event connector.
+This method is intended for creating a new event connector.
 
 ### Example
 ```php
@@ -84,8 +84,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$event_id = "event_id_example"; // string | ID of Event to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$event_id = "event_id_example"; // string | ID of the event to fetch
 $event_connector_create_item = new \ProcessMaker\PMIO\Model\EventConnectorCreateItem(); // \ProcessMaker\PMIO\Model\EventConnectorCreateItem | JSON API with the EventConnector object to add
 
 try {
@@ -101,8 +101,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **event_id** | **string**| ID of Event to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **event_id** | **string**| ID of the event to fetch |
  **event_connector_create_item** | [**\ProcessMaker\PMIO\Model\EventConnectorCreateItem**](../Model/\ProcessMaker\PMIO\Model\EventConnectorCreateItem.md)| JSON API with the EventConnector object to add |
 
 ### Return type
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 
 
-This method deletes an event using the event ID and process ID
+This method deletes an event using the event ID and process ID.
 
 ### Example
 ```php
@@ -137,7 +137,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
 $process_id = "process_id_example"; // string | Process ID
-$event_id = "event_id_example"; // string | ID of event to delete
+$event_id = "event_id_example"; // string | ID of the event to delete
 
 try {
     $result = $api_instance->deleteEvent($process_id, $event_id);
@@ -153,7 +153,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **event_id** | **string**| ID of event to delete |
+ **event_id** | **string**| ID of the event to delete |
 
 ### Return type
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for deleting a single Event connector based on Event ID, Process ID and Connector ID.
+This method is for deleting a single event connector based on event ID, process ID and Connector ID.
 
 ### Example
 ```php
@@ -186,7 +186,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of of Process item
+$process_id = "process_id_example"; // string | ID of the process item
 $event_id = "event_id_example"; // string | ID of item to fetch
 $connector_id = "connector_id_example"; // string | ID of EventConnector to fetch
 
@@ -203,7 +203,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of of Process item |
+ **process_id** | **string**| ID of the process item |
  **event_id** | **string**| ID of item to fetch |
  **connector_id** | **string**| ID of EventConnector to fetch |
 
@@ -239,7 +239,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
 $process_id = "process_id_example"; // string | Process ID related to the event
-$event_id = "event_id_example"; // string | ID of event to trigger
+$event_id = "event_id_example"; // string | ID of the event to trigger
 $trigger_event_create_item = new \ProcessMaker\PMIO\Model\TriggerEventCreateItem(); // \ProcessMaker\PMIO\Model\TriggerEventCreateItem | Json with some parameters
 
 try {
@@ -256,7 +256,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID related to the event |
- **event_id** | **string**| ID of event to trigger |
+ **event_id** | **string**| ID of the event to trigger |
  **trigger_event_create_item** | [**\ProcessMaker\PMIO\Model\TriggerEventCreateItem**](../Model/\ProcessMaker\PMIO\Model\TriggerEventCreateItem.md)| Json with some parameters |
 
 ### Return type
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 
 
-This webhook method triggers given Event object.
+This webhook method triggers a given event object.
 
 ### Example
 ```php
@@ -291,8 +291,8 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
 $process_id = "process_id_example"; // string | Process ID related to the event
-$event_id = "event_id_example"; // string | ID of event to trigger
-$trigger_body = "trigger_body_example"; // string | Freeform JSON structure, it will be passed to newly created DataModel
+$event_id = "event_id_example"; // string | ID of the event to trigger
+$trigger_body = "trigger_body_example"; // string | Freeform JSON structure, it will be passed to the newly created DataModel
 
 try {
     $result = $api_instance->eventWebhook($process_id, $event_id, $trigger_body);
@@ -308,8 +308,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID related to the event |
- **event_id** | **string**| ID of event to trigger |
- **trigger_body** | **string**| Freeform JSON structure, it will be passed to newly created DataModel |
+ **event_id** | **string**| ID of the event to trigger |
+ **trigger_body** | **string**| Freeform JSON structure, it will be passed to the newly created DataModel |
 
 ### Return type
 
@@ -342,8 +342,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of process to return
-$event_id = "event_id_example"; // string | ID of event to return
+$process_id = "process_id_example"; // string | ID of the process to return
+$event_id = "event_id_example"; // string | ID of the event to return
 
 try {
     $result = $api_instance->findEventById($process_id, $event_id);
@@ -358,8 +358,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to return |
- **event_id** | **string**| ID of event to return |
+ **process_id** | **string**| ID of the process to return |
+ **event_id** | **string**| ID of the event to return |
 
 ### Return type
 
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 
 
 
-This method returns all Event connectors related to the run Process and Event.
+This method returns all event connectors related to the run process and event.
 
 ### Example
 ```php
@@ -392,7 +392,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of Process to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
 $event_id = "event_id_example"; // string | ID of Event to fetch
 $connector_id = "connector_id_example"; // string | ID of EventConnector to fetch
 
@@ -409,7 +409,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
+ **process_id** | **string**| ID of the process to fetch |
  **event_id** | **string**| ID of Event to fetch |
  **connector_id** | **string**| ID of EventConnector to fetch |
 
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes
 
 
 
-This method returns all Event connectors related to the run Process and Event.
+This method returns all event connectors related to the run process and Event.
 
 ### Example
 ```php
@@ -444,8 +444,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$event_id = "event_id_example"; // string | ID of Task to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$event_id = "event_id_example"; // string | ID of the task to fetch
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -462,8 +462,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **event_id** | **string**| ID of Task to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **event_id** | **string**| ID of the task to fetch |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 
 
 
-This method returns all events related to the process that was run.
+This method returns all events related to the running process.
 
 ### Example
 ```php
@@ -498,7 +498,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of process related to the event
+$process_id = "process_id_example"; // string | ID of the process related to the event
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -515,7 +515,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process related to the event |
+ **process_id** | **string**| ID of the process related to the event |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -539,7 +539,7 @@ Name | Type | Description  | Notes
 
 
 
-This method updates an existing event
+This method updates an existing event.
 
 ### Example
 ```php
@@ -550,8 +550,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of process to retrieve
-$event_id = "event_id_example"; // string | ID of event to retrieve
+$process_id = "process_id_example"; // string | ID of the process to retrieve
+$event_id = "event_id_example"; // string | ID of the event to retrieve
 $event_update_item = new \ProcessMaker\PMIO\Model\EventUpdateItem(); // \ProcessMaker\PMIO\Model\EventUpdateItem | Event object to edit
 
 try {
@@ -567,8 +567,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to retrieve |
- **event_id** | **string**| ID of event to retrieve |
+ **process_id** | **string**| ID of the process to retrieve |
+ **event_id** | **string**| ID of the event to retrieve |
  **event_update_item** | [**\ProcessMaker\PMIO\Model\EventUpdateItem**](../Model/\ProcessMaker\PMIO\Model\EventUpdateItem.md)| Event object to edit |
 
 ### Return type
@@ -591,7 +591,7 @@ Name | Type | Description  | Notes
 
 
 
-This method lets update the existing Event connector with new parameters values
+This method updates the existing event connector with new parameter values.
 
 ### Example
 ```php
@@ -602,9 +602,9 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Events();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$event_id = "event_id_example"; // string | ID of Event to fetch
-$connector_id = "connector_id_example"; // string | ID of Event Connector to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$event_id = "event_id_example"; // string | ID of the event to fetch
+$connector_id = "connector_id_example"; // string | ID of the event Connector to fetch
 $event_connector_update_item = new \ProcessMaker\PMIO\Model\EventConnectorUpdateItem(); // \ProcessMaker\PMIO\Model\EventConnectorUpdateItem | EventConnector object to edit
 
 try {
@@ -620,9 +620,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **event_id** | **string**| ID of Event to fetch |
- **connector_id** | **string**| ID of Event Connector to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **event_id** | **string**| ID of the event to fetch |
+ **connector_id** | **string**| ID of the event Connector to fetch |
  **event_connector_update_item** | [**\ProcessMaker\PMIO\Model\EventConnectorUpdateItem**](../Model/\ProcessMaker\PMIO\Model\EventConnectorUpdateItem.md)| EventConnector object to edit |
 
 ### Return type

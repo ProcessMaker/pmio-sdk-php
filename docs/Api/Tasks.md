@@ -39,8 +39,8 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
 $process_id = "process_id_example"; // string | Process ID
-$task_id = "task_id_example"; // string | ID of task to be modified
-$task_add_groups_item = new \ProcessMaker\PMIO\Model\TaskAddGroupsItem(); // \ProcessMaker\PMIO\Model\TaskAddGroupsItem | JSON API with Groups ID's to add
+$task_id = "task_id_example"; // string | ID of the task to be modified
+$task_add_groups_item = new \ProcessMaker\PMIO\Model\TaskAddGroupsItem(); // \ProcessMaker\PMIO\Model\TaskAddGroupsItem | JSON API with Group IDs to add
 
 try {
     $result = $api_instance->addGroupsToTask($process_id, $task_id, $task_add_groups_item);
@@ -56,8 +56,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **task_id** | **string**| ID of task to be modified |
- **task_add_groups_item** | [**\ProcessMaker\PMIO\Model\TaskAddGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskAddGroupsItem.md)| JSON API with Groups ID&#39;s to add |
+ **task_id** | **string**| ID of the task to be modified |
+ **task_add_groups_item** | [**\ProcessMaker\PMIO\Model\TaskAddGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskAddGroupsItem.md)| JSON API with Group IDs to add |
 
 ### Return type
 
@@ -91,7 +91,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
 $process_id = "process_id_example"; // string | Process ID related to the task
-$task_create_item = new \ProcessMaker\PMIO\Model\TaskCreateItem(); // \ProcessMaker\PMIO\Model\TaskCreateItem | JSON API with the Task object to add
+$task_create_item = new \ProcessMaker\PMIO\Model\TaskCreateItem(); // \ProcessMaker\PMIO\Model\TaskCreateItem | JSON API with the task object to add
 
 try {
     $result = $api_instance->addTask($process_id, $task_create_item);
@@ -107,7 +107,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID related to the task |
- **task_create_item** | [**\ProcessMaker\PMIO\Model\TaskCreateItem**](../Model/\ProcessMaker\PMIO\Model\TaskCreateItem.md)| JSON API with the Task object to add |
+ **task_create_item** | [**\ProcessMaker\PMIO\Model\TaskCreateItem**](../Model/\ProcessMaker\PMIO\Model\TaskCreateItem.md)| JSON API with the task object to add |
 
 ### Return type
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for creating a new task connector.
+This method is for creating a new task connector
 
 ### Example
 ```php
@@ -140,8 +140,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$task_id = "task_id_example"; // string | ID of Task to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
 $task_connector_create_item = new \ProcessMaker\PMIO\Model\TaskConnectorCreateItem(); // \ProcessMaker\PMIO\Model\TaskConnectorCreateItem | JSON API with the TaskConnector object to add
 
 try {
@@ -157,8 +157,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **task_id** | **string**| ID of Task to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
  **task_connector_create_item** | [**\ProcessMaker\PMIO\Model\TaskConnectorCreateItem**](../Model/\ProcessMaker\PMIO\Model\TaskConnectorCreateItem.md)| JSON API with the TaskConnector object to add |
 
 ### Return type
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 
 
-This method deletes a task using the task ID and process ID.
+This method deletes a task using the task ID and the process ID.
 
 ### Example
 ```php
@@ -193,7 +193,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
 $process_id = "process_id_example"; // string | Process ID
-$task_id = "task_id_example"; // string | ID of task to delete
+$task_id = "task_id_example"; // string | ID of a task to delete
 
 try {
     $result = $api_instance->deleteTask($process_id, $task_id);
@@ -209,7 +209,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **task_id** | **string**| ID of task to delete |
+ **task_id** | **string**| ID of a task to delete |
 
 ### Return type
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for deleting a single Task connector based on Task ID, Process ID and Connector ID.
+This method is for deleting a single task connector based on task ID, the process ID and the Connector ID.
 
 ### Example
 ```php
@@ -242,8 +242,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process item to fetch
-$task_id = "task_id_example"; // string | ID of Task item to fetch
+$process_id = "process_id_example"; // string | ID of the process item to fetch
+$task_id = "task_id_example"; // string | ID of the task item to fetch
 $connector_id = "connector_id_example"; // string | ID of TaskConnector to fetch
 
 try {
@@ -259,8 +259,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process item to fetch |
- **task_id** | **string**| ID of Task item to fetch |
+ **process_id** | **string**| ID of the process item to fetch |
+ **task_id** | **string**| ID of the task item to fetch |
  **connector_id** | **string**| ID of TaskConnector to fetch |
 
 ### Return type
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is retrieves a task using its ID.
+This method retrieves a task using its ID.
 
 ### Example
 ```php
@@ -294,8 +294,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of process to return
-$task_id = "task_id_example"; // string | ID of task to return
+$process_id = "process_id_example"; // string | ID of the process to return
+$task_id = "task_id_example"; // string | ID of the task to return
 
 try {
     $result = $api_instance->findTaskById($process_id, $task_id);
@@ -310,8 +310,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to return |
- **task_id** | **string**| ID of task to return |
+ **process_id** | **string**| ID of the process to return |
+ **task_id** | **string**| ID of the task to return |
 
 ### Return type
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for retrieving an Task connector based on it's ID.
+This method is for retrieving a task connector based on its ID.
 
 ### Example
 ```php
@@ -344,8 +344,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$task_id = "task_id_example"; // string | ID of Task to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
 $connector_id = "connector_id_example"; // string | ID of TaskConnector to fetch
 
 try {
@@ -361,8 +361,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **task_id** | **string**| ID of Task to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
  **connector_id** | **string**| ID of TaskConnector to fetch |
 
 ### Return type
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 
 
 
-This method returns all Task connectors related to the run Process and Task.
+This method returns all task connectors related to the run process and task.
 
 ### Example
 ```php
@@ -396,8 +396,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$task_id = "task_id_example"; // string | ID of Task to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -414,8 +414,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **task_id** | **string**| ID of Task to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -491,7 +491,7 @@ Name | Type | Description  | Notes
 
 
 
-This method retrieves all existing task instances
+This method retrieves all existing task instances.
 
 ### Example
 ```php
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for returning a list of all Tasks related to the process
+This method is intended for returning a list of all tasks related to the process.
 
 ### Example
 ```php
@@ -552,7 +552,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process relative to task
+$process_id = "process_id_example"; // string | ID of the process relative to the task
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -569,7 +569,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process relative to task |
+ **process_id** | **string**| ID of the process relative to the task |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -593,7 +593,7 @@ Name | Type | Description  | Notes
 
 
 
-This method removes groups from a task
+This method removes groups from a task.
 
 ### Example
 ```php
@@ -606,7 +606,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
 $process_id = "process_id_example"; // string | Process ID
 $task_id = "task_id_example"; // string | Task ID
-$task_remove_groups_item = new \ProcessMaker\PMIO\Model\TaskRemoveGroupsItem(); // \ProcessMaker\PMIO\Model\TaskRemoveGroupsItem | JSON API response with Groups IDs to remove
+$task_remove_groups_item = new \ProcessMaker\PMIO\Model\TaskRemoveGroupsItem(); // \ProcessMaker\PMIO\Model\TaskRemoveGroupsItem | JSON API response with Group IDs to remove
 
 try {
     $result = $api_instance->removeGroupsFromTask($process_id, $task_id, $task_remove_groups_item);
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
  **task_id** | **string**| Task ID |
- **task_remove_groups_item** | [**\ProcessMaker\PMIO\Model\TaskRemoveGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskRemoveGroupsItem.md)| JSON API response with Groups IDs to remove |
+ **task_remove_groups_item** | [**\ProcessMaker\PMIO\Model\TaskRemoveGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskRemoveGroupsItem.md)| JSON API response with Group IDs to remove |
 
 ### Return type
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 
 
-This method synchronizes a one or more groups with a task.
+This method synchronizes one or more groups with a task.
 
 ### Example
 ```php
@@ -657,8 +657,8 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
 $process_id = "process_id_example"; // string | Process ID
-$task_id = "task_id_example"; // string | ID of task to modify
-$task_sync_groups_item = new \ProcessMaker\PMIO\Model\TaskSyncGroupsItem(); // \ProcessMaker\PMIO\Model\TaskSyncGroupsItem | JSON API response with groups IDs to sync
+$task_id = "task_id_example"; // string | ID of the task to modify
+$task_sync_groups_item = new \ProcessMaker\PMIO\Model\TaskSyncGroupsItem(); // \ProcessMaker\PMIO\Model\TaskSyncGroupsItem | JSON API response with group IDs to sync
 
 try {
     $result = $api_instance->syncGroupsToTask($process_id, $task_id, $task_sync_groups_item);
@@ -674,8 +674,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **task_id** | **string**| ID of task to modify |
- **task_sync_groups_item** | [**\ProcessMaker\PMIO\Model\TaskSyncGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskSyncGroupsItem.md)| JSON API response with groups IDs to sync |
+ **task_id** | **string**| ID of the task to modify |
+ **task_sync_groups_item** | [**\ProcessMaker\PMIO\Model\TaskSyncGroupsItem**](../Model/\ProcessMaker\PMIO\Model\TaskSyncGroupsItem.md)| JSON API response with group IDs to sync |
 
 ### Return type
 
@@ -697,7 +697,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is intended for updating an existing task.
+This method is for updating an existing task.
 
 ### Example
 ```php
@@ -708,8 +708,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$task_id = "task_id_example"; // string | ID of Task to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
 $task_update_item = new \ProcessMaker\PMIO\Model\TaskUpdateItem(); // \ProcessMaker\PMIO\Model\TaskUpdateItem | Task object to edit
 
 try {
@@ -725,8 +725,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **task_id** | **string**| ID of Task to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
  **task_update_item** | [**\ProcessMaker\PMIO\Model\TaskUpdateItem**](../Model/\ProcessMaker\PMIO\Model\TaskUpdateItem.md)| Task object to edit |
 
 ### Return type
@@ -749,7 +749,7 @@ Name | Type | Description  | Notes
 
 
 
-This method lets update the existing Task connector with new parameters values
+This method updates the existing task connector with new parameter values.
 
 ### Example
 ```php
@@ -760,9 +760,9 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of Process to fetch
-$task_id = "task_id_example"; // string | ID of Task to fetch
-$connector_id = "connector_id_example"; // string | ID of Task Connector to fetch
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
+$connector_id = "connector_id_example"; // string | ID of the task connector to fetch
 $task_connector_update_item = new \ProcessMaker\PMIO\Model\TaskConnectorUpdateItem(); // \ProcessMaker\PMIO\Model\TaskConnectorUpdateItem | TaskConnector object to edit
 
 try {
@@ -778,9 +778,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of Process to fetch |
- **task_id** | **string**| ID of Task to fetch |
- **connector_id** | **string**| ID of Task Connector to fetch |
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
+ **connector_id** | **string**| ID of the task connector to fetch |
  **task_connector_update_item** | [**\ProcessMaker\PMIO\Model\TaskConnectorUpdateItem**](../Model/\ProcessMaker\PMIO\Model\TaskConnectorUpdateItem.md)| TaskConnector object to edit |
 
 ### Return type
@@ -814,8 +814,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$task_instance_id = "task_instance_id_example"; // string | ID of task instance to retrieve
-$task_instance_update_item = new \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem(); // \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem | Task Instance object to update
+$task_instance_id = "task_instance_id_example"; // string | ID of the task instance to retrieve
+$task_instance_update_item = new \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem(); // \ProcessMaker\PMIO\Model\TaskInstanceUpdateItem | Task instance object to update
 
 try {
     $result = $api_instance->updateTaskInstance($task_instance_id, $task_instance_update_item);
@@ -830,8 +830,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **task_instance_id** | **string**| ID of task instance to retrieve |
- **task_instance_update_item** | [**\ProcessMaker\PMIO\Model\TaskInstanceUpdateItem**](../Model/\ProcessMaker\PMIO\Model\TaskInstanceUpdateItem.md)| Task Instance object to update |
+ **task_instance_id** | **string**| ID of the task instance to retrieve |
+ **task_instance_update_item** | [**\ProcessMaker\PMIO\Model\TaskInstanceUpdateItem**](../Model/\ProcessMaker\PMIO\Model\TaskInstanceUpdateItem.md)| Task instance object to update |
 
 ### Return type
 

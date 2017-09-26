@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 
-This method creates a new Input/Output object
+This method creates a new Input/Output object.
 
 ### Example
 ```php

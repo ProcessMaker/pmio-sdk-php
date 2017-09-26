@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 
-This method creates a new Oauth client for the user
+This method creates a new Oauth client for the user.
 
 ### Example
 ```php
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is retrieves an Oauth client for the User based on its ID.  Response contains `client_secret` required to obtain `access_token`.
+This method retrieves an Oauth client for the User based on its ID.  The response contains the `client_secret` required to obtain the `access_token`.
 
 ### Example
 ```php
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 
 
-This method retrieves all existing Oauth clients belonging to an user.
+This method retrieves all existing Oauth clients belonging to a user.
 
 ### Example
 ```php

@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 
-This method creates a new process
+This method creates a new process.
 
 ### Example
 ```php
@@ -28,7 +28,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Processes();
-$process_create_item = new \ProcessMaker\PMIO\Model\ProcessCreateItem(); // \ProcessMaker\PMIO\Model\ProcessCreateItem | JSON API response with the Process object to add
+$process_create_item = new \ProcessMaker\PMIO\Model\ProcessCreateItem(); // \ProcessMaker\PMIO\Model\ProcessCreateItem | JSON API response with the process object to add
 
 try {
     $result = $api_instance->addProcess($process_create_item);
@@ -43,7 +43,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_create_item** | [**\ProcessMaker\PMIO\Model\ProcessCreateItem**](../Model/\ProcessMaker\PMIO\Model\ProcessCreateItem.md)| JSON API response with the Process object to add |
+ **process_create_item** | [**\ProcessMaker\PMIO\Model\ProcessCreateItem**](../Model/\ProcessMaker\PMIO\Model\ProcessCreateItem.md)| JSON API response with the process object to add |
 
 ### Return type
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 
 
-This method retrieves a process using its ID
+This method retrieves a process using its ID.
 
 ### Example
 ```php
@@ -124,7 +124,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Processes();
-$id = "id_example"; // string | ID of process to return
+$id = "id_example"; // string | ID of the process to return
 
 try {
     $result = $api_instance->findProcessById($id);
@@ -139,7 +139,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| ID of process to return |
+ **id** | **string**| ID of the process to return |
 
 ### Return type
 
@@ -270,7 +270,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Processes();
-$id = "id_example"; // string | ID of process to retrieve
+$id = "id_example"; // string | ID of the process to retrieve
 $process_update_item = new \ProcessMaker\PMIO\Model\ProcessUpdateItem(); // \ProcessMaker\PMIO\Model\ProcessUpdateItem | Process object to edit
 
 try {
@@ -286,7 +286,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| ID of process to retrieve |
+ **id** | **string**| ID of the process to retrieve |
  **process_update_item** | [**\ProcessMaker\PMIO\Model\ProcessUpdateItem**](../Model/\ProcessMaker\PMIO\Model\ProcessUpdateItem.md)| Process object to edit |
 
 ### Return type

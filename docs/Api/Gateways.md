@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 
 
-This method is deletes a single item using the gateway ID and process ID.
+This method deletes a single item using the gateway ID and the process ID.
 
 ### Example
 ```php
@@ -78,7 +78,7 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Gateways();
 $process_id = "process_id_example"; // string | Process ID
-$gateway_id = "gateway_id_example"; // string | ID of Process to delete
+$gateway_id = "gateway_id_example"; // string | ID of the process to delete
 
 try {
     $result = $api_instance->deleteGateway($process_id, $gateway_id);
@@ -94,7 +94,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID |
- **gateway_id** | **string**| ID of Process to delete |
+ **gateway_id** | **string**| ID of the process to delete |
 
 ### Return type
 
@@ -127,7 +127,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Gateways();
-$process_id = "process_id_example"; // string | ID of process to return
+$process_id = "process_id_example"; // string | ID of the process to return
 $gateway_id = "gateway_id_example"; // string | ID of gateway to return
 
 try {
@@ -143,7 +143,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to return |
+ **process_id** | **string**| ID of the process to return |
  **gateway_id** | **string**| ID of gateway to return |
 
 ### Return type
@@ -177,7 +177,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Gateways();
-$process_id = "process_id_example"; // string | ID of process related to the gateway
+$process_id = "process_id_example"; // string | ID of the process related to the gateway
 $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
@@ -194,7 +194,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process related to the gateway |
+ **process_id** | **string**| ID of the process related to the gateway |
  **page** | **int**| Page number to fetch | [optional] [default to 1]
  **per_page** | **int**| Amount of items per page | [optional] [default to 15]
 
@@ -229,8 +229,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Gateways();
-$process_id = "process_id_example"; // string | ID of process to retrieve
-$gateway_id = "gateway_id_example"; // string | ID of gateway to retrieve
+$process_id = "process_id_example"; // string | ID of the process to retrieve
+$gateway_id = "gateway_id_example"; // string | ID of the gateway to retrieve
 $gateway_update_item = new \ProcessMaker\PMIO\Model\GatewayUpdateItem(); // \ProcessMaker\PMIO\Model\GatewayUpdateItem | Gateway object to edit
 
 try {
@@ -246,8 +246,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of process to retrieve |
- **gateway_id** | **string**| ID of gateway to retrieve |
+ **process_id** | **string**| ID of the process to retrieve |
+ **gateway_id** | **string**| ID of the gateway to retrieve |
  **gateway_update_item** | [**\ProcessMaker\PMIO\Model\GatewayUpdateItem**](../Model/\ProcessMaker\PMIO\Model\GatewayUpdateItem.md)| Gateway object to edit |
 
 ### Return type
