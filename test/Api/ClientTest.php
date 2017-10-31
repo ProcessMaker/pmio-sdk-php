@@ -41,6 +41,7 @@
 namespace ProcessMaker\PMIO;
 
 use Guzzle\Http\Message\Response;
+use ProcessMaker\PMIO\Model\BpmnImportFileAttributes;
 use ProcessMaker\PMIO\Model\BpmnImportItem;
 use ProcessMaker\PMIO\Model\Error;
 use ProcessMaker\PMIO\Model\Group;
@@ -50,6 +51,9 @@ use ProcessMaker\PMIO\Model\GroupCreateItem;
 use ProcessMaker\PMIO\Model\GroupItem;
 use ProcessMaker\PMIO\Model\GroupRemoveUsersItem;
 use ProcessMaker\PMIO\Model\GroupUpdateItem;
+use ProcessMaker\PMIO\Model\ImportFile;
+use ProcessMaker\PMIO\Model\ImportFileAttributes;
+use ProcessMaker\PMIO\Model\ImportItem;
 use ProcessMaker\PMIO\Model\InstanceUpdateItem;
 use ProcessMaker\PMIO\Model\ResultSuccess;
 use ProcessMaker\PMIO\Model\TaskItem;
@@ -363,7 +367,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         try {
             /** @var Group[] $result */
-            $result = $this->apiInstance->findGroups()->getData();
+            $result = $this->apiInstance->listGroups()->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -393,7 +397,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->testAddUser();
-            $result = $this->apiInstance->findUsers()->getData();
+            $result = $this->apiInstance->listUsers()->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -538,7 +542,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->testAddProcess();
-            $result = $this->apiInstance->findProcesses()->getData();
+            $result = $this->apiInstance->listProcesses()->getData();
             $this->assertGreaterThan(0, count($result));
         } catch (ApiException $e) {
             $this->dumpError($e, __METHOD__);
@@ -603,7 +607,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testFindTasks()
     {
         try {
-            $result = $this->apiInstance->findTasks($this->testAddTask()['process_uid'])->getData();
+            $result = $this->apiInstance->listTasks($this->testAddTask()['process_uid'])->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -793,7 +797,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $arrayUids = $this->testAddEvent();
         $dataModelattr = new DataModelAttributes();
-        $dataModelattr->setContent(json_encode($arrayContent));
+        $dataModelattr->setDataModel(json_encode($arrayContent));
         $result = $this->apiInstance->eventTrigger(
             $arrayUids['process_uid'],
             $arrayUids['event_uid'],
@@ -803,8 +807,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ]
             )
         );
-        $this->assertNotEmpty($result->getData()->getAttributes()->getContent());
-        $respContent = $result->getData()->getAttributes()->getContent();
+        $this->assertNotEmpty($result->getData()->getAttributes()->getDataModel());
+        $respContent = $result->getData()->getAttributes()->getDataModel();
         /** Try to check our array responded */
         foreach ($arrayContent as $key => $value) {
             $this->assertEquals($value, $respContent[$key], "Key $key should be equaled to $value");
@@ -822,14 +826,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $arrayContent = ['some_key' => 10, 'one_more_key' => 5];
         $arrayUids = $this->testAddEvent();
         $dataModelattr = new DataModelAttributes();
-        $dataModelattr->setContent(json_encode($arrayContent));
+        $dataModelattr->setDataModel(json_encode($arrayContent));
         $result = $this->apiInstance->eventWebhook(
             $arrayUids['process_uid'],
             $arrayUids['event_uid'],
             json_encode($arrayContent)
         );
 
-        $this->assertEquals('', $result);
+        $this->assertJson($result);
     }
 
     public function testFindByFieldInsideDataModel()
@@ -848,8 +852,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $arrayUids['process_uid'],
                 http_build_query($testData)
             );
-            $this->assertNotEmpty($result->getData()[0]->getAttributes()->getContent());
-            $respContent = $result->getData()[0]->getAttributes()->getContent();
+            $this->assertNotEmpty($result->getData()[0]->getAttributes()->getDataModel());
+            $respContent = $result->getData()[0]->getAttributes()->getDataModel();
 
             /** Try to check our array responded */
             foreach ($testData as $key => $value) {
@@ -867,7 +871,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testFindEvents()
     {
         try {
-            $result = $this->apiInstance->findEvents($this->testAddEvent()['process_uid'])->getData();
+            $result = $this->apiInstance->listEvents($this->testAddEvent()['process_uid'])->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -959,7 +963,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testFindGateways()
     {
         try {
-            $result = $this->apiInstance->findGateways($this->testAddGateway()['process_uid'])->getData();
+            $result = $this->apiInstance->listGateways($this->testAddGateway()['process_uid'])->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -1061,7 +1065,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testFindFlows()
     {
         try {
-            $result = $this->apiInstance->findFlows($this->testAddFlow()['process_uid'])->getData();
+            $result = $this->apiInstance->listFlows($this->testAddFlow()['process_uid'])->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -1168,7 +1172,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         (!$processUid ? $processUid = $this->testAddInstance()['process_uid'] : $processUid);
         try {
-            $result = $this->apiInstance->findInstances($processUid)->getData();
+            $result = $this->apiInstance->listInstances($processUid)->getData();
             $this->assertGreaterThan(0, count($result));
             //Return first Instance relative with ProcessUid for Getting DataModel
             return ['instance_uid' => $result[0]->getId()];
@@ -1261,7 +1265,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $arrayContent = ['key' => 6, 'add' => 15, 'confirm' => false];
         $dataModelattr = new DataModelAttributes();
-        $dataModelattr->setContent(json_encode($arrayContent));
+        $dataModelattr->setDataModel(json_encode($arrayContent));
         $result = $this->apiInstance->eventTrigger(
             $processUid,
             $startEvent,
@@ -1271,8 +1275,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ]
             )
         );
-        $this->assertNotEmpty($result->getData()->getAttributes()->getContent());
-        $respContent = $result->getData()->getAttributes()->getContent();
+        $this->assertNotEmpty($result->getData()->getAttributes()->getDataModel());
+        $respContent = $result->getData()->getAttributes()->getDataModel();
         /** Try to check our array responded */
         foreach ($arrayContent as $key => $value) {
             $this->assertEquals($value, $respContent[$key], "Key $key should be equaled to $value");
@@ -1293,10 +1297,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         try {
             /** Get instance uid */
 
-            $result = $this->apiInstance->findInstances($arrayUids['process_uid']);
+            $result = $this->apiInstance->listInstances($arrayUids['process_uid']);
             $instanceUid = $result->getData()[0]->getId();
 
-            $result = $this->apiInstance->findTokens(
+            $result = $this->apiInstance->listTokens(
                 $arrayUids['process_uid'],
                 $instanceUid
             );
@@ -1434,7 +1438,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testFindTaskInstances()
     {
         try {
-            $result = $this->apiInstance->findTaskInstances()->getData();
+            $result = $this->apiInstance->listTaskInstances()->getData();
             $this->assertGreaterThan(0, count($result));
             return $result[0]->getId();
         } catch (ApiException $e) {
@@ -1460,7 +1464,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $itemData = new TaskInstanceAttributes();
         $itemData->setStatus('STARTED');
-        $itemData->setContent(['key' => 1, 'add' => 1, 'confirm' => true]);
+        $itemData->setDataModel(['key' => 1, 'add' => 1, 'confirm' => true]);
         $result = $this->apiInstance->updateTaskInstance(
             $this->testFindTaskInstances(),
             new TaskInstanceUpdateItem(['data' => new TaskInstance(['attributes' => $itemData])])
@@ -1492,10 +1496,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /** Test case for import BPMN file feature */
+    /** Test case for import BPMN file feature (old method) */
 
     public function testBpmnImportFile()
     {
+        $this->deleteBpmnProcesses();
+
         $bpmn = file_get_contents('test/Api/message_startevent.bpmn');
         $this->assertNotNull($bpmn, 'Imported file not found');
         $bpmnAttr = new BpmnFileAttributes();
@@ -1504,6 +1510,41 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $result = $this->apiInstance->importBpmnFile(new BpmnImportItem(
                 [
                     'data' => new BpmnFile(['attributes' => $bpmnAttr])
+                ]
+            ));
+            $this->assertEquals(2, count($result->getData()));
+            $this->assertNotEmpty($result->getMeta());
+
+        } catch (ApiException $e) {
+            $this->dumpError($e, __METHOD__);
+        }
+    }
+
+    private function deleteBpmnProcesses() {
+        try {
+            $this->apiInstance->deleteProcess('Message_StartEvent');
+        } catch (ApiException $e) {
+            //ignore exception, process could not exists at this point
+        }
+        try {
+            $this->apiInstance->deleteProcess('CalledProcess');
+        } catch (ApiException $e) {
+            //ignore exception, process could not exists at this point
+        }
+    }
+
+    /** Test case for import BPMN file feature new one */
+    public function testImport()
+    {
+        $this->deleteBpmnProcesses();
+        $bpmnFile = file_get_contents('test/Api/message_startevent.bpmn');
+        $this->assertNotNull($bpmnFile, 'Imported file not found');
+        $bpmnAttr = new ImportFileAttributes();
+        $bpmnAttr->setContent($bpmnFile);
+        try {
+            $result = $this->apiInstance->import(new ImportItem(
+                [
+                    'data' => new ImportFile(['attributes' => $bpmnAttr])
                 ]
             ));
             $this->assertEquals(2, count($result->getData()));
@@ -1555,7 +1596,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $arrayUids = $this->testAddInputOutput();
         try {
-            $result = $this->apiInstance->findInputOutputs($arrayUids['process_uid'], $arrayUids['task_uid'])->getData();
+            $result = $this->apiInstance->listInputOutputs($arrayUids['process_uid'], $arrayUids['task_uid'])->getData();
             $this->assertGreaterThan(0, count($result));
         } catch (ApiException $e) {
             $this->dumpError($e, __METHOD__);
@@ -1657,7 +1698,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->testAddOauthClient();
-            $result = $this->apiInstance->findOauthClients($this->testUserUid)->getData();
+            $result = $this->apiInstance->listOauthClients($this->testUserUid)->getData();
             $this->assertGreaterThan(0, count($result));
             //print_r($result);
         } catch (ApiException $e) {
@@ -1770,7 +1811,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             /** @var array $arrayUids */
             $arrayUids = $this->testAddEventConnector();
 
-            $result = $this->apiInstance->findEventConnectors($arrayUids['process_uid'], $arrayUids['event_uid'])->getData();
+            $result = $this->apiInstance->listEventConnectors($arrayUids['process_uid'], $arrayUids['event_uid'])->getData();
 
             $this->assertGreaterThan(0, count($result));
 
@@ -1891,7 +1932,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
             /** @var TaskConnectorAttributes $taskConnectorAttr */
             $taskConnectorAttr = new TaskConnectorAttributes();
-            $taskConnectorAttr->setInputParameters(json_encode([['key' => 'value'], ['key1' => 'value1']]));
+            $taskConnectorAttr->setInputParameters([['key' => 'value'], ['key1' => 'value1']]);
+            $taskConnectorAttr->setOutputParameters([]);
             $result = $this->apiInstance->addTaskConnector(
                 $arrayUids['process_uid'],
                 $arrayUids['task_uid'],
@@ -1903,7 +1945,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             );
 
             $this->assertNotNull($result->getData()->getId());
-            $this->assertEquals($taskConnectorAttr->getInputParameters(), $result->getData()->getAttributes()->getInputParameters());
+
+            $this->assertEquals(
+                $taskConnectorAttr->getInputParameters(),
+                // this converts stdClass(es) into array(s)
+                json_decode(json_encode($result->getData()->getAttributes()->getInputParameters()), true)
+            );
             $arrayUids['task_connector_uid'] = $result->getData()->getId();
             return $arrayUids;
 
@@ -1924,7 +1971,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             /** @var array $arrayUids */
             $arrayUids = $this->testAddTaskConnector();
 
-            $result = $this->apiInstance->findTaskConnectors($arrayUids['process_uid'], $arrayUids['task_uid'])->getData();
+            $result = $this->apiInstance->listTaskConnectors($arrayUids['process_uid'], $arrayUids['task_uid'])->getData();
 
             $this->assertGreaterThan(0, count($result));
 
@@ -1968,7 +2015,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         /** @var TaskConnectorAttributes $itemData */
         $itemData = new TaskConnectorAttributes();
-        $itemData->setInputParameters(json_encode(['new key' => 'new value']));
+        $itemData->setInputParameters(['new key' => 'new value']);
         $result = $this->apiInstance->updateTaskConnector(
             $arrayUids['process_uid'],
             $arrayUids['task_uid'],
@@ -2042,14 +2089,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $arrayUids = $this->testTaskInstanceShowIndex();
         $instanceUid = $this->testFindInstances($arrayUids['process_uid'])['instance_uid'];
         try {
-            $result = $this->apiInstance->findTaskInstancesByInstanceAndTaskId(
+            $result = $this->apiInstance->listTaskInstancesByInstanceAndTaskId(
                 $instanceUid,
                 $arrayUids['task_uid']
             );
             $this->assertGreaterThan(0, count($result->getData()), "List of task instances should be greater then 0");
 
             $delegatedResult =
-                $this->apiInstance->findTaskInstancesByInstanceAndTaskIdDelegated(
+                $this->apiInstance->listTaskInstancesByInstanceAndTaskIdDelegated(
                     $instanceUid,
                     $arrayUids['task_uid']
                 );
@@ -2080,7 +2127,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $instanceUid = $this->testFindInstances($arrayUids['process_uid'])['instance_uid'];
 
         try {
-            $taskInstances = $this->apiInstance->findTaskInstancesByInstanceAndTaskId(
+            $taskInstances = $this->apiInstance->listTaskInstancesByInstanceAndTaskId(
                 $this->testFindInstances($arrayUids['process_uid'])['instance_uid'],
                 $arrayUids['task_uid']
             );
@@ -2097,7 +2144,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             );
 
             $startedResult =
-                $this->apiInstance->findTaskInstancesByInstanceAndTaskIdStarteD(
+                $this->apiInstance->listTaskInstancesByInstanceAndTaskIdStarteD(
                     $instanceUid,
                     $arrayUids['task_uid']
                 );
