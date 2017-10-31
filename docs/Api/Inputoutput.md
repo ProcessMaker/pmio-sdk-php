@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**addInputOutput**](Inputoutput.md#addInputOutput) | **POST** /processes/{process_id}/tasks/{task_id}/inputoutput | 
 [**deleteInputOutput**](Inputoutput.md#deleteInputOutput) | **DELETE** /processes/{process_id}/tasks/{task_id}/inputoutput/{inputoutput_uid} | 
 [**findInputOutputById**](Inputoutput.md#findInputOutputById) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput/{inputoutput_uid} | 
-[**findInputOutputs**](Inputoutput.md#findInputOutputs) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput | 
+[**listInputOutputs**](Inputoutput.md#listInputOutputs) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput | 
 [**updateInputOutput**](Inputoutput.md#updateInputOutput) | **PUT** /processes/{process_id}/tasks/{task_id}/inputoutput/{inputoutput_uid} | 
 
 
@@ -167,8 +167,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findInputOutputs**
-> \ProcessMaker\PMIO\Model\InputOutputCollection findInputOutputs($process_id, $task_id, $page, $per_page)
+# **listInputOutputs**
+> \ProcessMaker\PMIO\Model\InputOutputCollection listInputOutputs($process_id, $task_id, $page, $per_page)
 
 
 
@@ -189,10 +189,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findInputOutputs($process_id, $task_id, $page, $per_page);
+    $result = $api_instance->listInputOutputs($process_id, $task_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Inputoutput->findInputOutputs: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Inputoutput->listInputOutputs: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

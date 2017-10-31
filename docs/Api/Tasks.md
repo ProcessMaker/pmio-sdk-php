@@ -11,10 +11,10 @@ Method | HTTP request | Description
 [**deleteTaskConnector**](Tasks.md#deleteTaskConnector) | **DELETE** /processes/{process_id}/tasks/{task_id}/connectors/{connector_id} | 
 [**findTaskById**](Tasks.md#findTaskById) | **GET** /processes/{process_id}/tasks/{task_id} | 
 [**findTaskConnectorById**](Tasks.md#findTaskConnectorById) | **GET** /processes/{process_id}/tasks/{task_id}/connectors/{connector_id} | 
-[**findTaskConnectors**](Tasks.md#findTaskConnectors) | **GET** /processes/{process_id}/tasks/{task_id}/connectors | 
 [**findTaskInstanceById**](Tasks.md#findTaskInstanceById) | **GET** /task_instances/{task_instance_id} | 
-[**findTaskInstances**](Tasks.md#findTaskInstances) | **GET** /task_instances | 
-[**findTasks**](Tasks.md#findTasks) | **GET** /processes/{process_id}/tasks | 
+[**listTaskConnectors**](Tasks.md#listTaskConnectors) | **GET** /processes/{process_id}/tasks/{task_id}/connectors | 
+[**listTaskInstances**](Tasks.md#listTaskInstances) | **GET** /task_instances | 
+[**listTasks**](Tasks.md#listTasks) | **GET** /processes/{process_id}/tasks | 
 [**removeGroupsFromTask**](Tasks.md#removeGroupsFromTask) | **DELETE** /processes/{process_id}/tasks/{task_id}/groups | 
 [**syncGroupsToTask**](Tasks.md#syncGroupsToTask) | **POST** /processes/{process_id}/tasks/{task_id}/groups | 
 [**updateTask**](Tasks.md#updateTask) | **PUT** /processes/{process_id}/tasks/{task_id} | 
@@ -380,60 +380,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskConnectors**
-> \ProcessMaker\PMIO\Model\TaskConnectorsCollection findTaskConnectors($process_id, $task_id, $page, $per_page)
-
-
-
-This method returns all task connectors related to the run process and task.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Tasks();
-$process_id = "process_id_example"; // string | ID of the process to fetch
-$task_id = "task_id_example"; // string | ID of the task to fetch
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findTaskConnectors($process_id, $task_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Tasks->findTaskConnectors: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process to fetch |
- **task_id** | **string**| ID of the task to fetch |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskConnectorsCollection**](../Model/TaskConnectorsCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findTaskInstanceById**
 > \ProcessMaker\PMIO\Model\InlineResponse200 findTaskInstanceById($task_instance_id, $page, $per_page)
 
@@ -486,8 +432,62 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskInstances**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstances($page, $per_page)
+# **listTaskConnectors**
+> \ProcessMaker\PMIO\Model\TaskConnectorsCollection listTaskConnectors($process_id, $task_id, $page, $per_page)
+
+
+
+This method returns all task connectors related to the run process and task.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Tasks();
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listTaskConnectors($process_id, $task_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Tasks->listTaskConnectors: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskConnectorsCollection**](../Model/TaskConnectorsCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskInstances**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstances($page, $per_page)
 
 
 
@@ -506,10 +506,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findTaskInstances($page, $per_page);
+    $result = $api_instance->listTaskInstances($page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Tasks->findTaskInstances: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Tasks->listTaskInstances: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -536,8 +536,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTasks**
-> \ProcessMaker\PMIO\Model\TaskCollection findTasks($process_id, $page, $per_page)
+# **listTasks**
+> \ProcessMaker\PMIO\Model\TaskCollection listTasks($process_id, $page, $per_page)
 
 
 
@@ -557,10 +557,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findTasks($process_id, $page, $per_page);
+    $result = $api_instance->listTasks($process_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Tasks->findTasks: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Tasks->listTasks: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

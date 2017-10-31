@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **duration** | **int** |  | [optional] 
 **instance_overdue_percentage** | **double** |  | [optional] 
 **data** | **string** |  | [optional] 
-**content** | **string** |  | [optional] 
+**data_model** | **string** |  | [optional] 
 **created_at** | **string** |  | [optional] 
 **updated_at** | **string** |  | [optional] 
 

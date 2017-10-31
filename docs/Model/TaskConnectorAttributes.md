@@ -5,8 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **task_id** | **int** |  | [optional] 
 **connector_class** | **string** |  | [optional] [default to 'HttpConnector']
-**input_parameters** | **string** |  | [optional] [default to '[]']
-**output_parameters** | **string** |  | [optional] [default to '[]']
+**input_parameters** | **object** |  | [optional] 
+**output_parameters** | **object** |  | [optional] 
 **async_before** | **bool** |  | [optional] 
 **created_at** | **string** |  | [optional] 
 **updated_at** | **string** |  | [optional] 

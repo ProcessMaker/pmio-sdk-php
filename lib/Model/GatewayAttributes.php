@@ -71,6 +71,7 @@ class GatewayAttributes implements ArrayAccess
         'process_id' => 'string',
         'type' => 'string',
         'direction' => 'string',
+        'ref_id' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -90,6 +91,7 @@ class GatewayAttributes implements ArrayAccess
         'process_id' => 'process_id',
         'type' => 'type',
         'direction' => 'direction',
+        'ref_id' => 'ref_id',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -109,6 +111,7 @@ class GatewayAttributes implements ArrayAccess
         'process_id' => 'setProcessId',
         'type' => 'setType',
         'direction' => 'setDirection',
+        'ref_id' => 'setRefId',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -128,6 +131,7 @@ class GatewayAttributes implements ArrayAccess
         'process_id' => 'getProcessId',
         'type' => 'getType',
         'direction' => 'getDirection',
+        'ref_id' => 'getRefId',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -192,6 +196,7 @@ class GatewayAttributes implements ArrayAccess
         $this->container['process_id'] = isset($data['process_id']) ? $data['process_id'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
         $this->container['direction'] = isset($data['direction']) ? $data['direction'] : null;
+        $this->container['ref_id'] = isset($data['ref_id']) ? $data['ref_id'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -220,6 +225,10 @@ class GatewayAttributes implements ArrayAccess
             $invalid_properties[] = "invalid value for 'direction', must be one of #{allowed_values}.";
         }
 
+        if (!is_null($this->container['ref_id']) && (strlen($this->container['ref_id']) > 255)) {
+            $invalid_properties[] = "invalid value for 'ref_id', the character length must be smaller than or equal to 255.";
+        }
+
         return $invalid_properties;
     }
 
@@ -243,6 +252,9 @@ class GatewayAttributes implements ArrayAccess
         }
         $allowed_values = array("DIVERGENT", "CONVERGENT", "MIXED");
         if (!in_array($this->container['direction'], $allowed_values)) {
+            return false;
+        }
+        if (strlen($this->container['ref_id']) > 255) {
             return false;
         }
         return true;
@@ -358,6 +370,30 @@ class GatewayAttributes implements ArrayAccess
             throw new \InvalidArgumentException("Invalid value for 'direction', must be one of 'DIVERGENT', 'CONVERGENT', 'MIXED'");
         }
         $this->container['direction'] = $direction;
+
+        return $this;
+    }
+
+    /**
+     * Gets ref_id
+     * @return string
+     */
+    public function getRefId()
+    {
+        return $this->container['ref_id'];
+    }
+
+    /**
+     * Sets ref_id
+     * @param string $ref_id Set as XML object ID if imported from BPMN file or can be optionally set when object added via API. Used to optionally refer object by ref_id instead of using its UUID.
+     * @return $this
+     */
+    public function setRefId($ref_id)
+    {
+        if (strlen($ref_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for $ref_id when calling GatewayAttributes., must be smaller than or equal to 255.');
+        }
+        $this->container['ref_id'] = $ref_id;
 
         return $this;
     }

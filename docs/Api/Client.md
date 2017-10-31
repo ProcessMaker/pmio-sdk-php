@@ -32,39 +32,40 @@ Method | HTTP request | Description
 [**deleteUser**](Client.md#deleteUser) | **DELETE** /users/{id} | 
 [**eventTrigger**](Client.md#eventTrigger) | **POST** /processes/{process_id}/events/{event_id}/trigger | 
 [**eventWebhook**](Client.md#eventWebhook) | **POST** /processes/{process_id}/events/{event_id}/webhook | 
-[**findByFieldInsideDataModel**](Client.md#findByFieldInsideDataModel) | **GET** /processes/{process_id}/datamodels/search/{search_param} | 
 [**findDataModel**](Client.md#findDataModel) | **GET** /processes/{process_id}/instances/{instance_id}/datamodel | 
 [**findEventById**](Client.md#findEventById) | **GET** /processes/{process_id}/events/{event_id} | 
 [**findEventConnectorById**](Client.md#findEventConnectorById) | **GET** /processes/{process_id}/events/{event_id}/connectors/{connector_id} | 
-[**findEventConnectors**](Client.md#findEventConnectors) | **GET** /processes/{process_id}/events/{event_id}/connectors | 
-[**findEvents**](Client.md#findEvents) | **GET** /processes/{process_id}/events | 
 [**findFlowById**](Client.md#findFlowById) | **GET** /processes/{process_id}/flows/{flow_id} | 
-[**findFlows**](Client.md#findFlows) | **GET** /processes/{process_id}/flows | 
 [**findGatewayById**](Client.md#findGatewayById) | **GET** /processes/{process_id}/gateways/{gateway_id} | 
-[**findGateways**](Client.md#findGateways) | **GET** /processes/{process_id}/gateways | 
 [**findGroupById**](Client.md#findGroupById) | **GET** /groups/{id} | 
-[**findGroups**](Client.md#findGroups) | **GET** /groups | 
 [**findInputOutputById**](Client.md#findInputOutputById) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput/{inputoutput_uid} | 
-[**findInputOutputs**](Client.md#findInputOutputs) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput | 
 [**findInstanceById**](Client.md#findInstanceById) | **GET** /processes/{process_id}/instances/{instance_id} | 
-[**findInstances**](Client.md#findInstances) | **GET** /processes/{process_id}/instances | 
 [**findOauthClientById**](Client.md#findOauthClientById) | **GET** /users/{user_id}/clients/{client_id} | 
-[**findOauthClients**](Client.md#findOauthClients) | **GET** /users/{user_id}/clients | 
 [**findProcessById**](Client.md#findProcessById) | **GET** /processes/{id} | 
-[**findProcesses**](Client.md#findProcesses) | **GET** /processes | 
 [**findTaskById**](Client.md#findTaskById) | **GET** /processes/{process_id}/tasks/{task_id} | 
 [**findTaskConnectorById**](Client.md#findTaskConnectorById) | **GET** /processes/{process_id}/tasks/{task_id}/connectors/{connector_id} | 
-[**findTaskConnectors**](Client.md#findTaskConnectors) | **GET** /processes/{process_id}/tasks/{task_id}/connectors | 
 [**findTaskInstanceById**](Client.md#findTaskInstanceById) | **GET** /task_instances/{task_instance_id} | 
-[**findTaskInstances**](Client.md#findTaskInstances) | **GET** /task_instances | 
-[**findTaskInstancesByInstanceAndTaskId**](Client.md#findTaskInstancesByInstanceAndTaskId) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances | 
-[**findTaskInstancesByInstanceAndTaskIdDelegated**](Client.md#findTaskInstancesByInstanceAndTaskIdDelegated) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/delegated | 
-[**findTaskInstancesByInstanceAndTaskIdStarted**](Client.md#findTaskInstancesByInstanceAndTaskIdStarted) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/started | 
-[**findTasks**](Client.md#findTasks) | **GET** /processes/{process_id}/tasks | 
-[**findTokens**](Client.md#findTokens) | **GET** /processes/{process_id}/instances/{instance_id}/tokens | 
 [**findUserById**](Client.md#findUserById) | **GET** /users/{id} | 
-[**findUsers**](Client.md#findUsers) | **GET** /users | 
+[**import**](Client.md#import) | **POST** /processes/import/bpmn | 
 [**importBpmnFile**](Client.md#importBpmnFile) | **POST** /processes/import | 
+[**listByFieldInsideDataModel**](Client.md#listByFieldInsideDataModel) | **GET** /processes/{process_id}/datamodels/search/{search_param} | 
+[**listEventConnectors**](Client.md#listEventConnectors) | **GET** /processes/{process_id}/events/{event_id}/connectors | 
+[**listEvents**](Client.md#listEvents) | **GET** /processes/{process_id}/events | 
+[**listFlows**](Client.md#listFlows) | **GET** /processes/{process_id}/flows | 
+[**listGateways**](Client.md#listGateways) | **GET** /processes/{process_id}/gateways | 
+[**listGroups**](Client.md#listGroups) | **GET** /groups | 
+[**listInputOutputs**](Client.md#listInputOutputs) | **GET** /processes/{process_id}/tasks/{task_id}/inputoutput | 
+[**listInstances**](Client.md#listInstances) | **GET** /processes/{process_id}/instances | 
+[**listOauthClients**](Client.md#listOauthClients) | **GET** /users/{user_id}/clients | 
+[**listProcesses**](Client.md#listProcesses) | **GET** /processes | 
+[**listTaskConnectors**](Client.md#listTaskConnectors) | **GET** /processes/{process_id}/tasks/{task_id}/connectors | 
+[**listTaskInstances**](Client.md#listTaskInstances) | **GET** /task_instances | 
+[**listTaskInstancesByInstanceAndTaskId**](Client.md#listTaskInstancesByInstanceAndTaskId) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances | 
+[**listTaskInstancesByInstanceAndTaskIdDelegated**](Client.md#listTaskInstancesByInstanceAndTaskIdDelegated) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/delegated | 
+[**listTaskInstancesByInstanceAndTaskIdStarted**](Client.md#listTaskInstancesByInstanceAndTaskIdStarted) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/started | 
+[**listTasks**](Client.md#listTasks) | **GET** /processes/{process_id}/tasks | 
+[**listTokens**](Client.md#listTokens) | **GET** /processes/{process_id}/instances/{instance_id}/tokens | 
+[**listUsers**](Client.md#listUsers) | **GET** /users | 
 [**myselfUser**](Client.md#myselfUser) | **GET** /users/myself | 
 [**removeGroupsFromTask**](Client.md#removeGroupsFromTask) | **DELETE** /processes/{process_id}/tasks/{task_id}/groups | 
 [**removeUsersFromGroup**](Client.md#removeUsersFromGroup) | **DELETE** /groups/{id}/users | 
@@ -690,7 +691,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **addUser**
-> \ProcessMaker\PMIO\Model\UserItem addUser($user_create_item)
+> \ProcessMaker\PMIO\Model\UserItem addUser($user_create_item, $create_client)
 
 
 
@@ -706,9 +707,10 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Client();
 $user_create_item = new \ProcessMaker\PMIO\Model\UserCreateItem(); // \ProcessMaker\PMIO\Model\UserCreateItem | JSON API with the User object to add
+$create_client = "1"; // string | If not empty - a new Oauth Client would be created along with User
 
 try {
-    $result = $api_instance->addUser($user_create_item);
+    $result = $api_instance->addUser($user_create_item, $create_client);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling Client->addUser: ', $e->getMessage(), PHP_EOL;
@@ -721,6 +723,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_create_item** | [**\ProcessMaker\PMIO\Model\UserCreateItem**](../Model/\ProcessMaker\PMIO\Model\UserCreateItem.md)| JSON API with the User object to add |
+ **create_client** | **string**| If not empty - a new Oauth Client would be created along with User | [optional] [default to 1]
 
 ### Return type
 
@@ -1440,7 +1443,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **eventWebhook**
-> string eventWebhook($process_id, $event_id, $trigger_body)
+> string eventWebhook($process_id, $event_id, $any_variable)
 
 
 
@@ -1457,10 +1460,10 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 $api_instance = new ProcessMaker\PMIO\Api\Client();
 $process_id = "process_id_example"; // string | Process ID related to the event
 $event_id = "event_id_example"; // string | ID of the event to trigger
-$trigger_body = "trigger_body_example"; // string | Freeform JSON structure, it will be passed to the newly created DataModel
+$any_variable = "any_variable_example"; // string | Any POST or GET variable will be passed to the newly created DataModel
 
 try {
-    $result = $api_instance->eventWebhook($process_id, $event_id, $trigger_body);
+    $result = $api_instance->eventWebhook($process_id, $event_id, $any_variable);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling Client->eventWebhook: ', $e->getMessage(), PHP_EOL;
@@ -1474,65 +1477,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID related to the event |
  **event_id** | **string**| ID of the event to trigger |
- **trigger_body** | **string**| Freeform JSON structure, it will be passed to the newly created DataModel |
+ **any_variable** | **string**| Any POST or GET variable will be passed to the newly created DataModel | [optional]
 
 ### Return type
 
 **string**
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findByFieldInsideDataModel**
-> \ProcessMaker\PMIO\Model\DataModelCollection findByFieldInsideDataModel($process_id, $search_param, $page, $per_page)
-
-
-
-This method returns the data model by field passed in get argument.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process to return
-$search_param = "search_param_example"; // string | Key and value of searched field in DataModel
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findByFieldInsideDataModel($process_id, $search_param, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findByFieldInsideDataModel: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process to return |
- **search_param** | **string**| Key and value of searched field in DataModel |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\DataModelCollection**](../Model/DataModelCollection.md)
 
 ### Authorization
 
@@ -1701,112 +1650,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findEventConnectors**
-> \ProcessMaker\PMIO\Model\EventConnectorsCollection findEventConnectors($process_id, $event_id, $page, $per_page)
-
-
-
-This method returns all event connectors related to the run process and Event.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process to fetch
-$event_id = "event_id_example"; // string | ID of the task to fetch
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findEventConnectors($process_id, $event_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findEventConnectors: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process to fetch |
- **event_id** | **string**| ID of the task to fetch |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\EventConnectorsCollection**](../Model/EventConnectorsCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findEvents**
-> \ProcessMaker\PMIO\Model\EventCollection findEvents($process_id, $page, $per_page)
-
-
-
-This method returns all events related to the running process.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process related to the event
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findEvents($process_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findEvents: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process related to the event |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\EventCollection**](../Model/EventCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findFlowById**
 > \ProcessMaker\PMIO\Model\FlowItem findFlowById($process_id, $flow_id)
 
@@ -1845,58 +1688,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\FlowItem**](../Model/FlowItem.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findFlows**
-> \ProcessMaker\PMIO\Model\FlowCollection findFlows($process_id, $page, $per_page)
-
-
-
-This method retrieves all existing flows.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process related to the flow
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findFlows($process_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findFlows: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process related to the flow |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\FlowCollection**](../Model/FlowCollection.md)
 
 ### Authorization
 
@@ -1959,58 +1750,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findGateways**
-> \ProcessMaker\PMIO\Model\GatewayCollection findGateways($process_id, $page, $per_page)
-
-
-
-This method retrieves all existing gateways.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process related to the gateway
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findGateways($process_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findGateways: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process related to the gateway |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\GatewayCollection**](../Model/GatewayCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findGroupById**
 > \ProcessMaker\PMIO\Model\GroupItem findGroupById($id)
 
@@ -2047,56 +1786,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\GroupItem**](../Model/GroupItem.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findGroups**
-> \ProcessMaker\PMIO\Model\GroupCollection findGroups($page, $per_page)
-
-
-
-This method retrieves all existing groups.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findGroups($page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findGroups: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\GroupCollection**](../Model/GroupCollection.md)
 
 ### Authorization
 
@@ -2161,60 +1850,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findInputOutputs**
-> \ProcessMaker\PMIO\Model\InputOutputCollection findInputOutputs($process_id, $task_id, $page, $per_page)
-
-
-
-This method retrieves all existing Input/Output objects in the related task instance.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | Process ID related to Input/Output object
-$task_id = "task_id_example"; // string | Task instance ID related to Input/Output object
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findInputOutputs($process_id, $task_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findInputOutputs: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| Process ID related to Input/Output object |
- **task_id** | **string**| Task instance ID related to Input/Output object |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\InputOutputCollection**](../Model/InputOutputCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findInstanceById**
 > \ProcessMaker\PMIO\Model\InstanceItem findInstanceById($process_id, $instance_id)
 
@@ -2253,58 +1888,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\InstanceItem**](../Model/InstanceItem.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findInstances**
-> \ProcessMaker\PMIO\Model\InstanceCollection findInstances($process_id, $page, $per_page)
-
-
-
-This method retrieves instances related to the process using the process ID
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | Process ID related to the instances
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findInstances($process_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findInstances: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| Process ID related to the instances |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\InstanceCollection**](../Model/InstanceCollection.md)
 
 ### Authorization
 
@@ -2367,58 +1950,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findOauthClients**
-> \ProcessMaker\PMIO\Model\OauthClientCollection findOauthClients($user_id, $page, $per_page)
-
-
-
-This method retrieves all existing Oauth clients belonging to a user.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$user_id = "user_id_example"; // string | User ID related to the Oauth clients
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findOauthClients($user_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findOauthClients: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **user_id** | **string**| User ID related to the Oauth clients |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\OauthClientCollection**](../Model/OauthClientCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findProcessById**
 > \ProcessMaker\PMIO\Model\ProcessItem findProcessById($id)
 
@@ -2455,56 +1986,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\ProcessItem**](../Model/ProcessItem.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findProcesses**
-> \ProcessMaker\PMIO\Model\ProcessCollection findProcesses($page, $per_page)
-
-
-
-This method retrieves all existing processes.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findProcesses($page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findProcesses: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\ProcessCollection**](../Model/ProcessCollection.md)
 
 ### Authorization
 
@@ -2619,60 +2100,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskConnectors**
-> \ProcessMaker\PMIO\Model\TaskConnectorsCollection findTaskConnectors($process_id, $task_id, $page, $per_page)
-
-
-
-This method returns all task connectors related to the run process and task.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process to fetch
-$task_id = "task_id_example"; // string | ID of the task to fetch
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findTaskConnectors($process_id, $task_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTaskConnectors: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process to fetch |
- **task_id** | **string**| ID of the task to fetch |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskConnectorsCollection**](../Model/TaskConnectorsCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **findTaskInstanceById**
 > \ProcessMaker\PMIO\Model\InlineResponse200 findTaskInstanceById($task_instance_id, $page, $per_page)
 
@@ -2713,312 +2140,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\InlineResponse200**](../Model/InlineResponse200.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTaskInstances**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstances($page, $per_page)
-
-
-
-This method retrieves all existing task instances.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findTaskInstances($page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTaskInstances: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTaskInstancesByInstanceAndTaskId**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
-
-
-
-This method retrieves task instances using the instance ID and the task ID.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$instance_id = "instance_id_example"; // string | ID of the instance
-$task_id = "task_id_example"; // string | ID of the task
-
-try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskId($instance_id, $task_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTaskInstancesByInstanceAndTaskId: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **instance_id** | **string**| ID of the instance |
- **task_id** | **string**| ID of the task |
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTaskInstancesByInstanceAndTaskIdDelegated**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
-
-
-
-This method retrieves delegated task instances using the instance ID and the task ID.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$instance_id = "instance_id_example"; // string | ID of the instance
-$task_id = "task_id_example"; // string | ID of the task
-
-try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTaskInstancesByInstanceAndTaskIdDelegated: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **instance_id** | **string**| ID of the instance |
- **task_id** | **string**| ID of the task |
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTaskInstancesByInstanceAndTaskIdStarted**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
-
-
-
-This method retrieves started task instances using the instance ID and the task ID.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$instance_id = "instance_id_example"; // string | ID of the instance
-$task_id = "task_id_example"; // string | ID of the task
-
-try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTaskInstancesByInstanceAndTaskIdStarted: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **instance_id** | **string**| ID of the instance |
- **task_id** | **string**| ID of the task |
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTasks**
-> \ProcessMaker\PMIO\Model\TaskCollection findTasks($process_id, $page, $per_page)
-
-
-
-This method is intended for returning a list of all tasks related to the process.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | ID of the process relative to the task
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findTasks($process_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTasks: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process relative to the task |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TaskCollection**](../Model/TaskCollection.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findTokens**
-> \ProcessMaker\PMIO\Model\TokenCollection findTokens($process_id, $instance_id, $page, $per_page)
-
-
-
-This method retrieves tokens related to the process and instance using the process and instance IDs
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\Client();
-$process_id = "process_id_example"; // string | Process ID
-$instance_id = "instance_id_example"; // string | Instance ID related to the process
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findTokens($process_id, $instance_id, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling Client->findTokens: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| Process ID |
- **instance_id** | **string**| Instance ID related to the process |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\TokenCollection**](../Model/TokenCollection.md)
 
 ### Authorization
 
@@ -3079,12 +2200,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findUsers**
-> \ProcessMaker\PMIO\Model\UserCollection findUsers($page, $per_page)
+# **import**
+> \ProcessMaker\PMIO\Model\ProcessCollection1 import($import_item)
 
 
 
-This method returns all existing users in the system.
+This method imports BPMN 2.0 files. A new process(es) is/are created and its object returned back when import is successful.
 
 ### Example
 ```php
@@ -3095,14 +2216,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Client();
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
+$import_item = new \ProcessMaker\PMIO\Model\ImportItem(); // \ProcessMaker\PMIO\Model\ImportItem | JSON API with the BPMN file to import
 
 try {
-    $result = $api_instance->findUsers($page, $per_page);
+    $result = $api_instance->import($import_item);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Client->findUsers: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Client->import: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -3111,12 +2231,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+ **import_item** | [**\ProcessMaker\PMIO\Model\ImportItem**](../Model/\ProcessMaker\PMIO\Model\ImportItem.md)| JSON API with the BPMN file to import |
 
 ### Return type
 
-[**\ProcessMaker\PMIO\Model\UserCollection**](../Model/UserCollection.md)
+[**\ProcessMaker\PMIO\Model\ProcessCollection1**](../Model/ProcessCollection1.md)
 
 ### Authorization
 
@@ -3165,6 +2284,938 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\ProcessCollection1**](../Model/ProcessCollection1.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listByFieldInsideDataModel**
+> \ProcessMaker\PMIO\Model\DataModelCollection listByFieldInsideDataModel($process_id, $search_param, $page, $per_page)
+
+
+
+This method returns the data model by field passed in get argument.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process to return
+$search_param = "search_param_example"; // string | Key and value of searched field in DataModel
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listByFieldInsideDataModel($process_id, $search_param, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listByFieldInsideDataModel: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process to return |
+ **search_param** | **string**| Key and value of searched field in DataModel |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\DataModelCollection**](../Model/DataModelCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listEventConnectors**
+> \ProcessMaker\PMIO\Model\EventConnectorsCollection listEventConnectors($process_id, $event_id, $page, $per_page)
+
+
+
+This method returns all event connectors related to the run process and Event.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$event_id = "event_id_example"; // string | ID of the task to fetch
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listEventConnectors($process_id, $event_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listEventConnectors: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process to fetch |
+ **event_id** | **string**| ID of the task to fetch |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\EventConnectorsCollection**](../Model/EventConnectorsCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listEvents**
+> \ProcessMaker\PMIO\Model\EventCollection listEvents($process_id, $page, $per_page)
+
+
+
+This method returns all events related to the running process.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process related to the event
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listEvents($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listEvents: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process related to the event |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\EventCollection**](../Model/EventCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listFlows**
+> \ProcessMaker\PMIO\Model\FlowCollection listFlows($process_id, $page, $per_page)
+
+
+
+This method retrieves all existing flows.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process related to the flow
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listFlows($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listFlows: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process related to the flow |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\FlowCollection**](../Model/FlowCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listGateways**
+> \ProcessMaker\PMIO\Model\GatewayCollection listGateways($process_id, $page, $per_page)
+
+
+
+This method retrieves all existing gateways.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process related to the gateway
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listGateways($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listGateways: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process related to the gateway |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\GatewayCollection**](../Model/GatewayCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listGroups**
+> \ProcessMaker\PMIO\Model\GroupCollection listGroups($page, $per_page)
+
+
+
+This method retrieves all existing groups.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listGroups($page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listGroups: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\GroupCollection**](../Model/GroupCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listInputOutputs**
+> \ProcessMaker\PMIO\Model\InputOutputCollection listInputOutputs($process_id, $task_id, $page, $per_page)
+
+
+
+This method retrieves all existing Input/Output objects in the related task instance.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | Process ID related to Input/Output object
+$task_id = "task_id_example"; // string | Task instance ID related to Input/Output object
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listInputOutputs($process_id, $task_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listInputOutputs: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID related to Input/Output object |
+ **task_id** | **string**| Task instance ID related to Input/Output object |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InputOutputCollection**](../Model/InputOutputCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listInstances**
+> \ProcessMaker\PMIO\Model\InstanceCollection listInstances($process_id, $page, $per_page)
+
+
+
+This method retrieves instances related to the process using the process ID
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | Process ID related to the instances
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listInstances($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listInstances: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID related to the instances |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\InstanceCollection**](../Model/InstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listOauthClients**
+> \ProcessMaker\PMIO\Model\OauthClientCollection listOauthClients($user_id, $page, $per_page)
+
+
+
+This method retrieves all existing Oauth clients belonging to a user.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$user_id = "user_id_example"; // string | User ID related to the Oauth clients
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listOauthClients($user_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listOauthClients: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_id** | **string**| User ID related to the Oauth clients |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\OauthClientCollection**](../Model/OauthClientCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listProcesses**
+> \ProcessMaker\PMIO\Model\ProcessCollection listProcesses($page, $per_page)
+
+
+
+This method retrieves all existing processes.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listProcesses($page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listProcesses: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\ProcessCollection**](../Model/ProcessCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskConnectors**
+> \ProcessMaker\PMIO\Model\TaskConnectorsCollection listTaskConnectors($process_id, $task_id, $page, $per_page)
+
+
+
+This method returns all task connectors related to the run process and task.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process to fetch
+$task_id = "task_id_example"; // string | ID of the task to fetch
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listTaskConnectors($process_id, $task_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTaskConnectors: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process to fetch |
+ **task_id** | **string**| ID of the task to fetch |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskConnectorsCollection**](../Model/TaskConnectorsCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskInstances**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstances($page, $per_page)
+
+
+
+This method retrieves all existing task instances.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listTaskInstances($page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTaskInstances: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskInstancesByInstanceAndTaskId**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
+
+
+
+This method retrieves task instances using the instance ID and the task ID.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$instance_id = "instance_id_example"; // string | ID of the instance
+$task_id = "task_id_example"; // string | ID of the task
+
+try {
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskId($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTaskInstancesByInstanceAndTaskId: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of the instance |
+ **task_id** | **string**| ID of the task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskInstancesByInstanceAndTaskIdDelegated**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
+
+
+
+This method retrieves delegated task instances using the instance ID and the task ID.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$instance_id = "instance_id_example"; // string | ID of the instance
+$task_id = "task_id_example"; // string | ID of the task
+
+try {
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTaskInstancesByInstanceAndTaskIdDelegated: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of the instance |
+ **task_id** | **string**| ID of the task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTaskInstancesByInstanceAndTaskIdStarted**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
+
+
+
+This method retrieves started task instances using the instance ID and the task ID.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$instance_id = "instance_id_example"; // string | ID of the instance
+$task_id = "task_id_example"; // string | ID of the task
+
+try {
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTaskInstancesByInstanceAndTaskIdStarted: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance_id** | **string**| ID of the instance |
+ **task_id** | **string**| ID of the task |
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskInstanceCollection**](../Model/TaskInstanceCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTasks**
+> \ProcessMaker\PMIO\Model\TaskCollection listTasks($process_id, $page, $per_page)
+
+
+
+This method is intended for returning a list of all tasks related to the process.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | ID of the process relative to the task
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listTasks($process_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTasks: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process relative to the task |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TaskCollection**](../Model/TaskCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listTokens**
+> \ProcessMaker\PMIO\Model\TokenCollection listTokens($process_id, $instance_id, $page, $per_page)
+
+
+
+This method retrieves tokens related to the process and instance using the process and instance IDs
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$process_id = "process_id_example"; // string | Process ID
+$instance_id = "instance_id_example"; // string | Instance ID related to the process
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listTokens($process_id, $instance_id, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listTokens: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| Process ID |
+ **instance_id** | **string**| Instance ID related to the process |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\TokenCollection**](../Model/TokenCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listUsers**
+> \ProcessMaker\PMIO\Model\UserCollection listUsers($page, $per_page)
+
+
+
+This method returns all existing users in the system.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Client();
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listUsers($page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Client->listUsers: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\UserCollection**](../Model/UserCollection.md)
 
 ### Authorization
 

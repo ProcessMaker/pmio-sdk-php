@@ -76,6 +76,7 @@ class ProcessAttributes implements ArrayAccess
         'sub_category_id' => 'string',
         'create_user_id' => 'string',
         'debug' => 'bool',
+        'ref_id' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -100,6 +101,7 @@ class ProcessAttributes implements ArrayAccess
         'sub_category_id' => 'sub_category_id',
         'create_user_id' => 'create_user_id',
         'debug' => 'debug',
+        'ref_id' => 'ref_id',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -124,6 +126,7 @@ class ProcessAttributes implements ArrayAccess
         'sub_category_id' => 'setSubCategoryId',
         'create_user_id' => 'setCreateUserId',
         'debug' => 'setDebug',
+        'ref_id' => 'setRefId',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -148,6 +151,7 @@ class ProcessAttributes implements ArrayAccess
         'sub_category_id' => 'getSubCategoryId',
         'create_user_id' => 'getCreateUserId',
         'debug' => 'getDebug',
+        'ref_id' => 'getRefId',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -213,6 +217,7 @@ class ProcessAttributes implements ArrayAccess
         $this->container['sub_category_id'] = isset($data['sub_category_id']) ? $data['sub_category_id'] : null;
         $this->container['create_user_id'] = isset($data['create_user_id']) ? $data['create_user_id'] : null;
         $this->container['debug'] = isset($data['debug']) ? $data['debug'] : false;
+        $this->container['ref_id'] = isset($data['ref_id']) ? $data['ref_id'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -244,6 +249,10 @@ class ProcessAttributes implements ArrayAccess
             $invalid_properties[] = "invalid value for 'type', must be one of #{allowed_values}.";
         }
 
+        if (!is_null($this->container['ref_id']) && (strlen($this->container['ref_id']) > 255)) {
+            $invalid_properties[] = "invalid value for 'ref_id', the character length must be smaller than or equal to 255.";
+        }
+
         return $invalid_properties;
     }
 
@@ -270,6 +279,9 @@ class ProcessAttributes implements ArrayAccess
         }
         $allowed_values = array("NORMAL", "SUB_PROCESS");
         if (!in_array($this->container['type'], $allowed_values)) {
+            return false;
+        }
+        if (strlen($this->container['ref_id']) > 255) {
             return false;
         }
         return true;
@@ -490,6 +502,30 @@ class ProcessAttributes implements ArrayAccess
     public function setDebug($debug)
     {
         $this->container['debug'] = $debug;
+
+        return $this;
+    }
+
+    /**
+     * Gets ref_id
+     * @return string
+     */
+    public function getRefId()
+    {
+        return $this->container['ref_id'];
+    }
+
+    /**
+     * Sets ref_id
+     * @param string $ref_id Set as XML object ID if imported from BPMN file or can be optionally set when object added via API. Used to optionally refer object by ref_id instead of using its UUID.
+     * @return $this
+     */
+    public function setRefId($ref_id)
+    {
+        if (strlen($ref_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for $ref_id when calling ProcessAttributes., must be smaller than or equal to 255.');
+        }
+        $this->container['ref_id'] = $ref_id;
 
         return $this;
     }

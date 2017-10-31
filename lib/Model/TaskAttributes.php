@@ -73,6 +73,7 @@ class TaskAttributes implements ArrayAccess
         'assign_type' => 'string',
         'last_assigned_user_id' => 'string',
         'script' => 'string',
+        'ref_id' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -94,6 +95,7 @@ class TaskAttributes implements ArrayAccess
         'assign_type' => 'assign_type',
         'last_assigned_user_id' => 'last_assigned_user_id',
         'script' => 'script',
+        'ref_id' => 'ref_id',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -115,6 +117,7 @@ class TaskAttributes implements ArrayAccess
         'assign_type' => 'setAssignType',
         'last_assigned_user_id' => 'setLastAssignedUserId',
         'script' => 'setScript',
+        'ref_id' => 'setRefId',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -136,6 +139,7 @@ class TaskAttributes implements ArrayAccess
         'assign_type' => 'getAssignType',
         'last_assigned_user_id' => 'getLastAssignedUserId',
         'script' => 'getScript',
+        'ref_id' => 'getRefId',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -240,6 +244,7 @@ class TaskAttributes implements ArrayAccess
         $this->container['assign_type'] = isset($data['assign_type']) ? $data['assign_type'] : 'CYCLIC';
         $this->container['last_assigned_user_id'] = isset($data['last_assigned_user_id']) ? $data['last_assigned_user_id'] : null;
         $this->container['script'] = isset($data['script']) ? $data['script'] : null;
+        $this->container['ref_id'] = isset($data['ref_id']) ? $data['ref_id'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -274,6 +279,10 @@ class TaskAttributes implements ArrayAccess
             $invalid_properties[] = "invalid value for 'assign_type', must be one of #{allowed_values}.";
         }
 
+        if (!is_null($this->container['ref_id']) && (strlen($this->container['ref_id']) > 255)) {
+            $invalid_properties[] = "invalid value for 'ref_id', the character length must be smaller than or equal to 255.";
+        }
+
         return $invalid_properties;
     }
 
@@ -303,6 +312,9 @@ class TaskAttributes implements ArrayAccess
         }
         $allowed_values = array("CYCLIC", "MANUAL", "EVALUATE", "REPORT_TO", "SELF_SERVICE", "STATIC_MI", "CANCEL_MI", "MULTIPLE_INSTANCE", "MULTIPLE_INSTANCE_VALUE_BASED");
         if (!in_array($this->container['assign_type'], $allowed_values)) {
+            return false;
+        }
+        if (strlen($this->container['ref_id']) > 255) {
             return false;
         }
         return true;
@@ -460,6 +472,30 @@ class TaskAttributes implements ArrayAccess
     public function setScript($script)
     {
         $this->container['script'] = $script;
+
+        return $this;
+    }
+
+    /**
+     * Gets ref_id
+     * @return string
+     */
+    public function getRefId()
+    {
+        return $this->container['ref_id'];
+    }
+
+    /**
+     * Sets ref_id
+     * @param string $ref_id Set as XML object ID if imported from BPMN file or can be optionally set when object added via API. Used to optionally refer object by ref_id instead of using its UUID.
+     * @return $this
+     */
+    public function setRefId($ref_id)
+    {
+        if (strlen($ref_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for $ref_id when calling TaskAttributes., must be smaller than or equal to 255.');
+        }
+        $this->container['ref_id'] = $ref_id;
 
         return $this;
     }

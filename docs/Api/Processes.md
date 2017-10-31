@@ -7,8 +7,9 @@ Method | HTTP request | Description
 [**addProcess**](Processes.md#addProcess) | **POST** /processes | 
 [**deleteProcess**](Processes.md#deleteProcess) | **DELETE** /processes/{id} | 
 [**findProcessById**](Processes.md#findProcessById) | **GET** /processes/{id} | 
-[**findProcesses**](Processes.md#findProcesses) | **GET** /processes | 
+[**import**](Processes.md#import) | **POST** /processes/import/bpmn | 
 [**importBpmnFile**](Processes.md#importBpmnFile) | **POST** /processes/import | 
+[**listProcesses**](Processes.md#listProcesses) | **GET** /processes | 
 [**updateProcess**](Processes.md#updateProcess) | **PUT** /processes/{id} | 
 
 
@@ -156,12 +157,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findProcesses**
-> \ProcessMaker\PMIO\Model\ProcessCollection findProcesses($page, $per_page)
+# **import**
+> \ProcessMaker\PMIO\Model\ProcessCollection1 import($import_item)
 
 
 
-This method retrieves all existing processes.
+This method imports BPMN 2.0 files. A new process(es) is/are created and its object returned back when import is successful.
 
 ### Example
 ```php
@@ -172,14 +173,13 @@ require_once(__DIR__ . '/vendor/autoload.php');
 ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new ProcessMaker\PMIO\Api\Processes();
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
+$import_item = new \ProcessMaker\PMIO\Model\ImportItem(); // \ProcessMaker\PMIO\Model\ImportItem | JSON API with the BPMN file to import
 
 try {
-    $result = $api_instance->findProcesses($page, $per_page);
+    $result = $api_instance->import($import_item);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Processes->findProcesses: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Processes->import: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -188,12 +188,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+ **import_item** | [**\ProcessMaker\PMIO\Model\ImportItem**](../Model/\ProcessMaker\PMIO\Model\ImportItem.md)| JSON API with the BPMN file to import |
 
 ### Return type
 
-[**\ProcessMaker\PMIO\Model\ProcessCollection**](../Model/ProcessCollection.md)
+[**\ProcessMaker\PMIO\Model\ProcessCollection1**](../Model/ProcessCollection1.md)
 
 ### Authorization
 
@@ -242,6 +241,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\ProcessCollection1**](../Model/ProcessCollection1.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listProcesses**
+> \ProcessMaker\PMIO\Model\ProcessCollection listProcesses($page, $per_page)
+
+
+
+This method retrieves all existing processes.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\Processes();
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listProcesses($page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling Processes->listProcesses: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\ProcessCollection**](../Model/ProcessCollection.md)
 
 ### Authorization
 

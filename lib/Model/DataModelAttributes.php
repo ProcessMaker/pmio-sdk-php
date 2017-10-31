@@ -66,7 +66,7 @@ class DataModelAttributes implements ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = array(
-        'content' => 'string',
+        'data_model' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -81,7 +81,7 @@ class DataModelAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = array(
-        'content' => 'content',
+        'data_model' => 'dataModel',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -96,7 +96,7 @@ class DataModelAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $setters = array(
-        'content' => 'setContent',
+        'data_model' => 'setDataModel',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -111,7 +111,7 @@ class DataModelAttributes implements ArrayAccess
      * @var string[]
      */
     protected static $getters = array(
-        'content' => 'getContent',
+        'data_model' => 'getDataModel',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -137,7 +137,7 @@ class DataModelAttributes implements ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['content'] = isset($data['content']) ? $data['content'] : null;
+        $this->container['data_model'] = isset($data['data_model']) ? $data['data_model'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -150,8 +150,8 @@ class DataModelAttributes implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = array();
-        if ($this->container['content'] === null) {
-            $invalid_properties[] = "'content' can't be null";
+        if ($this->container['data_model'] === null) {
+            $invalid_properties[] = "'data_model' can't be null";
         }
         return $invalid_properties;
     }
@@ -164,7 +164,7 @@ class DataModelAttributes implements ArrayAccess
      */
     public function valid()
     {
-        if ($this->container['content'] === null) {
+        if ($this->container['data_model'] === null) {
             return false;
         }
         return true;
@@ -172,22 +172,22 @@ class DataModelAttributes implements ArrayAccess
 
 
     /**
-     * Gets content
+     * Gets data_model
      * @return string
      */
-    public function getContent()
+    public function getDataModel()
     {
-        return $this->container['content'];
+        return $this->container['data_model'];
     }
 
     /**
-     * Sets content
-     * @param string $content
+     * Sets data_model
+     * @param string $data_model
      * @return $this
      */
-    public function setContent($content)
+    public function setDataModel($data_model)
     {
-        $this->container['content'] = $content;
+        $this->container['data_model'] = $data_model;
 
         return $this;
     }

@@ -6,14 +6,14 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addInstance**](ProcessInstances.md#addInstance) | **POST** /processes/{process_id}/instances | 
 [**deleteInstance**](ProcessInstances.md#deleteInstance) | **DELETE** /processes/{process_id}/instances/{instance_id} | 
-[**findByFieldInsideDataModel**](ProcessInstances.md#findByFieldInsideDataModel) | **GET** /processes/{process_id}/datamodels/search/{search_param} | 
 [**findDataModel**](ProcessInstances.md#findDataModel) | **GET** /processes/{process_id}/instances/{instance_id}/datamodel | 
 [**findInstanceById**](ProcessInstances.md#findInstanceById) | **GET** /processes/{process_id}/instances/{instance_id} | 
-[**findInstances**](ProcessInstances.md#findInstances) | **GET** /processes/{process_id}/instances | 
-[**findTaskInstancesByInstanceAndTaskId**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskId) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances | 
-[**findTaskInstancesByInstanceAndTaskIdDelegated**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskIdDelegated) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/delegated | 
-[**findTaskInstancesByInstanceAndTaskIdStarted**](ProcessInstances.md#findTaskInstancesByInstanceAndTaskIdStarted) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/started | 
-[**findTokens**](ProcessInstances.md#findTokens) | **GET** /processes/{process_id}/instances/{instance_id}/tokens | 
+[**listByFieldInsideDataModel**](ProcessInstances.md#listByFieldInsideDataModel) | **GET** /processes/{process_id}/datamodels/search/{search_param} | 
+[**listInstances**](ProcessInstances.md#listInstances) | **GET** /processes/{process_id}/instances | 
+[**listTaskInstancesByInstanceAndTaskId**](ProcessInstances.md#listTaskInstancesByInstanceAndTaskId) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances | 
+[**listTaskInstancesByInstanceAndTaskIdDelegated**](ProcessInstances.md#listTaskInstancesByInstanceAndTaskIdDelegated) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/delegated | 
+[**listTaskInstancesByInstanceAndTaskIdStarted**](ProcessInstances.md#listTaskInstancesByInstanceAndTaskIdStarted) | **GET** /instances/{instance_id}/tasks/{task_id}/task_instances/started | 
+[**listTokens**](ProcessInstances.md#listTokens) | **GET** /processes/{process_id}/instances/{instance_id}/tokens | 
 [**updateInstance**](ProcessInstances.md#updateInstance) | **PUT** /processes/{process_id}/instances/{instance_id} | 
 
 
@@ -105,60 +105,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\ProcessMaker\PMIO\Model\ResultSuccess**](../Model/ResultSuccess.md)
-
-### Authorization
-
-[PasswordGrant](../../README.md#PasswordGrant)
-
-### HTTP request headers
-
- - **Content-Type**: application/vnd.api+json
- - **Accept**: application/vnd.api+json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **findByFieldInsideDataModel**
-> \ProcessMaker\PMIO\Model\DataModelCollection findByFieldInsideDataModel($process_id, $search_param, $page, $per_page)
-
-
-
-This method returns the data model by field passed in get argument.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure OAuth2 access token for authorization: PasswordGrant
-ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
-$process_id = "process_id_example"; // string | ID of the process to return
-$search_param = "search_param_example"; // string | Key and value of searched field in DataModel
-$page = 1; // int | Page number to fetch
-$per_page = 15; // int | Amount of items per page
-
-try {
-    $result = $api_instance->findByFieldInsideDataModel($process_id, $search_param, $page, $per_page);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findByFieldInsideDataModel: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **process_id** | **string**| ID of the process to return |
- **search_param** | **string**| Key and value of searched field in DataModel |
- **page** | **int**| Page number to fetch | [optional] [default to 1]
- **per_page** | **int**| Amount of items per page | [optional] [default to 15]
-
-### Return type
-
-[**\ProcessMaker\PMIO\Model\DataModelCollection**](../Model/DataModelCollection.md)
 
 ### Authorization
 
@@ -275,8 +221,62 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findInstances**
-> \ProcessMaker\PMIO\Model\InstanceCollection findInstances($process_id, $page, $per_page)
+# **listByFieldInsideDataModel**
+> \ProcessMaker\PMIO\Model\DataModelCollection listByFieldInsideDataModel($process_id, $search_param, $page, $per_page)
+
+
+
+This method returns the data model by field passed in get argument.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: PasswordGrant
+ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$api_instance = new ProcessMaker\PMIO\Api\ProcessInstances();
+$process_id = "process_id_example"; // string | ID of the process to return
+$search_param = "search_param_example"; // string | Key and value of searched field in DataModel
+$page = 1; // int | Page number to fetch
+$per_page = 15; // int | Amount of items per page
+
+try {
+    $result = $api_instance->listByFieldInsideDataModel($process_id, $search_param, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessInstances->listByFieldInsideDataModel: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **process_id** | **string**| ID of the process to return |
+ **search_param** | **string**| Key and value of searched field in DataModel |
+ **page** | **int**| Page number to fetch | [optional] [default to 1]
+ **per_page** | **int**| Amount of items per page | [optional] [default to 15]
+
+### Return type
+
+[**\ProcessMaker\PMIO\Model\DataModelCollection**](../Model/DataModelCollection.md)
+
+### Authorization
+
+[PasswordGrant](../../README.md#PasswordGrant)
+
+### HTTP request headers
+
+ - **Content-Type**: application/vnd.api+json
+ - **Accept**: application/vnd.api+json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listInstances**
+> \ProcessMaker\PMIO\Model\InstanceCollection listInstances($process_id, $page, $per_page)
 
 
 
@@ -296,10 +296,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findInstances($process_id, $page, $per_page);
+    $result = $api_instance->listInstances($process_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findInstances: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProcessInstances->listInstances: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -327,8 +327,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskInstancesByInstanceAndTaskId**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
+# **listTaskInstancesByInstanceAndTaskId**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
 
 
 
@@ -347,10 +347,10 @@ $instance_id = "instance_id_example"; // string | ID of the instance
 $task_id = "task_id_example"; // string | ID of the task
 
 try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskId($instance_id, $task_id);
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskId($instance_id, $task_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskId: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProcessInstances->listTaskInstancesByInstanceAndTaskId: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -377,8 +377,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskInstancesByInstanceAndTaskIdDelegated**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
+# **listTaskInstancesByInstanceAndTaskIdDelegated**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
 
 
 
@@ -397,10 +397,10 @@ $instance_id = "instance_id_example"; // string | ID of the instance
 $task_id = "task_id_example"; // string | ID of the task
 
 try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id);
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskIdDelegated: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProcessInstances->listTaskInstancesByInstanceAndTaskIdDelegated: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -427,8 +427,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTaskInstancesByInstanceAndTaskIdStarted**
-> \ProcessMaker\PMIO\Model\TaskInstanceCollection findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
+# **listTaskInstancesByInstanceAndTaskIdStarted**
+> \ProcessMaker\PMIO\Model\TaskInstanceCollection listTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
 
 
 
@@ -447,10 +447,10 @@ $instance_id = "instance_id_example"; // string | ID of the instance
 $task_id = "task_id_example"; // string | ID of the task
 
 try {
-    $result = $api_instance->findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id);
+    $result = $api_instance->listTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findTaskInstancesByInstanceAndTaskIdStarted: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProcessInstances->listTaskInstancesByInstanceAndTaskIdStarted: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -477,8 +477,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findTokens**
-> \ProcessMaker\PMIO\Model\TokenCollection findTokens($process_id, $instance_id, $page, $per_page)
+# **listTokens**
+> \ProcessMaker\PMIO\Model\TokenCollection listTokens($process_id, $instance_id, $page, $per_page)
 
 
 
@@ -499,10 +499,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findTokens($process_id, $instance_id, $page, $per_page);
+    $result = $api_instance->listTokens($process_id, $instance_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProcessInstances->findTokens: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProcessInstances->listTokens: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

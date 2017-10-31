@@ -12,8 +12,8 @@ Method | HTTP request | Description
 [**eventWebhook**](Events.md#eventWebhook) | **POST** /processes/{process_id}/events/{event_id}/webhook | 
 [**findEventById**](Events.md#findEventById) | **GET** /processes/{process_id}/events/{event_id} | 
 [**findEventConnectorById**](Events.md#findEventConnectorById) | **GET** /processes/{process_id}/events/{event_id}/connectors/{connector_id} | 
-[**findEventConnectors**](Events.md#findEventConnectors) | **GET** /processes/{process_id}/events/{event_id}/connectors | 
-[**findEvents**](Events.md#findEvents) | **GET** /processes/{process_id}/events | 
+[**listEventConnectors**](Events.md#listEventConnectors) | **GET** /processes/{process_id}/events/{event_id}/connectors | 
+[**listEvents**](Events.md#listEvents) | **GET** /processes/{process_id}/events | 
 [**updateEvent**](Events.md#updateEvent) | **PUT** /processes/{process_id}/events/{event_id} | 
 [**updateEventConnector**](Events.md#updateEventConnector) | **PUT** /processes/{process_id}/events/{event_id}/connectors/{connector_id} | 
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **eventWebhook**
-> string eventWebhook($process_id, $event_id, $trigger_body)
+> string eventWebhook($process_id, $event_id, $any_variable)
 
 
 
@@ -292,10 +292,10 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 $api_instance = new ProcessMaker\PMIO\Api\Events();
 $process_id = "process_id_example"; // string | Process ID related to the event
 $event_id = "event_id_example"; // string | ID of the event to trigger
-$trigger_body = "trigger_body_example"; // string | Freeform JSON structure, it will be passed to the newly created DataModel
+$any_variable = "any_variable_example"; // string | Any POST or GET variable will be passed to the newly created DataModel
 
 try {
-    $result = $api_instance->eventWebhook($process_id, $event_id, $trigger_body);
+    $result = $api_instance->eventWebhook($process_id, $event_id, $any_variable);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling Events->eventWebhook: ', $e->getMessage(), PHP_EOL;
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **process_id** | **string**| Process ID related to the event |
  **event_id** | **string**| ID of the event to trigger |
- **trigger_body** | **string**| Freeform JSON structure, it will be passed to the newly created DataModel |
+ **any_variable** | **string**| Any POST or GET variable will be passed to the newly created DataModel | [optional]
 
 ### Return type
 
@@ -428,8 +428,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findEventConnectors**
-> \ProcessMaker\PMIO\Model\EventConnectorsCollection findEventConnectors($process_id, $event_id, $page, $per_page)
+# **listEventConnectors**
+> \ProcessMaker\PMIO\Model\EventConnectorsCollection listEventConnectors($process_id, $event_id, $page, $per_page)
 
 
 
@@ -450,10 +450,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findEventConnectors($process_id, $event_id, $page, $per_page);
+    $result = $api_instance->listEventConnectors($process_id, $event_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Events->findEventConnectors: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Events->listEventConnectors: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -482,8 +482,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findEvents**
-> \ProcessMaker\PMIO\Model\EventCollection findEvents($process_id, $page, $per_page)
+# **listEvents**
+> \ProcessMaker\PMIO\Model\EventCollection listEvents($process_id, $page, $per_page)
 
 
 
@@ -503,10 +503,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findEvents($process_id, $page, $per_page);
+    $result = $api_instance->listEvents($process_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Events->findEvents: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Events->listEvents: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

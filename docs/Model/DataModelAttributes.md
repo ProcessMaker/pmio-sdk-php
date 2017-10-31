@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **string** |  | 
+**data_model** | **string** |  | 
 **created_at** | **string** |  | [optional] 
 **updated_at** | **string** |  | [optional] 
 

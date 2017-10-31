@@ -80,7 +80,7 @@ class TaskInstanceAttributes implements ArrayAccess
         'duration' => 'int',
         'instance_overdue_percentage' => 'double',
         'data' => 'string',
-        'content' => 'string',
+        'data_model' => 'string',
         'created_at' => 'string',
         'updated_at' => 'string'
     );
@@ -109,7 +109,7 @@ class TaskInstanceAttributes implements ArrayAccess
         'duration' => 'duration',
         'instance_overdue_percentage' => 'instance_overdue_percentage',
         'data' => 'data',
-        'content' => 'content',
+        'data_model' => 'dataModel',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     );
@@ -138,7 +138,7 @@ class TaskInstanceAttributes implements ArrayAccess
         'duration' => 'setDuration',
         'instance_overdue_percentage' => 'setInstanceOverduePercentage',
         'data' => 'setData',
-        'content' => 'setContent',
+        'data_model' => 'setDataModel',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     );
@@ -167,7 +167,7 @@ class TaskInstanceAttributes implements ArrayAccess
         'duration' => 'getDuration',
         'instance_overdue_percentage' => 'getInstanceOverduePercentage',
         'data' => 'getData',
-        'content' => 'getContent',
+        'data_model' => 'getDataModel',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     );
@@ -251,7 +251,7 @@ class TaskInstanceAttributes implements ArrayAccess
         $this->container['duration'] = isset($data['duration']) ? $data['duration'] : null;
         $this->container['instance_overdue_percentage'] = isset($data['instance_overdue_percentage']) ? $data['instance_overdue_percentage'] : null;
         $this->container['data'] = isset($data['data']) ? $data['data'] : null;
-        $this->container['content'] = isset($data['content']) ? $data['content'] : null;
+        $this->container['data_model'] = isset($data['data_model']) ? $data['data_model'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
         $this->container['updated_at'] = isset($data['updated_at']) ? $data['updated_at'] : null;
     }
@@ -624,22 +624,22 @@ class TaskInstanceAttributes implements ArrayAccess
     }
 
     /**
-     * Gets content
+     * Gets data_model
      * @return string
      */
-    public function getContent()
+    public function getDataModel()
     {
-        return $this->container['content'];
+        return $this->container['data_model'];
     }
 
     /**
-     * Sets content
-     * @param string $content
+     * Sets data_model
+     * @param string $data_model
      * @return $this
      */
-    public function setContent($content)
+    public function setDataModel($data_model)
     {
-        $this->container['content'] = $content;
+        $this->container['data_model'] = $data_model;
 
         return $this;
     }

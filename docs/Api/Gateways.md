@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**addGateway**](Gateways.md#addGateway) | **POST** /processes/{process_id}/gateways | 
 [**deleteGateway**](Gateways.md#deleteGateway) | **DELETE** /processes/{process_id}/gateways/{gateway_id} | 
 [**findGatewayById**](Gateways.md#findGatewayById) | **GET** /processes/{process_id}/gateways/{gateway_id} | 
-[**findGateways**](Gateways.md#findGateways) | **GET** /processes/{process_id}/gateways | 
+[**listGateways**](Gateways.md#listGateways) | **GET** /processes/{process_id}/gateways | 
 [**updateGateway**](Gateways.md#updateGateway) | **PUT** /processes/{process_id}/gateways/{gateway_id} | 
 
 
@@ -161,8 +161,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findGateways**
-> \ProcessMaker\PMIO\Model\GatewayCollection findGateways($process_id, $page, $per_page)
+# **listGateways**
+> \ProcessMaker\PMIO\Model\GatewayCollection listGateways($process_id, $page, $per_page)
 
 
 
@@ -182,10 +182,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findGateways($process_id, $page, $per_page);
+    $result = $api_instance->listGateways($process_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Gateways->findGateways: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Gateways->listGateways: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

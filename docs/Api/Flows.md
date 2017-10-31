@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**addFlow**](Flows.md#addFlow) | **POST** /processes/{process_id}/flows | 
 [**deleteFlow**](Flows.md#deleteFlow) | **DELETE** /processes/{process_id}/flows/{flow_id} | 
 [**findFlowById**](Flows.md#findFlowById) | **GET** /processes/{process_id}/flows/{flow_id} | 
-[**findFlows**](Flows.md#findFlows) | **GET** /processes/{process_id}/flows | 
+[**listFlows**](Flows.md#listFlows) | **GET** /processes/{process_id}/flows | 
 [**updateFlow**](Flows.md#updateFlow) | **PUT** /processes/{process_id}/flows/{flow_id} | 
 
 
@@ -161,8 +161,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findFlows**
-> \ProcessMaker\PMIO\Model\FlowCollection findFlows($process_id, $page, $per_page)
+# **listFlows**
+> \ProcessMaker\PMIO\Model\FlowCollection listFlows($process_id, $page, $per_page)
 
 
 
@@ -182,10 +182,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findFlows($process_id, $page, $per_page);
+    $result = $api_instance->listFlows($process_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Flows->findFlows: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Flows->listFlows: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

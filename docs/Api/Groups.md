@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**addUsersToGroup**](Groups.md#addUsersToGroup) | **PUT** /groups/{id}/users | 
 [**deleteGroup**](Groups.md#deleteGroup) | **DELETE** /groups/{id} | 
 [**findGroupById**](Groups.md#findGroupById) | **GET** /groups/{id} | 
-[**findGroups**](Groups.md#findGroups) | **GET** /groups | 
+[**listGroups**](Groups.md#listGroups) | **GET** /groups | 
 [**removeUsersFromGroup**](Groups.md#removeUsersFromGroup) | **DELETE** /groups/{id}/users | 
 [**syncUsersToGroup**](Groups.md#syncUsersToGroup) | **POST** /groups/{id}/users | 
 [**updateGroup**](Groups.md#updateGroup) | **PUT** /groups/{id} | 
@@ -208,8 +208,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findGroups**
-> \ProcessMaker\PMIO\Model\GroupCollection findGroups($page, $per_page)
+# **listGroups**
+> \ProcessMaker\PMIO\Model\GroupCollection listGroups($page, $per_page)
 
 
 
@@ -228,10 +228,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findGroups($page, $per_page);
+    $result = $api_instance->listGroups($page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Groups->findGroups: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Groups->listGroups: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

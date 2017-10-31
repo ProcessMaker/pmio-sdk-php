@@ -1500,12 +1500,13 @@ class Client
      * 
      *
      * @param \ProcessMaker\PMIO\Model\UserCreateItem $user_create_item JSON API with the User object to add (required)
+     * @param string $create_client If not empty - a new Oauth Client would be created along with User (optional, default to 1)
      * @return \ProcessMaker\PMIO\Model\UserItem
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function addUser($user_create_item)
+    public function addUser($user_create_item, $create_client = null)
     {
-        list($response) = $this->addUserWithHttpInfo($user_create_item);
+        list($response) = $this->addUserWithHttpInfo($user_create_item, $create_client);
         return $response;
     }
 
@@ -1515,10 +1516,11 @@ class Client
      * 
      *
      * @param \ProcessMaker\PMIO\Model\UserCreateItem $user_create_item JSON API with the User object to add (required)
+     * @param string $create_client If not empty - a new Oauth Client would be created along with User (optional, default to 1)
      * @return Array of \ProcessMaker\PMIO\Model\UserItem, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function addUserWithHttpInfo($user_create_item)
+    public function addUserWithHttpInfo($user_create_item, $create_client = null)
     {
         // verify the required parameter 'user_create_item' is set
         if ($user_create_item === null) {
@@ -1536,6 +1538,10 @@ class Client
         }
         $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
 
+        // query params
+        if ($create_client !== null) {
+            $queryParams['create_client'] = $this->apiClient->getSerializer()->toQueryValue($create_client);
+        }
         // default format to json
         $resourcePath = str_replace("{format}", "json", $resourcePath);
 
@@ -3213,13 +3219,13 @@ class Client
      *
      * @param string $process_id Process ID related to the event (required)
      * @param string $event_id ID of the event to trigger (required)
-     * @param string $trigger_body Freeform JSON structure, it will be passed to the newly created DataModel (required)
+     * @param string $any_variable Any POST or GET variable will be passed to the newly created DataModel (optional)
      * @return string
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function eventWebhook($process_id, $event_id, $trigger_body)
+    public function eventWebhook($process_id, $event_id, $any_variable = null)
     {
-        list($response) = $this->eventWebhookWithHttpInfo($process_id, $event_id, $trigger_body);
+        list($response) = $this->eventWebhookWithHttpInfo($process_id, $event_id, $any_variable);
         return $response;
     }
 
@@ -3230,11 +3236,11 @@ class Client
      *
      * @param string $process_id Process ID related to the event (required)
      * @param string $event_id ID of the event to trigger (required)
-     * @param string $trigger_body Freeform JSON structure, it will be passed to the newly created DataModel (required)
+     * @param string $any_variable Any POST or GET variable will be passed to the newly created DataModel (optional)
      * @return Array of string, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function eventWebhookWithHttpInfo($process_id, $event_id, $trigger_body)
+    public function eventWebhookWithHttpInfo($process_id, $event_id, $any_variable = null)
     {
         // verify the required parameter 'process_id' is set
         if ($process_id === null) {
@@ -3243,10 +3249,6 @@ class Client
         // verify the required parameter 'event_id' is set
         if ($event_id === null) {
             throw new \InvalidArgumentException('Missing the required parameter $event_id when calling eventWebhook');
-        }
-        // verify the required parameter 'trigger_body' is set
-        if ($trigger_body === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $trigger_body when calling eventWebhook');
         }
         // parse inputs
         $resourcePath = "/processes/{process_id}/events/{event_id}/webhook";
@@ -3260,6 +3262,10 @@ class Client
         }
         $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
 
+        // query params
+        if ($any_variable !== null) {
+            $queryParams['any_variable'] = $this->apiClient->getSerializer()->toQueryValue($any_variable);
+        }
         // path params
         if ($process_id !== null) {
             $resourcePath = str_replace(
@@ -3279,12 +3285,7 @@ class Client
         // default format to json
         $resourcePath = str_replace("{format}", "json", $resourcePath);
 
-        // body params
-        $_tempBody = null;
-        if (isset($trigger_body)) {
-            $_tempBody = $trigger_body;
-        }
-
+        
         // for model (json/xml)
         if (isset($_tempBody)) {
             $httpBody = $_tempBody; // $_tempBody is the method argument, if present
@@ -3310,142 +3311,12 @@ class Client
             return array($this->apiClient->getSerializer()->deserialize($response, 'string', $httpHeader), $statusCode, $httpHeader);
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 201:
+                case 200:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), 'string', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 case 404:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findByFieldInsideDataModel
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to return (required)
-     * @param string $search_param Key and value of searched field in DataModel (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\DataModelCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findByFieldInsideDataModel($process_id, $search_param, $page = null, $per_page = null)
-    {
-        list($response) = $this->findByFieldInsideDataModelWithHttpInfo($process_id, $search_param, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findByFieldInsideDataModelWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to return (required)
-     * @param string $search_param Key and value of searched field in DataModel (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\DataModelCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findByFieldInsideDataModelWithHttpInfo($process_id, $search_param, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findByFieldInsideDataModel');
-        }
-        // verify the required parameter 'search_param' is set
-        if ($search_param === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $search_param when calling findByFieldInsideDataModel');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findByFieldInsideDataModel, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findByFieldInsideDataModel, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findByFieldInsideDataModel, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/datamodels/search/{search_param}";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($search_param !== null) {
-            $resourcePath = str_replace(
-                "{" . "search_param" . "}",
-                $this->apiClient->getSerializer()->toPathValue($search_param),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\DataModelCollection',
-                '/processes/{process_id}/datamodels/search/{search_param}'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\DataModelCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\DataModelCollection', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:
@@ -3829,252 +3700,6 @@ class Client
     }
 
     /**
-     * Operation findEventConnectors
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to fetch (required)
-     * @param string $event_id ID of the task to fetch (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\EventConnectorsCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findEventConnectors($process_id, $event_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findEventConnectorsWithHttpInfo($process_id, $event_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findEventConnectorsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to fetch (required)
-     * @param string $event_id ID of the task to fetch (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\EventConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findEventConnectorsWithHttpInfo($process_id, $event_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findEventConnectors');
-        }
-        // verify the required parameter 'event_id' is set
-        if ($event_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $event_id when calling findEventConnectors');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findEventConnectors, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findEventConnectors, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findEventConnectors, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/events/{event_id}/connectors";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($event_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "event_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($event_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\EventConnectorsCollection',
-                '/processes/{process_id}/events/{event_id}/connectors'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\EventConnectorsCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\EventConnectorsCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findEvents
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the event (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\EventCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findEvents($process_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findEventsWithHttpInfo($process_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findEventsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the event (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\EventCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findEventsWithHttpInfo($process_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findEvents');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findEvents, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findEvents, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findEvents, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/events";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\EventCollection',
-                '/processes/{process_id}/events'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\EventCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\EventCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findFlowById
      *
      * 
@@ -4173,122 +3798,6 @@ class Client
                     break;
                 case 404:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findFlows
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the flow (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\FlowCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findFlows($process_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findFlowsWithHttpInfo($process_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findFlowsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the flow (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\FlowCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findFlowsWithHttpInfo($process_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findFlows');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findFlows, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findFlows, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findFlows, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/flows";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\FlowCollection',
-                '/processes/{process_id}/flows'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\FlowCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\FlowCollection', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:
@@ -4413,122 +3922,6 @@ class Client
     }
 
     /**
-     * Operation findGateways
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the gateway (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\GatewayCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findGateways($process_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findGatewaysWithHttpInfo($process_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findGatewaysWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process related to the gateway (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\GatewayCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findGatewaysWithHttpInfo($process_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findGateways');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findGateways, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findGateways, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findGateways, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/gateways";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\GatewayCollection',
-                '/processes/{process_id}/gateways'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\GatewayCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\GatewayCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findGroupById
      *
      * 
@@ -4613,108 +4006,6 @@ class Client
                     break;
                 case 404:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findGroups
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\GroupCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findGroups($page = null, $per_page = null)
-    {
-        list($response) = $this->findGroupsWithHttpInfo($page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findGroupsWithHttpInfo
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\GroupCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findGroupsWithHttpInfo($page = null, $per_page = null)
-    {
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findGroups, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findGroups, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findGroups, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/groups";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\GroupCollection',
-                '/groups'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\GroupCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\GroupCollection', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:
@@ -4853,136 +4144,6 @@ class Client
     }
 
     /**
-     * Operation findInputOutputs
-     *
-     * 
-     *
-     * @param string $process_id Process ID related to Input/Output object (required)
-     * @param string $task_id Task instance ID related to Input/Output object (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\InputOutputCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findInputOutputs($process_id, $task_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findInputOutputsWithHttpInfo($process_id, $task_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findInputOutputsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id Process ID related to Input/Output object (required)
-     * @param string $task_id Task instance ID related to Input/Output object (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\InputOutputCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findInputOutputsWithHttpInfo($process_id, $task_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findInputOutputs');
-        }
-        // verify the required parameter 'task_id' is set
-        if ($task_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling findInputOutputs');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findInputOutputs, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findInputOutputs, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findInputOutputs, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/tasks/{task_id}/inputoutput";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($task_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "task_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($task_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\InputOutputCollection',
-                '/processes/{process_id}/tasks/{task_id}/inputoutput'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\InputOutputCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\InputOutputCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findInstanceById
      *
      * 
@@ -5081,122 +4242,6 @@ class Client
                     break;
                 case 404:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findInstances
-     *
-     * 
-     *
-     * @param string $process_id Process ID related to the instances (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\InstanceCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findInstances($process_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findInstancesWithHttpInfo($process_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findInstancesWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id Process ID related to the instances (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\InstanceCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findInstancesWithHttpInfo($process_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findInstances');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findInstances, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findInstances, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findInstances, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/instances";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\InstanceCollection',
-                '/processes/{process_id}/instances'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\InstanceCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\InstanceCollection', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:
@@ -5321,122 +4366,6 @@ class Client
     }
 
     /**
-     * Operation findOauthClients
-     *
-     * 
-     *
-     * @param string $user_id User ID related to the Oauth clients (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\OauthClientCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findOauthClients($user_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findOauthClientsWithHttpInfo($user_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findOauthClientsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $user_id User ID related to the Oauth clients (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\OauthClientCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findOauthClientsWithHttpInfo($user_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'user_id' is set
-        if ($user_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $user_id when calling findOauthClients');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findOauthClients, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findOauthClients, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findOauthClients, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/users/{user_id}/clients";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($user_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "user_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($user_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\OauthClientCollection',
-                '/users/{user_id}/clients'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\OauthClientCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\OauthClientCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findProcessById
      *
      * 
@@ -5520,116 +4449,6 @@ class Client
                     $e->setResponseObject($data);
                     break;
                 case 404:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findProcesses
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\ProcessCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findProcesses($page = null, $per_page = null)
-    {
-        list($response) = $this->findProcessesWithHttpInfo($page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findProcessesWithHttpInfo
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\ProcessCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findProcessesWithHttpInfo($page = null, $per_page = null)
-    {
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findProcesses, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findProcesses, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findProcesses, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\ProcessCollection',
-                '/processes'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\ProcessCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ProcessCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
@@ -5880,136 +4699,6 @@ class Client
     }
 
     /**
-     * Operation findTaskConnectors
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to fetch (required)
-     * @param string $task_id ID of the task to fetch (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\TaskConnectorsCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskConnectors($process_id, $task_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findTaskConnectorsWithHttpInfo($process_id, $task_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findTaskConnectorsWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process to fetch (required)
-     * @param string $task_id ID of the task to fetch (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskConnectorsWithHttpInfo($process_id, $task_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findTaskConnectors');
-        }
-        // verify the required parameter 'task_id' is set
-        if ($task_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling findTaskConnectors');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findTaskConnectors, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTaskConnectors, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTaskConnectors, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/tasks/{task_id}/connectors";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($task_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "task_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($task_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskConnectorsCollection',
-                '/processes/{process_id}/tasks/{task_id}/connectors'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskConnectorsCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskConnectorsCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findTaskInstanceById
      *
      * 
@@ -6130,675 +4819,6 @@ class Client
     }
 
     /**
-     * Operation findTaskInstances
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstances($page = null, $per_page = null)
-    {
-        list($response) = $this->findTaskInstancesWithHttpInfo($page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findTaskInstancesWithHttpInfo
-     *
-     * 
-     *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesWithHttpInfo($page = null, $per_page = null)
-    {
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findTaskInstances, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTaskInstances, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTaskInstances, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/task_instances";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
-                '/task_instances'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskId
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
-    {
-        list($response) = $this->findTaskInstancesByInstanceAndTaskIdWithHttpInfo($instance_id, $task_id);
-        return $response;
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskIdWithHttpInfo
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskIdWithHttpInfo($instance_id, $task_id)
-    {
-        // verify the required parameter 'instance_id' is set
-        if ($instance_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling findTaskInstancesByInstanceAndTaskId');
-        }
-        // verify the required parameter 'task_id' is set
-        if ($task_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling findTaskInstancesByInstanceAndTaskId');
-        }
-        // parse inputs
-        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // path params
-        if ($instance_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "instance_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($instance_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($task_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "task_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($task_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
-                '/instances/{instance_id}/tasks/{task_id}/task_instances'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskIdDelegated
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
-    {
-        list($response) = $this->findTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo($instance_id, $task_id);
-        return $response;
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo($instance_id, $task_id)
-    {
-        // verify the required parameter 'instance_id' is set
-        if ($instance_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling findTaskInstancesByInstanceAndTaskIdDelegated');
-        }
-        // verify the required parameter 'task_id' is set
-        if ($task_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling findTaskInstancesByInstanceAndTaskIdDelegated');
-        }
-        // parse inputs
-        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances/delegated";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // path params
-        if ($instance_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "instance_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($instance_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($task_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "task_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($task_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
-                '/instances/{instance_id}/tasks/{task_id}/task_instances/delegated'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskIdStarted
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
-    {
-        list($response) = $this->findTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo($instance_id, $task_id);
-        return $response;
-    }
-
-    /**
-     * Operation findTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo
-     *
-     * 
-     *
-     * @param string $instance_id ID of the instance (required)
-     * @param string $task_id ID of the task (required)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo($instance_id, $task_id)
-    {
-        // verify the required parameter 'instance_id' is set
-        if ($instance_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling findTaskInstancesByInstanceAndTaskIdStarted');
-        }
-        // verify the required parameter 'task_id' is set
-        if ($task_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling findTaskInstancesByInstanceAndTaskIdStarted');
-        }
-        // parse inputs
-        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances/started";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // path params
-        if ($instance_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "instance_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($instance_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($task_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "task_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($task_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
-                '/instances/{instance_id}/tasks/{task_id}/task_instances/started'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findTasks
-     *
-     * 
-     *
-     * @param string $process_id ID of the process relative to the task (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\TaskCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTasks($process_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findTasksWithHttpInfo($process_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findTasksWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id ID of the process relative to the task (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\TaskCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTasksWithHttpInfo($process_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findTasks');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findTasks, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTasks, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTasks, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/tasks";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TaskCollection',
-                '/processes/{process_id}/tasks'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation findTokens
-     *
-     * 
-     *
-     * @param string $process_id Process ID (required)
-     * @param string $instance_id Instance ID related to the process (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\TokenCollection
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTokens($process_id, $instance_id, $page = null, $per_page = null)
-    {
-        list($response) = $this->findTokensWithHttpInfo($process_id, $instance_id, $page, $per_page);
-        return $response;
-    }
-
-    /**
-     * Operation findTokensWithHttpInfo
-     *
-     * 
-     *
-     * @param string $process_id Process ID (required)
-     * @param string $instance_id Instance ID related to the process (required)
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\TokenCollection, HTTP status code, HTTP response headers (array of strings)
-     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
-     */
-    public function findTokensWithHttpInfo($process_id, $instance_id, $page = null, $per_page = null)
-    {
-        // verify the required parameter 'process_id' is set
-        if ($process_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling findTokens');
-        }
-        // verify the required parameter 'instance_id' is set
-        if ($instance_id === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling findTokens');
-        }
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findTokens, must be bigger than or equal to 1.0.');
-        }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTokens, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findTokens, must be bigger than or equal to 1.0.');
-        }
-
-        // parse inputs
-        $resourcePath = "/processes/{process_id}/instances/{instance_id}/tokens";
-        $httpBody = '';
-        $queryParams = array();
-        $headerParams = array();
-        $formParams = array();
-        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
-        if (!is_null($_header_accept)) {
-            $headerParams['Accept'] = $_header_accept;
-        }
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
-
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
-        // path params
-        if ($process_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "process_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($process_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($instance_id !== null) {
-            $resourcePath = str_replace(
-                "{" . "instance_id" . "}",
-                $this->apiClient->getSerializer()->toPathValue($instance_id),
-                $resourcePath
-            );
-        }
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-
-        
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'GET',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\ProcessMaker\PMIO\Model\TokenCollection',
-                '/processes/{process_id}/instances/{instance_id}/tokens'
-            );
-
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TokenCollection', $httpHeader), $statusCode, $httpHeader);
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TokenCollection', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
      * Operation findUserById
      *
      * 
@@ -6896,46 +4916,37 @@ class Client
     }
 
     /**
-     * Operation findUsers
+     * Operation import
      *
      * 
      *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return \ProcessMaker\PMIO\Model\UserCollection
+     * @param \ProcessMaker\PMIO\Model\ImportItem $import_item JSON API with the BPMN file to import (required)
+     * @return \ProcessMaker\PMIO\Model\ProcessCollection1
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function findUsers($page = null, $per_page = null)
+    public function import($import_item)
     {
-        list($response) = $this->findUsersWithHttpInfo($page, $per_page);
+        list($response) = $this->importWithHttpInfo($import_item);
         return $response;
     }
 
     /**
-     * Operation findUsersWithHttpInfo
+     * Operation importWithHttpInfo
      *
      * 
      *
-     * @param int $page Page number to fetch (optional, default to 1)
-     * @param int $per_page Amount of items per page (optional, default to 15)
-     * @return Array of \ProcessMaker\PMIO\Model\UserCollection, HTTP status code, HTTP response headers (array of strings)
+     * @param \ProcessMaker\PMIO\Model\ImportItem $import_item JSON API with the BPMN file to import (required)
+     * @return Array of \ProcessMaker\PMIO\Model\ProcessCollection1, HTTP status code, HTTP response headers (array of strings)
      * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
      */
-    public function findUsersWithHttpInfo($page = null, $per_page = null)
+    public function importWithHttpInfo($import_item)
     {
-        if (!is_null($page) && ($page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.findUsers, must be bigger than or equal to 1.0.');
+        // verify the required parameter 'import_item' is set
+        if ($import_item === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $import_item when calling import');
         }
-
-        if (!is_null($per_page) && ($per_page > 100.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findUsers, must be smaller than or equal to 100.0.');
-        }
-        if (!is_null($per_page) && ($per_page < 1.0)) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.findUsers, must be bigger than or equal to 1.0.');
-        }
-
         // parse inputs
-        $resourcePath = "/users";
+        $resourcePath = "/processes/import/bpmn";
         $httpBody = '';
         $queryParams = array();
         $headerParams = array();
@@ -6946,18 +4957,15 @@ class Client
         }
         $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
 
-        // query params
-        if ($page !== null) {
-            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
-        }
-        // query params
-        if ($per_page !== null) {
-            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
-        }
         // default format to json
         $resourcePath = str_replace("{format}", "json", $resourcePath);
 
-        
+        // body params
+        $_tempBody = null;
+        if (isset($import_item)) {
+            $_tempBody = $import_item;
+        }
+
         // for model (json/xml)
         if (isset($_tempBody)) {
             $httpBody = $_tempBody; // $_tempBody is the method argument, if present
@@ -6972,19 +4980,23 @@ class Client
         try {
             list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
                 $resourcePath,
-                'GET',
+                'POST',
                 $queryParams,
                 $httpBody,
                 $headerParams,
-                '\ProcessMaker\PMIO\Model\UserCollection',
-                '/users'
+                '\ProcessMaker\PMIO\Model\ProcessCollection1',
+                '/processes/import/bpmn'
             );
 
-            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\UserCollection', $httpHeader), $statusCode, $httpHeader);
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\ProcessCollection1', $httpHeader), $statusCode, $httpHeader);
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\UserCollection', $e->getResponseHeaders());
+                case 201:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ProcessCollection1', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:
@@ -7079,6 +5091,2089 @@ class Client
                     break;
                 case 403:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listByFieldInsideDataModel
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to return (required)
+     * @param string $search_param Key and value of searched field in DataModel (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\DataModelCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listByFieldInsideDataModel($process_id, $search_param, $page = null, $per_page = null)
+    {
+        list($response) = $this->listByFieldInsideDataModelWithHttpInfo($process_id, $search_param, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listByFieldInsideDataModelWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to return (required)
+     * @param string $search_param Key and value of searched field in DataModel (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\DataModelCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listByFieldInsideDataModelWithHttpInfo($process_id, $search_param, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listByFieldInsideDataModel');
+        }
+        // verify the required parameter 'search_param' is set
+        if ($search_param === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $search_param when calling listByFieldInsideDataModel');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listByFieldInsideDataModel, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listByFieldInsideDataModel, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listByFieldInsideDataModel, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/datamodels/search/{search_param}";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($search_param !== null) {
+            $resourcePath = str_replace(
+                "{" . "search_param" . "}",
+                $this->apiClient->getSerializer()->toPathValue($search_param),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\DataModelCollection',
+                '/processes/{process_id}/datamodels/search/{search_param}'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\DataModelCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\DataModelCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listEventConnectors
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the task to fetch (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\EventConnectorsCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listEventConnectors($process_id, $event_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listEventConnectorsWithHttpInfo($process_id, $event_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listEventConnectorsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $event_id ID of the task to fetch (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\EventConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listEventConnectorsWithHttpInfo($process_id, $event_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listEventConnectors');
+        }
+        // verify the required parameter 'event_id' is set
+        if ($event_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $event_id when calling listEventConnectors');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listEventConnectors, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listEventConnectors, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listEventConnectors, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/events/{event_id}/connectors";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($event_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "event_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($event_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\EventConnectorsCollection',
+                '/processes/{process_id}/events/{event_id}/connectors'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\EventConnectorsCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\EventConnectorsCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listEvents
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the event (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\EventCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listEvents($process_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listEventsWithHttpInfo($process_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listEventsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the event (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\EventCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listEventsWithHttpInfo($process_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listEvents');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listEvents, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listEvents, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listEvents, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/events";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\EventCollection',
+                '/processes/{process_id}/events'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\EventCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\EventCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listFlows
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the flow (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\FlowCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listFlows($process_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listFlowsWithHttpInfo($process_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listFlowsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the flow (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\FlowCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listFlowsWithHttpInfo($process_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listFlows');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listFlows, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listFlows, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listFlows, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/flows";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\FlowCollection',
+                '/processes/{process_id}/flows'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\FlowCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\FlowCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listGateways
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the gateway (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\GatewayCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listGateways($process_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listGatewaysWithHttpInfo($process_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listGatewaysWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process related to the gateway (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\GatewayCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listGatewaysWithHttpInfo($process_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listGateways');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listGateways, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listGateways, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listGateways, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/gateways";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\GatewayCollection',
+                '/processes/{process_id}/gateways'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\GatewayCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\GatewayCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listGroups
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\GroupCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listGroups($page = null, $per_page = null)
+    {
+        list($response) = $this->listGroupsWithHttpInfo($page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listGroupsWithHttpInfo
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\GroupCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listGroupsWithHttpInfo($page = null, $per_page = null)
+    {
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listGroups, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listGroups, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listGroups, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/groups";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\GroupCollection',
+                '/groups'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\GroupCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\GroupCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listInputOutputs
+     *
+     * 
+     *
+     * @param string $process_id Process ID related to Input/Output object (required)
+     * @param string $task_id Task instance ID related to Input/Output object (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\InputOutputCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listInputOutputs($process_id, $task_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listInputOutputsWithHttpInfo($process_id, $task_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listInputOutputsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id Process ID related to Input/Output object (required)
+     * @param string $task_id Task instance ID related to Input/Output object (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\InputOutputCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listInputOutputsWithHttpInfo($process_id, $task_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listInputOutputs');
+        }
+        // verify the required parameter 'task_id' is set
+        if ($task_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling listInputOutputs');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listInputOutputs, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listInputOutputs, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listInputOutputs, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/tasks/{task_id}/inputoutput";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($task_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "task_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($task_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\InputOutputCollection',
+                '/processes/{process_id}/tasks/{task_id}/inputoutput'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\InputOutputCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\InputOutputCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listInstances
+     *
+     * 
+     *
+     * @param string $process_id Process ID related to the instances (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\InstanceCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listInstances($process_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listInstancesWithHttpInfo($process_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listInstancesWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id Process ID related to the instances (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\InstanceCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listInstancesWithHttpInfo($process_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listInstances');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listInstances, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listInstances, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listInstances, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/instances";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\InstanceCollection',
+                '/processes/{process_id}/instances'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\InstanceCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\InstanceCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listOauthClients
+     *
+     * 
+     *
+     * @param string $user_id User ID related to the Oauth clients (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\OauthClientCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listOauthClients($user_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listOauthClientsWithHttpInfo($user_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listOauthClientsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $user_id User ID related to the Oauth clients (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\OauthClientCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listOauthClientsWithHttpInfo($user_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'user_id' is set
+        if ($user_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $user_id when calling listOauthClients');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listOauthClients, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listOauthClients, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listOauthClients, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/users/{user_id}/clients";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($user_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "user_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($user_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\OauthClientCollection',
+                '/users/{user_id}/clients'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\OauthClientCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\OauthClientCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listProcesses
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\ProcessCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listProcesses($page = null, $per_page = null)
+    {
+        list($response) = $this->listProcessesWithHttpInfo($page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listProcessesWithHttpInfo
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\ProcessCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listProcessesWithHttpInfo($page = null, $per_page = null)
+    {
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listProcesses, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listProcesses, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listProcesses, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\ProcessCollection',
+                '/processes'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\ProcessCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ProcessCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTaskConnectors
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\TaskConnectorsCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskConnectors($process_id, $task_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listTaskConnectorsWithHttpInfo($process_id, $task_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listTaskConnectorsWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process to fetch (required)
+     * @param string $task_id ID of the task to fetch (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskConnectorsCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskConnectorsWithHttpInfo($process_id, $task_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listTaskConnectors');
+        }
+        // verify the required parameter 'task_id' is set
+        if ($task_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling listTaskConnectors');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listTaskConnectors, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTaskConnectors, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTaskConnectors, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/tasks/{task_id}/connectors";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($task_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "task_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($task_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskConnectorsCollection',
+                '/processes/{process_id}/tasks/{task_id}/connectors'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskConnectorsCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskConnectorsCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTaskInstances
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstances($page = null, $per_page = null)
+    {
+        list($response) = $this->listTaskInstancesWithHttpInfo($page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listTaskInstancesWithHttpInfo
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesWithHttpInfo($page = null, $per_page = null)
+    {
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listTaskInstances, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTaskInstances, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTaskInstances, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/task_instances";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
+                '/task_instances'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskId
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskId($instance_id, $task_id)
+    {
+        list($response) = $this->listTaskInstancesByInstanceAndTaskIdWithHttpInfo($instance_id, $task_id);
+        return $response;
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskIdWithHttpInfo
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskIdWithHttpInfo($instance_id, $task_id)
+    {
+        // verify the required parameter 'instance_id' is set
+        if ($instance_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling listTaskInstancesByInstanceAndTaskId');
+        }
+        // verify the required parameter 'task_id' is set
+        if ($task_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling listTaskInstancesByInstanceAndTaskId');
+        }
+        // parse inputs
+        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // path params
+        if ($instance_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "instance_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($instance_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($task_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "task_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($task_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
+                '/instances/{instance_id}/tasks/{task_id}/task_instances'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskIdDelegated
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskIdDelegated($instance_id, $task_id)
+    {
+        list($response) = $this->listTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo($instance_id, $task_id);
+        return $response;
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskIdDelegatedWithHttpInfo($instance_id, $task_id)
+    {
+        // verify the required parameter 'instance_id' is set
+        if ($instance_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling listTaskInstancesByInstanceAndTaskIdDelegated');
+        }
+        // verify the required parameter 'task_id' is set
+        if ($task_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling listTaskInstancesByInstanceAndTaskIdDelegated');
+        }
+        // parse inputs
+        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances/delegated";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // path params
+        if ($instance_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "instance_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($instance_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($task_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "task_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($task_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
+                '/instances/{instance_id}/tasks/{task_id}/task_instances/delegated'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskIdStarted
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return \ProcessMaker\PMIO\Model\TaskInstanceCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskIdStarted($instance_id, $task_id)
+    {
+        list($response) = $this->listTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo($instance_id, $task_id);
+        return $response;
+    }
+
+    /**
+     * Operation listTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo
+     *
+     * 
+     *
+     * @param string $instance_id ID of the instance (required)
+     * @param string $task_id ID of the task (required)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskInstanceCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTaskInstancesByInstanceAndTaskIdStartedWithHttpInfo($instance_id, $task_id)
+    {
+        // verify the required parameter 'instance_id' is set
+        if ($instance_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling listTaskInstancesByInstanceAndTaskIdStarted');
+        }
+        // verify the required parameter 'task_id' is set
+        if ($task_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $task_id when calling listTaskInstancesByInstanceAndTaskIdStarted');
+        }
+        // parse inputs
+        $resourcePath = "/instances/{instance_id}/tasks/{task_id}/task_instances/started";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // path params
+        if ($instance_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "instance_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($instance_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($task_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "task_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($task_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskInstanceCollection',
+                '/instances/{instance_id}/tasks/{task_id}/task_instances/started'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskInstanceCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTasks
+     *
+     * 
+     *
+     * @param string $process_id ID of the process relative to the task (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\TaskCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTasks($process_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listTasksWithHttpInfo($process_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listTasksWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id ID of the process relative to the task (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\TaskCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTasksWithHttpInfo($process_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listTasks');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listTasks, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTasks, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTasks, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/tasks";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TaskCollection',
+                '/processes/{process_id}/tasks'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TaskCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TaskCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTokens
+     *
+     * 
+     *
+     * @param string $process_id Process ID (required)
+     * @param string $instance_id Instance ID related to the process (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\TokenCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTokens($process_id, $instance_id, $page = null, $per_page = null)
+    {
+        list($response) = $this->listTokensWithHttpInfo($process_id, $instance_id, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listTokensWithHttpInfo
+     *
+     * 
+     *
+     * @param string $process_id Process ID (required)
+     * @param string $instance_id Instance ID related to the process (required)
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\TokenCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listTokensWithHttpInfo($process_id, $instance_id, $page = null, $per_page = null)
+    {
+        // verify the required parameter 'process_id' is set
+        if ($process_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $process_id when calling listTokens');
+        }
+        // verify the required parameter 'instance_id' is set
+        if ($instance_id === null) {
+            throw new \InvalidArgumentException('Missing the required parameter $instance_id when calling listTokens');
+        }
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listTokens, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTokens, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listTokens, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/processes/{process_id}/instances/{instance_id}/tokens";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // path params
+        if ($process_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "process_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($process_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($instance_id !== null) {
+            $resourcePath = str_replace(
+                "{" . "instance_id" . "}",
+                $this->apiClient->getSerializer()->toPathValue($instance_id),
+                $resourcePath
+            );
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\TokenCollection',
+                '/processes/{process_id}/instances/{instance_id}/tokens'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\TokenCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\TokenCollection', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\ErrorArray', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listUsers
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return \ProcessMaker\PMIO\Model\UserCollection
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listUsers($page = null, $per_page = null)
+    {
+        list($response) = $this->listUsersWithHttpInfo($page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation listUsersWithHttpInfo
+     *
+     * 
+     *
+     * @param int $page Page number to fetch (optional, default to 1)
+     * @param int $per_page Amount of items per page (optional, default to 15)
+     * @return Array of \ProcessMaker\PMIO\Model\UserCollection, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ProcessMaker\PMIO\ApiException on non-2xx response
+     */
+    public function listUsersWithHttpInfo($page = null, $per_page = null)
+    {
+        if (!is_null($page) && ($page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling Client.listUsers, must be bigger than or equal to 1.0.');
+        }
+
+        if (!is_null($per_page) && ($per_page > 100.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listUsers, must be smaller than or equal to 100.0.');
+        }
+        if (!is_null($per_page) && ($per_page < 1.0)) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling Client.listUsers, must be bigger than or equal to 1.0.');
+        }
+
+        // parse inputs
+        $resourcePath = "/users";
+        $httpBody = '';
+        $queryParams = array();
+        $headerParams = array();
+        $formParams = array();
+        $_header_accept = $this->apiClient->selectHeaderAccept(array('application/vnd.api+json'));
+        if (!is_null($_header_accept)) {
+            $headerParams['Accept'] = $_header_accept;
+        }
+        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(array('application/vnd.api+json'));
+
+        // query params
+        if ($page !== null) {
+            $queryParams['page'] = $this->apiClient->getSerializer()->toQueryValue($page);
+        }
+        // query params
+        if ($per_page !== null) {
+            $queryParams['per_page'] = $this->apiClient->getSerializer()->toQueryValue($per_page);
+        }
+        // default format to json
+        $resourcePath = str_replace("{format}", "json", $resourcePath);
+
+        
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+        } elseif (count($formParams) > 0) {
+            $httpBody = $formParams; // for HTTP post (form)
+        }
+        // this endpoint requires OAuth (access token)
+        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
+            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
+        }
+        // make the API Call
+        try {
+            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
+                $resourcePath,
+                'GET',
+                $queryParams,
+                $httpBody,
+                $headerParams,
+                '\ProcessMaker\PMIO\Model\UserCollection',
+                '/users'
+            );
+
+            return array($this->apiClient->getSerializer()->deserialize($response, '\ProcessMaker\PMIO\Model\UserCollection', $httpHeader), $statusCode, $httpHeader);
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\ProcessMaker\PMIO\Model\UserCollection', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 default:

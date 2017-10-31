@@ -7,13 +7,13 @@ Method | HTTP request | Description
 [**addUser**](Users.md#addUser) | **POST** /users | 
 [**deleteUser**](Users.md#deleteUser) | **DELETE** /users/{id} | 
 [**findUserById**](Users.md#findUserById) | **GET** /users/{id} | 
-[**findUsers**](Users.md#findUsers) | **GET** /users | 
+[**listUsers**](Users.md#listUsers) | **GET** /users | 
 [**myselfUser**](Users.md#myselfUser) | **GET** /users/myself | 
 [**updateUser**](Users.md#updateUser) | **PUT** /users/{id} | 
 
 
 # **addUser**
-> \ProcessMaker\PMIO\Model\UserItem addUser($user_create_item)
+> \ProcessMaker\PMIO\Model\UserItem addUser($user_create_item, $create_client)
 
 
 
@@ -29,9 +29,10 @@ ProcessMaker\PMIO\Configuration::getDefaultConfiguration()->setAccessToken('YOUR
 
 $api_instance = new ProcessMaker\PMIO\Api\Users();
 $user_create_item = new \ProcessMaker\PMIO\Model\UserCreateItem(); // \ProcessMaker\PMIO\Model\UserCreateItem | JSON API with the User object to add
+$create_client = "1"; // string | If not empty - a new Oauth Client would be created along with User
 
 try {
-    $result = $api_instance->addUser($user_create_item);
+    $result = $api_instance->addUser($user_create_item, $create_client);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling Users->addUser: ', $e->getMessage(), PHP_EOL;
@@ -44,6 +45,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_create_item** | [**\ProcessMaker\PMIO\Model\UserCreateItem**](../Model/\ProcessMaker\PMIO\Model\UserCreateItem.md)| JSON API with the User object to add |
+ **create_client** | **string**| If not empty - a new Oauth Client would be created along with User | [optional] [default to 1]
 
 ### Return type
 
@@ -156,8 +158,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findUsers**
-> \ProcessMaker\PMIO\Model\UserCollection findUsers($page, $per_page)
+# **listUsers**
+> \ProcessMaker\PMIO\Model\UserCollection listUsers($page, $per_page)
 
 
 
@@ -176,10 +178,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findUsers($page, $per_page);
+    $result = $api_instance->listUsers($page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Users->findUsers: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Users->listUsers: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

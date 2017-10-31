@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addOauthClient**](Oauth.md#addOauthClient) | **POST** /users/{user_id}/clients | 
 [**findOauthClientById**](Oauth.md#findOauthClientById) | **GET** /users/{user_id}/clients/{client_id} | 
-[**findOauthClients**](Oauth.md#findOauthClients) | **GET** /users/{user_id}/clients | 
+[**listOauthClients**](Oauth.md#listOauthClients) | **GET** /users/{user_id}/clients | 
 
 
 # **addOauthClient**
@@ -109,8 +109,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **findOauthClients**
-> \ProcessMaker\PMIO\Model\OauthClientCollection findOauthClients($user_id, $page, $per_page)
+# **listOauthClients**
+> \ProcessMaker\PMIO\Model\OauthClientCollection listOauthClients($user_id, $page, $per_page)
 
 
 
@@ -130,10 +130,10 @@ $page = 1; // int | Page number to fetch
 $per_page = 15; // int | Amount of items per page
 
 try {
-    $result = $api_instance->findOauthClients($user_id, $page, $per_page);
+    $result = $api_instance->listOauthClients($user_id, $page, $per_page);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling Oauth->findOauthClients: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling Oauth->listOauthClients: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

@@ -47,7 +47,7 @@ use \ArrayAccess;
  * DataModelCollection Class Doc Comment
  *
  * @category    Class */
- // @description JSON API response with the collection of Datamodels in an array
+ // @description JSON API response with the collection of DataModels in an array
 /** 
  * @package     ProcessMaker\PMIO
  * @author      http://github.com/swagger-api/swagger-codegen
