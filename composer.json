@@ -9,7 +9,7 @@
         "api"
     ],
     "homepage": "https://www.processmaker.io",
-    "license": "Apache v2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "PMIO PHP SDK",
